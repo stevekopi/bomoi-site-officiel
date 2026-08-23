@@ -181,7 +181,35 @@ export default function BomoiSite({route}:{route:string}) {
   const [theme,setThemeState]=useState("dark");
   // Synchronize the saved browser preference after hydration.
   useEffect(()=>{const saved=localStorage.getItem("bomoi-theme"); const next=saved||((matchMedia("(prefers-color-scheme: light)").matches)?"light":"dark");setThemeState(next);document.documentElement.dataset.theme=next},[]);
+  useEffect(()=>{
+    const reduceMotion=matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const root=document.documentElement;
+    const revealTargets=[...document.querySelectorAll<HTMLElement>("main > section, .site > section, .section-heading, .feature-card, .partner-logo-card, .sector-grid a, .benefit-grid article, .plan-card, .news-grid article, .module-group, .sector-detail article")];
+    revealTargets.forEach((element,index)=>{
+      element.classList.add("reveal-item");
+      element.style.setProperty("--reveal-delay",`${Math.min(index%6,5)*70}ms`);
+    });
+    if(reduceMotion){revealTargets.forEach(element=>element.classList.add("is-visible"));return;}
+    root.classList.add("motion-ready");
+    const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{
+      if(entry.isIntersecting){entry.target.classList.add("is-visible");observer.unobserve(entry.target)}
+    }),{threshold:.12,rootMargin:"0px 0px -7% 0px"});
+    revealTargets.forEach(element=>observer.observe(element));
+    let frame=0;
+    const updateScroll=()=>{
+      if(frame)return;
+      frame=requestAnimationFrame(()=>{
+        const max=document.documentElement.scrollHeight-innerHeight;
+        root.style.setProperty("--scroll-progress",String(max>0?scrollY/max:0));
+        root.style.setProperty("--hero-shift",`${Math.min(scrollY*.08,48)}px`);
+        frame=0;
+      });
+    };
+    updateScroll();
+    addEventListener("scroll",updateScroll,{passive:true});
+    return()=>{observer.disconnect();removeEventListener("scroll",updateScroll);if(frame)cancelAnimationFrame(frame);root.classList.remove("motion-ready")};
+  },[route]);
   const setTheme=(next:string)=>{setThemeState(next);document.documentElement.dataset.theme=next;localStorage.setItem("bomoi-theme",next)};
   const docs=route==="/documentation";
-  return <div className="site"><Header theme={theme} setTheme={setTheme}/><AppContent route={route}/>{!docs&&<Footer/>}</div>;
+  return <div className="site"><div className="scroll-progress" aria-hidden="true"/><Header theme={theme} setTheme={setTheme}/><AppContent route={route}/>{!docs&&<Footer/>}</div>;
 }
