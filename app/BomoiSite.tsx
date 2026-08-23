@@ -183,7 +183,62 @@ const plans = [
   { name: "Max", users: "100 utilisateurs", price: "1900", desc: "Pour les grandes organisations et réseaux multisites." },
 ];
 
-function PricingPage() { return <><PageHero eyebrow="ABONNEMENT MENSUEL" title="Choisissez le plan adapté à votre équipe." intro="Des offres simples et évolutives pour gérer votre entreprise avec Bomoi, quelle que soit sa taille."/><section className="section pricing-section"><div className="plan-grid">{plans.map(plan=><article className={plan.popular?"plan-card popular":"plan-card"} key={plan.name}>{plan.popular&&<span className="popular-badge">POPULAIRE</span>}<div className="plan-users" aria-hidden="true">{plan.users.startsWith("1 ")?"●":"●●●"}</div><h2>{plan.name}</h2><p className="user-count">{plan.users}</p><div className="plan-price"><strong>{plan.price}</strong><span><b>USD</b>par mois</span></div><p className="plan-desc">{plan.desc}</p><a className={plan.popular?"btn":"btn secondary"} href="/contact">Choisir {plan.name}</a></article>)}</div><div className="plans-included"><span>✓ Mises à jour régulières</span><span>✓ Sauvegardes automatiques</span><span>✓ Support dédié</span><span>✓ Accès partout, tout le temps</span><span>✓ Hébergement sécurisé</span></div><div className="billing-note"><div><span className="eyebrow">SÉCURISÉ · FIABLE · ÉVOLUTIF</span><h2>Tout ce qu’il faut pour avancer sereinement.</h2><p>Tous les plans incluent les mises à jour, la sauvegarde automatique et le support.</p></div><div><b>Facturation mensuelle</b><span>Sans engagement</span><span>Résiliez à tout moment</span></div></div></section><section className="cta pricing-cta"><div><span className="eyebrow">BESOIN DE CONSEIL ?</span><h2>Trouvons le bon plan ensemble.</h2><p>Notre équipe vous aide à choisir l’abonnement adapté à votre organisation et à vos objectifs.</p></div><div><a className="btn light" href="tel:+243981863765">+243 981 863 765</a><a className="btn ghost" href="mailto:contact@bomoi.cd">contact@bomoi.cd</a></div></section></>; }
+function PricingPage() {
+  const [selectedPlan, setSelectedPlan] = useState("Business");
+  const [requestUrl, setRequestUrl] = useState("");
+  const selected = plans.find(plan => plan.name === selectedPlan) ?? plans[3];
+
+  function prepareSubscription(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const details = [
+      "Bonjour Bomoi,",
+      "",
+      "Je souhaite finaliser une demande d’abonnement.",
+      `Plan : ${data.get("plan")}`,
+      `Entreprise : ${data.get("company")}`,
+      `Responsable : ${data.get("name")}`,
+      `E-mail : ${data.get("email")}`,
+      `Téléphone : ${data.get("phone")}`,
+      `Ville / Pays : ${data.get("location")}`,
+      `Mode de paiement envisagé : ${data.get("paymentMethod")}`,
+      `Nom du payeur : ${data.get("payerName")}`,
+      `Téléphone ou référence du payeur : ${data.get("payerReference")}`,
+      "",
+      "Aucun paiement n’a encore été effectué.",
+    ];
+    setRequestUrl(`mailto:${contact.email}?subject=${encodeURIComponent(`Demande d’abonnement Bomoi — ${data.get("plan")}`)}&body=${encodeURIComponent(details.join("\n"))}`);
+  }
+
+  return <>
+    <PageHero eyebrow="ABONNEMENT MENSUEL" title="Choisissez le plan adapté à votre équipe." intro="Des offres simples et évolutives pour gérer votre entreprise avec Bomoi, quelle que soit sa taille."/>
+    <section className="section pricing-section">
+      <div className="plan-grid">{plans.map(plan=><article className={plan.popular?"plan-card popular":"plan-card"} key={plan.name}>{plan.popular&&<span className="popular-badge">POPULAIRE</span>}<div className="plan-users" aria-hidden="true">{plan.users.startsWith("1 ")?"●":"●●●"}</div><h2>{plan.name}</h2><p className="user-count">{plan.users}</p><div className="plan-price"><strong>{plan.price}</strong><span><b>USD</b>par mois</span></div><p className="plan-desc">{plan.desc}</p><a className={plan.popular?"btn":"btn secondary"} href="#souscription" onClick={()=>{setSelectedPlan(plan.name);setRequestUrl("")}}>Choisir {plan.name}</a></article>)}</div>
+      <div className="plans-included"><span>✓ Mises à jour régulières</span><span>✓ Sauvegardes automatiques</span><span>✓ Support dédié</span><span>✓ Accès partout, tout le temps</span><span>✓ Hébergement sécurisé</span></div>
+      <div className="billing-note"><div><span className="eyebrow">SÉCURISÉ · FIABLE · ÉVOLUTIF</span><h2>Tout ce qu’il faut pour avancer sereinement.</h2><p>Tous les plans incluent les mises à jour, la sauvegarde automatique et le support.</p></div><div><b>Facturation mensuelle</b><span>Sans engagement</span><span>Résiliez à tout moment</span></div></div>
+    </section>
+    <section className="section subscription-section" id="souscription">
+      <div className="subscription-heading"><div><span className="eyebrow">SOUSCRIPTION</span><h2>Préparez votre abonnement.</h2><p>Renseignez les coordonnées de votre entreprise et du payeur. L’équipe Bomoi vous contactera pour confirmer l’activation.</p></div><ol aria-label="Étapes de souscription"><li className="done"><b>1</b>Plan</li><li className="active"><b>2</b>Coordonnées</li><li><b>3</b>Confirmation</li></ol></div>
+      {requestUrl ? <div className="subscription-success"><span aria-hidden="true">✓</span><div><small>DEMANDE PRÊTE</small><h3>Aucune transaction n’a été effectuée.</h3><p>Vos coordonnées sont prêtes à être envoyées à l’équipe Bomoi. Vous pourrez confirmer le paiement avec elle dès qu’elle vous contacte.</p><div className="subscription-actions"><a className="btn" href={requestUrl}>Envoyer la demande par e-mail</a><button className="btn secondary" type="button" onClick={()=>setRequestUrl("")}>Modifier les coordonnées</button></div></div></div> :
+      <form className="subscription-checkout" onSubmit={prepareSubscription}>
+        <aside className="subscription-summary"><span className="eyebrow">VOTRE CHOIX</span><h3>{selected.name}</h3><p>{selected.users}</p><div><strong>{selected.price}</strong><span><b>USD</b> / mois</span></div><ul><li>Mises à jour incluses</li><li>Sauvegarde automatique</li><li>Support Bomoi</li><li>Sans engagement</li></ul><small>Le montant final sera confirmé par l’équipe Bomoi avant activation.</small></aside>
+        <div className="subscription-form">
+          <div className="form-section-title"><span>01</span><div><h3>Entreprise et responsable</h3><p>Les informations nécessaires pour créer votre dossier.</p></div></div>
+          <div className="form-row"><label>Plan choisi<select name="plan" value={selectedPlan} onChange={event=>{setSelectedPlan(event.target.value);setRequestUrl("")}}>{plans.map(plan=><option value={plan.name} key={plan.name}>{plan.name} — {plan.price} USD/mois</option>)}</select></label><label>Nom de l’entreprise<input name="company" required autoComplete="organization" placeholder="Ex. Société Bomoi"/></label></div>
+          <div className="form-row"><label>Nom du responsable<input name="name" required autoComplete="name" placeholder="Nom et prénom"/></label><label>Adresse e-mail<input name="email" type="email" required autoComplete="email" placeholder="nom@entreprise.cd"/></label></div>
+          <div className="form-row"><label>Téléphone / WhatsApp<input name="phone" type="tel" required autoComplete="tel" placeholder="+243 ..."/></label><label>Ville et pays<input name="location" required autoComplete="address-level2" placeholder="Kinshasa, RDC"/></label></div>
+          <div className="form-section-title payment-title"><span>02</span><div><h3>Coordonnées de paiement</h3><p>Choisissez le moyen que vous souhaitez utiliser après confirmation.</p></div></div>
+          <fieldset className="payment-methods"><legend>Mode de paiement envisagé</legend>{["M-Pesa","Airtel Money","Orange Money","Virement bancaire"].map(method=><label key={method}><input type="radio" name="paymentMethod" value={method} required/><span>{method}</span></label>)}</fieldset>
+          <div className="form-row"><label>Nom du payeur<input name="payerName" required autoComplete="name" placeholder="Titulaire du compte"/></label><label>Téléphone ou référence du payeur<input name="payerReference" required placeholder="Numéro Mobile Money ou référence"/></label></div>
+          <div className="temporary-payment-note"><b>Paiement bientôt automatisé</b><p>Cette étape prépare uniquement votre demande. Aucun débit n’est réalisé et nous ne demandons jamais votre code PIN ni vos données de carte. Les API de paiement seront ajoutées ultérieurement.</p></div>
+          <label className="subscription-consent"><input type="checkbox" required/><span>J’accepte d’être contacté par Bomoi pour confirmer l’abonnement et les modalités de paiement.</span></label>
+          <button className="btn subscription-submit" type="submit">Préparer ma demande <span aria-hidden="true">→</span></button>
+        </div>
+      </form>}
+    </section>
+    <section className="cta pricing-cta"><div><span className="eyebrow">BESOIN DE CONSEIL ?</span><h2>Trouvons le bon plan ensemble.</h2><p>Notre équipe vous aide à choisir l’abonnement adapté à votre organisation et à vos objectifs.</p></div><div><a className="btn light" href="tel:+243981863765">+243 981 863 765</a><a className="btn ghost" href="mailto:contact@bomoi.cd">contact@bomoi.cd</a></div></section>
+  </>;
+}
 
 const news = [
   {date:"30 juillet 2026", tag:"Produit", title:"Nouveau : configuration sécurisée des webhooks", text:"Les entreprises peuvent désormais configurer leurs callbacks et signatures HMAC."},
