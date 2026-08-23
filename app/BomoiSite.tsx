@@ -37,6 +37,8 @@ const contact = {
   facebook: "https://www.facebook.com/profile.php?id=61576485095267",
 };
 
+function SocialLinks(){const networks=[{name:"YouTube",url:contact.youtube,icon:"/social-youtube.svg",className:"youtube"},{name:"TikTok",url:contact.tiktok,icon:"/social-tiktok.svg",className:"tiktok"},{name:"Facebook",url:contact.facebook,icon:"/social-facebook.svg",className:"facebook"}];return <div className="social-links" aria-label="Réseaux sociaux de Bomoi">{networks.map(network=><a className={`social-link ${network.className}`} href={network.url} target="_blank" rel="noreferrer" key={network.name}><span className="social-icon"><img src={network.icon} alt=""/></span><span>{network.name}</span><b aria-hidden="true">↗</b></a>)}</div>}
+
 function Icon({ name }: { name: IconName }) {
   const chars: Record<IconName, string> = { stock: "◇", sales: "↗", accounting: "₣", multi: "▦", mobile: "▯", api: "⌘", report: "⌁", users: "◎" };
   return <span className={`icon icon-${name}`} aria-hidden="true">{chars[name]}</span>;
@@ -62,7 +64,7 @@ function Header({ theme, setTheme, route }: { theme: string; setTheme: (v: strin
 
 function Footer() {
   return <footer><div className="footer-grid">
-    <div><a className="brand" href="/"><img className="brand-logo" src="/bomoi-logo.png" alt=""/><span>Bomoi</span></a><p>L’ERP moderne qui relie vos équipes, vos sites et vos opérations.</p><div className="footer-contact"><a href={contact.phoneHref}>{contact.phoneLabel}</a><a href={`mailto:${contact.email}`}>{contact.email}</a></div><div className="social-links" aria-label="Réseaux sociaux de Bomoi"><a href={contact.youtube} target="_blank" rel="noreferrer">YouTube ↗</a><a href={contact.tiktok} target="_blank" rel="noreferrer">TikTok ↗</a><a href={contact.facebook} target="_blank" rel="noreferrer">Facebook ↗</a></div></div>
+    <div><a className="brand" href="/"><img className="brand-logo" src="/bomoi-logo.png" alt=""/><span>Bomoi</span></a><p>L’ERP moderne qui relie vos équipes, vos sites et vos opérations.</p><div className="footer-contact"><a href={contact.phoneHref}>{contact.phoneLabel}</a><a href={`mailto:${contact.email}`}>{contact.email}</a></div><SocialLinks/></div>
     <div><h4>Produit</h4><a href="/modules">Modules</a><a href="/secteurs">Secteurs</a><a href="/avantages">Avantages</a><a href="/abonnements">Abonnements</a><a href="/demonstration">Démonstration</a></div>
     <div><h4>Ressources</h4><a href="/documentation">Documentation</a><a href="/actualites">Actualités</a><a href="/notes-de-version">Notes de version</a><a href="/faq">Questions fréquentes</a></div>
     <div><h4>Bomoi</h4><a href="/a-propos">À propos</a><a href="/partenaires">Partenaires</a><a href="/contact">Contact</a><a href="/confidentialite">Confidentialité</a></div>
