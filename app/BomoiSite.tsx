@@ -97,6 +97,17 @@ const trustedPartners = [
   { name: "Vitale Business", logo: "/partner-vitale-business.jpeg", tone: "light" },
 ];
 
+function TrustedPartnersSlider(){
+  const [active,setActive]=useState(0);
+  const previous=()=>setActive(current=>(current-1+trustedPartners.length)%trustedPartners.length);
+  const next=()=>setActive(current=>(current+1)%trustedPartners.length);
+  return <section className="logos-strip trust-carousel" aria-labelledby="trusted-title" onKeyDown={event=>{if(event.key==="ArrowLeft")previous();if(event.key==="ArrowRight")next()}}>
+    <div className="trust-carousel-head"><span id="trusted-title">ILS NOUS FONT CONFIANCE</span><span className="trust-count" aria-live="polite">{String(active+1).padStart(2,"0")} / {String(trustedPartners.length).padStart(2,"0")}</span></div>
+    <div className="trust-slider-window"><div className="trust-slider-track" style={{transform:`translateX(-${active*100}%)`}}>{trustedPartners.map(partner=><figure className={`partner-logo-card ${partner.tone}`} key={partner.name}><img src={partner.logo} alt={`Logo ${partner.name}`}/><figcaption>{partner.name}</figcaption></figure>)}</div></div>
+    <div className="trust-controls"><button type="button" onClick={previous} aria-label="Partenaire précédent">← <span>Précédent</span></button><div className="trust-dots" aria-label="Choisir un partenaire">{trustedPartners.map((partner,index)=><button type="button" className={index===active?"active":""} onClick={()=>setActive(index)} aria-label={`Afficher ${partner.name}`} aria-current={index===active?"true":undefined} key={partner.name}/>)}</div><button type="button" onClick={next} aria-label="Partenaire suivant"><span>Suivant</span> →</button></div>
+  </section>;
+}
+
 const productScreens = [
   {src:"/bomoi-cashflow.jpg", title:"Tendances et trésorerie", text:"Analysez les entrées de fonds et les performances quotidiennes."},
   {src:"/bomoi-deliveries.jpg", title:"Commandes et livraisons", text:"Comparez les quantités commandées, livrées et restantes."},
@@ -110,7 +121,7 @@ function ProductShowcase(){return <section className="section product-showcase" 
 function HomePage() {
   return <>
     <section className="hero"><div className="hero-grid"><div className="hero-copy"><span className="eyebrow">ERP MODERNE · MULTISITE</span><h1>Pilotez toute votre entreprise, <span>simplement.</span></h1><p>Bomoi centralise vos stocks, ventes, achats, finances et opérations multisites dans une plateforme claire, rapide et sécurisée.</p><div className="hero-actions"><a className="btn" href="/demonstration">Demander une démonstration</a><a className="btn secondary" href="/modules">Découvrir les modules</a></div><div className="trust-row"><span>◉ <b>Sécurisé</b></span><span>ϟ <b>Rapide</b></span><span>▦ <b>Multisite</b></span><span>☁ <b>Accessible</b></span></div></div><figure className="hero-product"><div className="screen-browser" aria-hidden="true"><i/><i/><i/><span>app.bomoi.cd</span></div><img src="/bomoi-dashboard.jpg" alt="Tableau de bord réel de Bomoi"/><figcaption>Tableau de bord Bomoi · Vue opérationnelle</figcaption></figure></div></section>
-    <section className="logos-strip" aria-labelledby="trusted-title"><span id="trusted-title">ILS NOUS FONT CONFIANCE</span><div className="partner-logos">{trustedPartners.map(partner=><figure className={`partner-logo-card ${partner.tone}`} key={partner.name}><img src={partner.logo} alt={`Logo ${partner.name}`}/><figcaption>{partner.name}</figcaption></figure>)}</div></section>
+    <TrustedPartnersSlider />
     <section className="section"><div className="section-heading"><div><span className="eyebrow">UN ERP COMPLET</span><h2>Tout ce qu’il faut pour mieux gérer.</h2></div><p>Des modules reliés entre eux pour suivre l’activité sans multiplier les outils ni ressaisir les mêmes données.</p></div><div className="feature-grid">{modules.slice(0,6).map(m=><a className="feature-card" href="/modules" key={m.title}><Icon name={m.icon}/><h3>{m.title}</h3><p>{m.desc}</p><span>Explorer <b>→</b></span></a>)}</div><div className="center"><a className="text-link" href="/modules">Voir les 15 modules →</a></div></section>
     <section className="section split-section"><div><span className="eyebrow">UNE VUE À 360°</span><h2>Vos chiffres deviennent des décisions.</h2><p>Bomoi relie les données de chaque service. Vous disposez d’une vision fiable des ventes, du stock, des créances et de la trésorerie, au moment où vous en avez besoin.</p><ul className="check-list"><li>Indicateurs actualisés en temps réel</li><li>Rapports détaillés par site, article ou période</li><li>Contrôle des accès selon les responsabilités</li></ul><a className="btn secondary" href="/avantages">Pourquoi choisir Bomoi</a></div><figure className="real-workspace-shot"><img src="/bomoi-workspace.jpg" alt="Espace de travail réel dans Bomoi" loading="lazy"/><figcaption>Un espace centralisé pour toute votre équipe.</figcaption></figure></section>
     <ProductShowcase />
