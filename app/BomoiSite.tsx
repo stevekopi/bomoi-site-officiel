@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-html-link-for-pages, react-hooks/set-state-in-effect */
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
+import { CSSProperties, FormEvent, useEffect, useState } from "react";
 
 type IconName = "stock" | "sales" | "accounting" | "multi" | "mobile" | "api" | "report" | "users";
 type Module = { title: string; desc: string; icon: IconName; group: string };
@@ -99,12 +99,16 @@ const trustedPartners = [
 
 function TrustedPartnersSlider(){
   const [active,setActive]=useState(0);
-  const previous=()=>setActive(current=>(current-1+trustedPartners.length)%trustedPartners.length);
-  const next=()=>setActive(current=>(current+1)%trustedPartners.length);
+  const [visible,setVisible]=useState(4);
+  useEffect(()=>{const media=matchMedia("(max-width:760px)");const update=()=>setVisible(media.matches?2:4);update();media.addEventListener("change",update);return()=>media.removeEventListener("change",update)},[]);
+  const maxIndex=Math.max(0,trustedPartners.length-visible);
+  useEffect(()=>setActive(current=>Math.min(current,maxIndex)),[maxIndex]);
+  const previous=()=>setActive(current=>Math.max(0,current-1));
+  const next=()=>setActive(current=>Math.min(maxIndex,current+1));
   return <section className="logos-strip trust-carousel" aria-labelledby="trusted-title" onKeyDown={event=>{if(event.key==="ArrowLeft")previous();if(event.key==="ArrowRight")next()}}>
-    <div className="trust-carousel-head"><span id="trusted-title">ILS NOUS FONT CONFIANCE</span><span className="trust-count" aria-live="polite">{String(active+1).padStart(2,"0")} / {String(trustedPartners.length).padStart(2,"0")}</span></div>
-    <div className="trust-slider-window"><div className="trust-slider-track" style={{transform:`translateX(-${active*100}%)`}}>{trustedPartners.map(partner=><figure className={`partner-logo-card ${partner.tone}`} key={partner.name}><img src={partner.logo} alt={`Logo ${partner.name}`}/><figcaption>{partner.name}</figcaption></figure>)}</div></div>
-    <div className="trust-controls"><button type="button" onClick={previous} aria-label="Partenaire précédent">← <span>Précédent</span></button><div className="trust-dots" aria-label="Choisir un partenaire">{trustedPartners.map((partner,index)=><button type="button" className={index===active?"active":""} onClick={()=>setActive(index)} aria-label={`Afficher ${partner.name}`} aria-current={index===active?"true":undefined} key={partner.name}/>)}</div><button type="button" onClick={next} aria-label="Partenaire suivant"><span>Suivant</span> →</button></div>
+    <div className="trust-carousel-head"><span id="trusted-title">ILS NOUS FONT CONFIANCE</span><span className="trust-count" aria-live="polite">{trustedPartners.length} partenaires</span></div>
+    <div className="trust-slider-window"><div className="trust-slider-track" style={{transform:`translateX(-${active*(100/visible)}%)`,"--visible-partners":visible} as CSSProperties}>{trustedPartners.map(partner=><figure className={`partner-logo-card ${partner.tone}`} key={partner.name}><img src={partner.logo} alt={`Logo ${partner.name}`}/><figcaption>{partner.name}</figcaption></figure>)}</div></div>
+    <div className="trust-controls"><button type="button" onClick={previous} disabled={active===0} aria-label="Partenaires précédents">← <span>Précédent</span></button><div className="trust-dots" aria-label="Position du carrousel">{Array.from({length:maxIndex+1},(_,index)=><button type="button" className={index===active?"active":""} onClick={()=>setActive(index)} aria-label={`Position ${index+1}`} aria-current={index===active?"true":undefined} key={index}/>)}</div><button type="button" onClick={next} disabled={active===maxIndex} aria-label="Partenaires suivants"><span>Suivant</span> →</button></div>
   </section>;
 }
 
@@ -113,6 +117,7 @@ const productScreens = [
   {src:"/bomoi-deliveries.jpg", title:"Commandes et livraisons", text:"Comparez les quantités commandées, livrées et restantes."},
   {src:"/bomoi-stock.jpg", title:"Mouvements de stock", text:"Retrouvez chaque opération, article et transaction dans un journal précis."},
   {src:"/bomoi-accounting.jpg", title:"Comptabilité intégrée", text:"Consultez vos balances et rapports financiers dans le même espace."},
+  {src:"/bomoi-inventory.jpg", title:"Inventaire détaillé", text:"Contrôlez les quantités physiques, les écarts et la valeur de chaque groupe d’articles."},
   {src:"/bomoi-login.jpg", title:"Connexion sécurisée", text:"Accédez simplement à votre espace de travail Bomoi."},
 ];
 
