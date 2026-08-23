@@ -8,7 +8,6 @@ const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"]
 export const metadata: Metadata = {
   title: "Bomoi — L’ERP moderne et multisite",
   description: "Bomoi centralise vos stocks, ventes, achats, finances et opérations multisites dans une plateforme claire, rapide et sécurisée.",
-  other: { "codex-preview": "development" },
   icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
 };
 

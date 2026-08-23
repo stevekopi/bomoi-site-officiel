@@ -89,6 +89,7 @@ function HomePage() {
     <section className="section split-section"><div><span className="eyebrow">UNE VUE À 360°</span><h2>Vos chiffres deviennent des décisions.</h2><p>Bomoi relie les données de chaque service. Vous disposez d’une vision fiable des ventes, du stock, des créances et de la trésorerie, au moment où vous en avez besoin.</p><ul className="check-list"><li>Indicateurs actualisés en temps réel</li><li>Rapports détaillés par site, article ou période</li><li>Contrôle des accès selon les responsabilités</li></ul><a className="btn secondary" href="/avantages">Pourquoi choisir Bomoi</a></div><div className="report-card"><div className="report-top"><span>Performance globale</span><b>Ce mois-ci⌄</b></div><strong>+24,8%</strong><small>Progression du chiffre d’affaires</small><div className="big-bars">{[45,62,50,74,68,88,82,100].map((h,i)=><i key={i} style={{height:`${h}%`}} />)}</div><div className="report-stats"><span><b>98,7%</b>Taux de service</span><span><b>12</b>Sites actifs</span><span><b>28 542</b>Références</span></div></div></section>
     <section className="section"><div className="section-heading"><div><span className="eyebrow">POUR VOTRE SECTEUR</span><h2>Bomoi s’adapte à votre réalité.</h2></div><p>Une base commune, configurée selon vos flux, vos équipes et votre organisation.</p></div><div className="sector-grid">{sectors.map((s,i)=><a href="/secteurs" key={s}><span>0{i+1}</span><h3>{s}</h3><b>→</b></a>)}</div></section>
     <section className="section benefits-section"><div className="section-heading"><div><span className="eyebrow">LES AVANTAGES BOMOI</span><h2>Moins de friction. Plus de maîtrise.</h2></div></div><div className="benefit-grid">{benefits.slice(0,4).map(([t,d],i)=><article key={t}><span>0{i+1}</span><h3>{t}</h3><p>{d}</p></article>)}</div></section>
+    <YouTubeSection />
     <NewsPreview />
     <CTA />
   </>;
@@ -96,6 +97,28 @@ function HomePage() {
 
 function PageHero({ eyebrow, title, intro }: { eyebrow: string; title: string; intro: string }) { return <section className="page-hero"><span className="eyebrow">{eyebrow}</span><h1>{title}</h1><p>{intro}</p></section>; }
 function CTA() { return <section className="cta"><div><span className="eyebrow">PRÊT À AVANCER ?</span><h2>Voyez Bomoi à l’œuvre.</h2><p>Parlez-nous de votre activité. Notre équipe vous présentera les modules les plus adaptés à vos besoins.</p></div><div><a className="btn light" href="/demonstration">Demander une démonstration</a><a className="btn ghost" href="/contact">Contacter l’équipe</a></div></section>; }
+
+function YouTubeSection() {
+  const channelUrl = "https://www.youtube.com/channel/UCMQzyOcNp6RJ2VWz-s_i-BQ";
+  return <section className="section youtube-section" aria-labelledby="youtube-title">
+    <div className="youtube-copy">
+      <span className="eyebrow">BOMOI SUR YOUTUBE</span>
+      <h2 id="youtube-title">Découvrez notre dernière vidéo.</h2>
+      <p>Conseils, démonstrations et nouveautés : suivez Bomoi en vidéo et restez au plus près de nos évolutions.</p>
+      <a className="btn youtube-button" href={channelUrl} target="_blank" rel="noreferrer">Voir la chaîne YouTube <span aria-hidden="true">↗</span></a>
+    </div>
+    <div className="youtube-player">
+      <iframe
+        src="https://www.youtube-nocookie.com/embed/videoseries?list=UUMQzyOcNp6RJ2VWz-s_i-BQ"
+        title="Dernière vidéo publiée sur la chaîne YouTube de Bomoi"
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerPolicy="strict-origin-when-cross-origin"
+        allowFullScreen
+      />
+    </div>
+  </section>;
+}
 
 function AboutPage() { return <><PageHero eyebrow="À PROPOS" title="Une gestion plus claire pour des entreprises plus fortes." intro="Bomoi est une plateforme ERP conçue pour aider les organisations à structurer leurs opérations, fiabiliser leurs données et grandir avec maîtrise."/><section className="section prose-grid"><div><h2>Notre raison d’être</h2><p>De nombreuses entreprises pilotent encore leurs activités avec des informations dispersées. Bomoi rassemble ces flux dans un environnement cohérent, adapté aux réalités des équipes et des organisations multisites.</p><p>Notre ambition est simple : rendre les outils de gestion avancés plus accessibles, plus lisibles et réellement utiles au quotidien.</p></div><div className="quote-card"><span>NOTRE VISION</span><blockquote>Faire de la donnée opérationnelle un levier de confiance, de performance et de croissance durable.</blockquote><small>Texte institutionnel provisoire — à valider</small></div></section><section className="section values"><h2>Ce qui guide Bomoi</h2><div className="feature-grid three">{[["Clarté","Une information compréhensible et exploitable."],["Fiabilité","Des données tracées, cohérentes et sécurisées."],["Proximité","Une solution pensée avec les réalités du terrain."]].map(([t,d])=><article className="feature-card" key={t}><h3>{t}</h3><p>{d}</p></article>)}</div></section><CTA/></>; }
 
