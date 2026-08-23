@@ -42,13 +42,14 @@ function Icon({ name }: { name: IconName }) {
   return <span className={`icon icon-${name}`} aria-hidden="true">{chars[name]}</span>;
 }
 
-function Header({ theme, setTheme }: { theme: string; setTheme: (v: string) => void }) {
+function Header({ theme, setTheme, route }: { theme: string; setTheme: (v: string) => void; route: string }) {
   const [open, setOpen] = useState(false);
+  const isActive=(href:string)=>href==="/documentation"?["/documentation","/actualites","/notes-de-version","/faq"].includes(route):route===href;
   return <header className="header"><div className="nav-wrap">
     <a className="brand" href="/" aria-label="Bomoi, accueil"><img className="brand-logo" src="/bomoi-logo.png" alt=""/><span>Bomoi</span></a>
     <nav className={open ? "main-nav open" : "main-nav"} aria-label="Navigation principale">
-      {nav.map(([label, href]) => <a key={href} href={href}>{label}</a>)}
-      <a className="mobile-only" href="/actualites">Actualités</a><a className="mobile-only" href="/contact">Contact</a><a className="mobile-only" href="https://app.bomoi.cd/login">Connectez-vous ↗</a>
+      {nav.map(([label, href]) => <a className={isActive(href)?"active":""} aria-current={isActive(href)?"page":undefined} key={href} href={href}>{label}</a>)}
+      <a className={route==="/actualites"?"mobile-only active":"mobile-only"} aria-current={route==="/actualites"?"page":undefined} href="/actualites">Actualités</a><a className={route==="/contact"?"mobile-only active":"mobile-only"} aria-current={route==="/contact"?"page":undefined} href="/contact">Contact</a><a className="mobile-only" href="https://app.bomoi.cd/login">Connectez-vous ↗</a>
     </nav>
     <div className="nav-actions">
       <button className="theme-toggle" onClick={() => setTheme(theme === "dark" ? "light" : "dark")} aria-label={`Activer le mode ${theme === "dark" ? "clair" : "sombre"}`}><span>{theme === "dark" ? "☀" : "☾"}</span></button>
@@ -211,5 +212,5 @@ export default function BomoiSite({route}:{route:string}) {
   },[route]);
   const setTheme=(next:string)=>{setThemeState(next);document.documentElement.dataset.theme=next;localStorage.setItem("bomoi-theme",next)};
   const docs=route==="/documentation";
-  return <div className="site"><div className="scroll-progress" aria-hidden="true"/><Header theme={theme} setTheme={setTheme}/><AppContent route={route}/>{!docs&&<Footer/>}</div>;
+  return <div className="site"><div className="scroll-progress" aria-hidden="true"/><Header theme={theme} setTheme={setTheme} route={route}/><AppContent route={route}/>{!docs&&<Footer/>}</div>;
 }
