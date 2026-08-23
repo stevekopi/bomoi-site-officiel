@@ -48,10 +48,11 @@ function Header({ theme, setTheme }: { theme: string; setTheme: (v: string) => v
     <a className="brand" href="/" aria-label="Bomoi, accueil"><span className="brand-mark">B</span><span>Bomoi</span></a>
     <nav className={open ? "main-nav open" : "main-nav"} aria-label="Navigation principale">
       {nav.map(([label, href]) => <a key={href} href={href}>{label}</a>)}
-      <a className="mobile-only" href="/actualites">Actualités</a><a className="mobile-only" href="/contact">Contact</a>
+      <a className="mobile-only" href="/actualites">Actualités</a><a className="mobile-only" href="/contact">Contact</a><a className="mobile-only" href="https://app.bomoi.cd/login">Connectez-vous ↗</a>
     </nav>
     <div className="nav-actions">
       <button className="theme-toggle" onClick={() => setTheme(theme === "dark" ? "light" : "dark")} aria-label={`Activer le mode ${theme === "dark" ? "clair" : "sombre"}`}><span>{theme === "dark" ? "☀" : "☾"}</span></button>
+      <a className="login-link" href="https://app.bomoi.cd/login">Connectez-vous</a>
       <a className="btn btn-small" href="/demonstration">Démonstration</a>
       <button className="menu-toggle" onClick={() => setOpen(!open)} aria-label="Ouvrir le menu">{open ? "×" : "☰"}</button>
     </div>
