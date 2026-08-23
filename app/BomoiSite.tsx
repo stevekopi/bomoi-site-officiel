@@ -45,7 +45,7 @@ function Icon({ name }: { name: IconName }) {
 function Header({ theme, setTheme }: { theme: string; setTheme: (v: string) => void }) {
   const [open, setOpen] = useState(false);
   return <header className="header"><div className="nav-wrap">
-    <a className="brand" href="/" aria-label="Bomoi, accueil"><span className="brand-mark">B</span><span>Bomoi</span></a>
+    <a className="brand" href="/" aria-label="Bomoi, accueil"><img className="brand-logo" src="/bomoi-logo.png" alt=""/><span>Bomoi</span></a>
     <nav className={open ? "main-nav open" : "main-nav"} aria-label="Navigation principale">
       {nav.map(([label, href]) => <a key={href} href={href}>{label}</a>)}
       <a className="mobile-only" href="/actualites">Actualités</a><a className="mobile-only" href="/contact">Contact</a><a className="mobile-only" href="https://app.bomoi.cd/login">Connectez-vous ↗</a>
@@ -61,7 +61,7 @@ function Header({ theme, setTheme }: { theme: string; setTheme: (v: string) => v
 
 function Footer() {
   return <footer><div className="footer-grid">
-    <div><a className="brand" href="/"><span className="brand-mark">B</span><span>Bomoi</span></a><p>L’ERP moderne qui relie vos équipes, vos sites et vos opérations.</p><div className="footer-contact"><a href={contact.phoneHref}>{contact.phoneLabel}</a><a href={`mailto:${contact.email}`}>{contact.email}</a></div><div className="social-links" aria-label="Réseaux sociaux de Bomoi"><a href={contact.youtube} target="_blank" rel="noreferrer">YouTube ↗</a><a href={contact.tiktok} target="_blank" rel="noreferrer">TikTok ↗</a><a href={contact.facebook} target="_blank" rel="noreferrer">Facebook ↗</a></div></div>
+    <div><a className="brand" href="/"><img className="brand-logo" src="/bomoi-logo.png" alt=""/><span>Bomoi</span></a><p>L’ERP moderne qui relie vos équipes, vos sites et vos opérations.</p><div className="footer-contact"><a href={contact.phoneHref}>{contact.phoneLabel}</a><a href={`mailto:${contact.email}`}>{contact.email}</a></div><div className="social-links" aria-label="Réseaux sociaux de Bomoi"><a href={contact.youtube} target="_blank" rel="noreferrer">YouTube ↗</a><a href={contact.tiktok} target="_blank" rel="noreferrer">TikTok ↗</a><a href={contact.facebook} target="_blank" rel="noreferrer">Facebook ↗</a></div></div>
     <div><h4>Produit</h4><a href="/modules">Modules</a><a href="/secteurs">Secteurs</a><a href="/avantages">Avantages</a><a href="/demonstration">Démonstration</a></div>
     <div><h4>Ressources</h4><a href="/documentation">Documentation</a><a href="/actualites">Actualités</a><a href="/notes-de-version">Notes de version</a><a href="/faq">Questions fréquentes</a></div>
     <div><h4>Bomoi</h4><a href="/a-propos">À propos</a><a href="/partenaires">Partenaires</a><a href="/contact">Contact</a><a href="/confidentialite">Confidentialité</a></div>
@@ -71,7 +71,7 @@ function Footer() {
 function Dashboard() {
   return <div className="dashboard-wrap" aria-label="Aperçu du tableau de bord Bomoi"><div className="glow" />
     <div className="dashboard">
-      <div className="dash-side"><span className="mini-logo">B</span>{["Tableau de bord", "Ventes", "Achats", "Stocks", "Finances", "Rapports"].map((x,i)=><span className={i===0?"active":""} key={x}>{i===0?"▦":"○"} {x}</span>)}</div>
+      <div className="dash-side"><img className="mini-logo" src="/bomoi-logo.png" alt=""/>{["Tableau de bord", "Ventes", "Achats", "Stocks", "Finances", "Rapports"].map((x,i)=><span className={i===0?"active":""} key={x}>{i===0?"▦":"○"} {x}</span>)}</div>
       <div className="dash-main"><div className="dash-head"><strong>Tableau de bord</strong><span>Tous les sites⌄</span></div>
         <div className="kpi-grid"><div className="kpi"><small>Chiffre d’affaires</small><b>124,8 M FC</b><em>↗ 18,6 %</em><div className="spark">⌁⌁╱⌁╱</div></div><div className="kpi"><small>Stock disponible</small><b>68%</b><div className="donut" /></div><div className="kpi"><small>Commandes</small><b>1 243</b><em>↗ 12,4 %</em><div className="bars"><i/><i/><i/><i/><i/></div></div><div className="kpi"><small>Trésorerie</small><b>38,6 M FC</b><em>↗ 15,8 %</em><div className="spark violet">⌁╱⌁⌁╱</div></div></div>
         <div className="chart"><span>Évolution du chiffre d’affaires</span><div className="chart-lines"><i/><i/><i/><i/><i/><i/><i/><i/></div><div className="chart-labels"><small>Jan.</small><small>Fév.</small><small>Mars</small><small>Avr.</small><small>Mai</small></div></div>
