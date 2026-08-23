@@ -117,6 +117,7 @@ const productScreens = [
   {src:"/bomoi-deliveries.jpg", title:"Commandes et livraisons", text:"Comparez les quantités commandées, livrées et restantes."},
   {src:"/bomoi-stock.jpg", title:"Mouvements de stock", text:"Retrouvez chaque opération, article et transaction dans un journal précis."},
   {src:"/bomoi-accounting.jpg", title:"Comptabilité intégrée", text:"Consultez vos balances et rapports financiers dans le même espace."},
+  {src:"/bomoi-balance-sheet.jpg", title:"Bilan comptable", text:"Comparez l’actif et le passif et vérifiez immédiatement l’équilibre de votre situation patrimoniale."},
   {src:"/bomoi-inventory.jpg", title:"Inventaire détaillé", text:"Contrôlez les quantités physiques, les écarts et la valeur de chaque groupe d’articles."},
   {src:"/bomoi-login.jpg", title:"Connexion sécurisée", text:"Accédez simplement à votre espace de travail Bomoi."},
 ];
