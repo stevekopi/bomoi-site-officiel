@@ -110,22 +110,22 @@ const benefits = [
 
 const sectors = ["Commerces & supermarchés", "Distribution", "Pharmacies", "Dépôts & entrepôts", "Entreprises multisites", "Organisations & projets"];
 const trustedPartners = [
-  { name: "Congo Build", logo: "/partner-congo-build.jpeg", tone: "dark" },
-  { name: "Cure Pharma", logo: "/partner-cure-pharma.png", tone: "light" },
-  { name: "Vitale Business", logo: "/partner-vitale-business.jpeg", tone: "light" },
+  { name: "Congo Build", logo: "/partner-congo-build.jpeg", tone: "dark", sector: "Construction", strength: "Gestion", strengthLabel: "Centralisée", scope: "Suivi", scopeLabel: "En temps réel" },
+  { name: "Cure Pharma", logo: "/partner-cure-pharma.png", tone: "light", sector: "Pharmacie & santé", strength: "Stocks", strengthLabel: "Maîtrisés", scope: "Traçabilité", scopeLabel: "Renforcée" },
+  { name: "Vitale Business", logo: "/partner-vitale-business.jpeg", tone: "light", sector: "Commerce & distribution", strength: "Opérations", strengthLabel: "Connectées", scope: "Pilotage", scopeLabel: "Consolidé" },
 ];
 
 function TrustedPartnersSlider(){
   const [active,setActive]=useState(0);
-  const [visible,setVisible]=useState(4);
-  useEffect(()=>{const media=matchMedia("(max-width:760px)");const update=()=>setVisible(media.matches?2:4);update();media.addEventListener("change",update);return()=>media.removeEventListener("change",update)},[]);
+  const [visible,setVisible]=useState(2);
+  useEffect(()=>{const media=matchMedia("(max-width:760px)");const update=()=>setVisible(media.matches?1:2);update();media.addEventListener("change",update);return()=>media.removeEventListener("change",update)},[]);
   const maxIndex=Math.max(0,trustedPartners.length-visible);
   useEffect(()=>setActive(current=>Math.min(current,maxIndex)),[maxIndex]);
   const previous=()=>setActive(current=>Math.max(0,current-1));
   const next=()=>setActive(current=>Math.min(maxIndex,current+1));
   return <section className="logos-strip trust-carousel" aria-labelledby="trusted-title" onKeyDown={event=>{if(event.key==="ArrowLeft")previous();if(event.key==="ArrowRight")next()}}>
-    <div className="trust-carousel-head"><span id="trusted-title">ILS NOUS FONT CONFIANCE</span><span className="trust-count" aria-live="polite">{trustedPartners.length} partenaires</span></div>
-    <div className="trust-slider-window"><div className="trust-slider-track" style={{transform:`translateX(-${active*(100/visible)}%)`,"--visible-partners":visible} as CSSProperties}>{trustedPartners.map(partner=><figure className={`partner-logo-card ${partner.tone}`} key={partner.name}><img src={partner.logo} alt={`Logo ${partner.name}`}/><figcaption>{partner.name}</figcaption></figure>)}</div></div>
+    <div className="trust-carousel-head"><div><span className="eyebrow" id="trusted-title">ILS NOUS FONT CONFIANCE</span><h2>Des entreprises qui avancent avec Bomoi</h2></div><span className="trust-count" aria-live="polite">{trustedPartners.length} partenaires</span></div>
+    <div className="trust-slider-window"><div className="trust-slider-track" style={{transform:`translateX(-${active*(100/visible)}%)`,"--visible-partners":visible} as CSSProperties}>{trustedPartners.map(partner=><figure className={`partner-logo-card trust-story-card ${partner.tone}`} key={partner.name}><img src={partner.logo} alt={`Univers de ${partner.name}`}/><figcaption><span className="trust-story-sector">{partner.sector}</span><div className="trust-story-copy"><h3>{partner.name}</h3><div className="trust-story-metrics"><span><b>{partner.strength}</b><small>{partner.strengthLabel}</small></span><span><b>{partner.scope}</b><small>{partner.scopeLabel}</small></span></div></div></figcaption></figure>)}</div></div>
     <div className="trust-controls"><button type="button" onClick={previous} disabled={active===0} aria-label="Partenaires précédents">← <span>Précédent</span></button><div className="trust-dots" aria-label="Position du carrousel">{Array.from({length:maxIndex+1},(_,index)=><button type="button" className={index===active?"active":""} onClick={()=>setActive(index)} aria-label={`Position ${index+1}`} aria-current={index===active?"true":undefined} key={index}/>)}</div><button type="button" onClick={next} disabled={active===maxIndex} aria-label="Partenaires suivants"><span>Suivant</span> →</button></div>
   </section>;
 }
