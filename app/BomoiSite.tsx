@@ -44,11 +44,22 @@ function Icon({ name }: { name: IconName }) {
   return <span className={`icon icon-${name}`} aria-hidden="true">{chars[name]}</span>;
 }
 
+function AnimatedBrandLogo() {
+  return <span className="brand-logo-wrapper" aria-hidden="true">
+    <span className="brand-logo-glow" />
+    <span className="brand-logo-ring brand-logo-ring-primary" />
+    <span className="brand-logo-ring brand-logo-ring-secondary" />
+    <span className="brand-logo-orbit"><span className="brand-logo-particle" /></span>
+    <span className="brand-logo-orbit brand-logo-orbit-reverse"><span className="brand-logo-particle brand-logo-particle-small" /></span>
+    <span className="brand-logo-surface"><img className="brand-logo" src="/bomoi-logo.png" alt="" /></span>
+  </span>;
+}
+
 function Header({ theme, setTheme, route }: { theme: string; setTheme: (v: string) => void; route: string }) {
   const [open, setOpen] = useState(false);
   const isActive=(href:string)=>href==="/documentation"?["/documentation","/actualites","/notes-de-version","/faq"].includes(route):route===href;
   return <header className="header"><div className="nav-wrap">
-    <a className="brand" href="/" aria-label="Bomoi, accueil"><img className="brand-logo" src="/bomoi-logo.png" alt=""/><span>Bomoi</span></a>
+    <a className="brand" href="/" aria-label="Bomoi, accueil"><AnimatedBrandLogo/><span>Bomoi</span></a>
     <nav className={open ? "main-nav open" : "main-nav"} aria-label="Navigation principale">
       {nav.map(([label, href]) => <a className={isActive(href)?"active":""} aria-current={isActive(href)?"page":undefined} key={href} href={href}>{label}</a>)}
       <a className={route==="/actualites"?"mobile-only active":"mobile-only"} aria-current={route==="/actualites"?"page":undefined} href="/actualites">Actualités</a><a className={route==="/contact"?"mobile-only active":"mobile-only"} aria-current={route==="/contact"?"page":undefined} href="/contact">Contact</a><a className="mobile-only" href="https://app.bomoi.cd/login">Connectez-vous ↗</a>
@@ -64,7 +75,7 @@ function Header({ theme, setTheme, route }: { theme: string; setTheme: (v: strin
 
 function Footer() {
   return <footer><div className="footer-grid">
-    <div><a className="brand" href="/"><img className="brand-logo" src="/bomoi-logo.png" alt=""/><span>Bomoi</span></a><p>L’ERP moderne qui relie vos équipes, vos sites et vos opérations.</p><div className="footer-contact"><a href={contact.phoneHref}>{contact.phoneLabel}</a><a href={`mailto:${contact.email}`}>{contact.email}</a></div><SocialLinks/></div>
+    <div><a className="brand" href="/"><AnimatedBrandLogo/><span>Bomoi</span></a><p>L’ERP moderne qui relie vos équipes, vos sites et vos opérations.</p><div className="footer-contact"><a href={contact.phoneHref}>{contact.phoneLabel}</a><a href={`mailto:${contact.email}`}>{contact.email}</a></div><SocialLinks/></div>
     <div><h4>Produit</h4><a href="/modules">Modules</a><a href="/secteurs">Secteurs</a><a href="/avantages">Avantages</a><a href="/abonnements">Abonnements</a><a href="/demonstration">Démonstration</a></div>
     <div><h4>Ressources</h4><a href="/documentation">Documentation</a><a href="/actualites">Actualités</a><a href="/notes-de-version">Notes de version</a><a href="/faq">Questions fréquentes</a></div>
     <div><h4>Bomoi</h4><a href="/a-propos">À propos</a><a href="/partenaires">Partenaires</a><a href="/contact">Contact</a><a href="/confidentialite">Confidentialité</a></div>
