@@ -117,8 +117,8 @@ const trustedPartners = [
 
 function TrustedPartnersSlider(){
   const [active,setActive]=useState(0);
-  const [visible,setVisible]=useState(2);
-  useEffect(()=>{const media=matchMedia("(max-width:760px)");const update=()=>setVisible(media.matches?1:2);update();media.addEventListener("change",update);return()=>media.removeEventListener("change",update)},[]);
+  const [visible,setVisible]=useState(4);
+  useEffect(()=>{const media=matchMedia("(max-width:760px)");const update=()=>setVisible(media.matches?2:4);update();media.addEventListener("change",update);return()=>media.removeEventListener("change",update)},[]);
   const maxIndex=Math.max(0,trustedPartners.length-visible);
   useEffect(()=>setActive(current=>Math.min(current,maxIndex)),[maxIndex]);
   const previous=()=>setActive(current=>Math.max(0,current-1));
