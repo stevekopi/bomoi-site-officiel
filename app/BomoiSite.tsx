@@ -3,6 +3,7 @@
 
 import Link from "next/link";
 import { AnchorHTMLAttributes, CSSProperties, FormEvent, useEffect, useState } from "react";
+import i18n from "./i18n";
 
 type IconName = "stock" | "sales" | "accounting" | "multi" | "mobile" | "api" | "report" | "users";
 type Module = { title: string; desc: string; icon: IconName; group: string };
@@ -61,28 +62,36 @@ function AnimatedBrandLogo() {
 }
 
 const siteLanguages = [
-  { code: "fr", label: "FR", name: "Français" },
-  { code: "en", label: "EN", name: "English" },
-  { code: "ln", label: "LN", name: "Lingála" },
-  { code: "pt", label: "PT", name: "Português" },
-  { code: "es", label: "ES", name: "Español" },
-  { code: "ar", label: "AR", name: "العربية" },
-  { code: "de", label: "DE", name: "Deutsch" },
+  { code: "fr", flag: "🇫🇷", name: "Français" },
+  { code: "en", flag: "🇬🇧", name: "English" },
+  { code: "ln", flag: "🇨🇩", name: "Lingála" },
+  { code: "pt", flag: "🇵🇹", name: "Português" },
+  { code: "es", flag: "🇪🇸", name: "Español" },
+  { code: "ar", flag: "🇸🇦", name: "العربية" },
+  { code: "de", flag: "🇩🇪", name: "Deutsch" },
 ];
+
+const originalText=new WeakMap<Text,string>();
+const originalAttributes=new WeakMap<Element,Record<string,string>>();
+const translatableAttributes=["placeholder","aria-label","title"];
+
+function translateDocument(language:string){
+  const root=document.querySelector(".site");if(!root)return;
+  const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);let node:Node|null;
+  while((node=walker.nextNode())){const textNode=node as Text;const parent=textNode.parentElement;if(!parent||parent.closest(".notranslate,script,style"))continue;const original=originalText.get(textNode)??textNode.data;originalText.set(textNode,original);const value=original.trim();if(!value)continue;const translated=i18n.t(value,{lng:language,defaultValue:value});const next=original.replace(value,translated);if(textNode.data!==next)textNode.data=next}
+  root.querySelectorAll<HTMLElement>("[placeholder],[aria-label],[title]").forEach(element=>{if(element.closest(".notranslate"))return;const saved=originalAttributes.get(element)??{};translatableAttributes.forEach(attribute=>{const current=element.getAttribute(attribute);if(current&&!saved[attribute])saved[attribute]=current;const original=saved[attribute];if(original)element.setAttribute(attribute,i18n.t(original,{lng:language,defaultValue:original}))});originalAttributes.set(element,saved)});
+}
 
 function LanguageSelector() {
   const [language,setLanguage]=useState("fr");
   const applyLanguage=(next:string)=>{
-    setLanguage(next);localStorage.setItem("bomoi-language",next);document.documentElement.lang=next;document.documentElement.dir=next==="ar"?"rtl":"ltr";
-    let attempts=0;const selectLanguage=()=>{const combo=document.querySelector<HTMLSelectElement>("select.goog-te-combo");if(combo){combo.value=next;combo.dispatchEvent(new Event("change",{bubbles:true}));return}if(attempts++<80)setTimeout(selectLanguage,100)};selectLanguage();
+    setLanguage(next);localStorage.setItem("bomoi-language",next);document.documentElement.lang=next;document.documentElement.dir=next==="ar"?"rtl":"ltr";void i18n.changeLanguage(next).then(()=>translateDocument(next));
   };
   useEffect(()=>{
     const supported=siteLanguages.map(item=>item.code);const browserLanguage=navigator.language.split("-")[0];const initial=localStorage.getItem("bomoi-language")||((supported.includes(browserLanguage))?browserLanguage:"fr");setLanguage(initial);document.documentElement.lang=initial;document.documentElement.dir=initial==="ar"?"rtl":"ltr";
-    const translateWindow=window as typeof window & {google?:{translate:{TranslateElement:new(options:Record<string,unknown>,elementId:string)=>unknown}};googleTranslateElementInit?:()=>void};
-    translateWindow.googleTranslateElementInit=()=>{if(!translateWindow.google)return;new translateWindow.google.translate.TranslateElement({pageLanguage:"fr",includedLanguages:"fr,en,ln,pt,es,ar,de",autoDisplay:false},"google_translate_element");setTimeout(()=>applyLanguage(initial),150)};
-    if(!document.querySelector("script[data-bomoi-translate]")){const script=document.createElement("script");script.src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";script.async=true;script.dataset.bomoiTranslate="true";document.head.appendChild(script)}else if(translateWindow.google){translateWindow.googleTranslateElementInit()}
+    void i18n.changeLanguage(initial).then(()=>translateDocument(initial));const observer=new MutationObserver(()=>translateDocument(i18n.language));const root=document.querySelector(".site");if(root)observer.observe(root,{subtree:true,childList:true,characterData:true});return()=>observer.disconnect();
   },[]);
-  return <div className="language-control notranslate" translate="no"><span id="google_translate_element" aria-hidden="true"/><label><span className="sr-only">Langue du site</span><select value={language} onChange={event=>applyLanguage(event.target.value)} aria-label="Choisir la langue du site">{siteLanguages.map(item=><option value={item.code} key={item.code}>{item.label} · {item.name}</option>)}</select></label></div>;
+  return <div className="language-control notranslate" translate="no"><label><span className="sr-only">Langue du site</span><select value={language} onChange={event=>applyLanguage(event.target.value)} aria-label="Choisir la langue du site">{siteLanguages.map(item=><option value={item.code} key={item.code}>{item.flag} {item.name}</option>)}</select></label></div>;
 }
 
 function Header({ theme, setTheme, route }: { theme: string; setTheme: (v: string) => void; route: string }) {
