@@ -78,13 +78,18 @@ function Header({ theme, setTheme, route }: { theme: string; setTheme: (v: strin
   </div></header>;
 }
 
+type BuildInfo = { version: string; commit: string; target: string; builtAt: string };
+
 function Footer() {
+  const [buildInfo,setBuildInfo]=useState<BuildInfo|null>(null);
+  useEffect(()=>{fetch("/build-info.json",{cache:"no-store"}).then(response=>response.ok?response.json():null).then(info=>info&&setBuildInfo(info)).catch(()=>undefined)},[]);
+  const deployedAt=buildInfo?new Intl.DateTimeFormat("fr-FR",{dateStyle:"short",timeStyle:"medium",timeZone:"Africa/Kinshasa"}).format(new Date(buildInfo.builtAt)):null;
   return <footer><div className="footer-grid">
     <div><SiteLink className="brand" href="/"><AnimatedBrandLogo/><span>Bomoi</span></SiteLink><p>L’ERP moderne qui relie vos équipes, vos sites et vos opérations.</p><div className="footer-contact"><SiteLink href={contact.phoneHref}>{contact.phoneLabel}</SiteLink><SiteLink href={`mailto:${contact.email}`}>{contact.email}</SiteLink></div><SocialLinks/></div>
     <div><h4>Produit</h4><SiteLink href="/modules">Modules</SiteLink><SiteLink href="/secteurs">Secteurs</SiteLink><SiteLink href="/avantages">Avantages</SiteLink><SiteLink href="/abonnements">Abonnements</SiteLink><SiteLink href="/demonstration">Démonstration</SiteLink></div>
     <div><h4>Ressources</h4><SiteLink href="/documentation">Documentation</SiteLink><SiteLink href="/actualites">Actualités</SiteLink><SiteLink href="/notes-de-version">Notes de version</SiteLink><SiteLink href="/faq">Questions fréquentes</SiteLink></div>
     <div><h4>Bomoi</h4><SiteLink href="/a-propos">À propos</SiteLink><SiteLink href="/partenaires">Partenaires</SiteLink><SiteLink href="/contact">Contact</SiteLink><SiteLink href="/confidentialite">Confidentialité</SiteLink></div>
-  </div><div className="footer-bottom"><span>© 2026 Bomoi. Tous droits réservés.</span><span>Conçu pour les entreprises qui avancent.</span></div></footer>;
+  </div><div className="footer-bottom"><span>© 2026 Bomoi. Tous droits réservés.</span><span>Conçu pour les entreprises qui avancent.</span>{buildInfo&&<span className="build-info" title={`Commit ${buildInfo.commit} · ${buildInfo.builtAt}`}><b>{buildInfo.target}</b><small>{buildInfo.version} · Déployé le {deployedAt}</small></span>}</div></footer>;
 }
 
 function Dashboard() {

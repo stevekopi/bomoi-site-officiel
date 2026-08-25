@@ -10,6 +10,8 @@ Le dépôt contient le code source du site. La construction de la version IIS es
 4. Exécuter `npm run package:iis`.
 5. Copier le contenu du dossier `out` dans le dossier physique du site IIS.
 
+Le footer affichera automatiquement la version Git, la cible `VPS / IIS` et la date/heure exacte de cette construction.
+
 Le fichier `web.config` est déjà inclus. Cette version ne nécessite ni Node.js, ni reverse proxy sur le serveur IIS.
 
 ## Mise à jour
