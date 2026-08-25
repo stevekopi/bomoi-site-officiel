@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-html-link-for-pages, react-hooks/set-state-in-effect */
 "use client";
 
-import Link from "next/link";
 import { AnchorHTMLAttributes, CSSProperties, FormEvent, useEffect, useState } from "react";
 import i18n from "./i18n";
 
@@ -39,8 +38,14 @@ const contact = {
   facebook: "https://www.facebook.com/profile.php?id=61576485095267",
 };
 
-function SiteLink({ href, ...props }: AnchorHTMLAttributes<HTMLAnchorElement> & { href: string }) {
-  return href.startsWith("/") ? <Link href={href} {...props} /> : <a href={href} {...props} />;
+function SiteLink({ href, onClick, ...props }: AnchorHTMLAttributes<HTMLAnchorElement> & { href: string }) {
+  const internal=href.startsWith("/");
+  return <a href={href} {...props} onClick={event=>{
+    onClick?.(event);
+    if(!internal||event.defaultPrevented||event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey||props.target)return;
+    event.preventDefault();
+    window.dispatchEvent(new CustomEvent("bomoi:navigate",{detail:href}));
+  }}/>;
 }
 
 function SocialLinks(){const networks=[{name:"YouTube",url:contact.youtube,icon:"/social-youtube.svg",className:"youtube"},{name:"TikTok",url:contact.tiktok,icon:"/social-tiktok.svg",className:"tiktok"},{name:"Facebook",url:contact.facebook,icon:"/social-facebook.svg",className:"facebook"}];return <div className="social-links" aria-label="Réseaux sociaux de Bomoi">{networks.map(network=><SiteLink className={`social-link ${network.className}`} href={network.url} target="_blank" rel="noreferrer" key={network.name}><span className="social-icon"><img src={network.icon} alt=""/></span><span>{network.name}</span><b aria-hidden="true">↗</b></SiteLink>)}</div>}
@@ -96,6 +101,7 @@ function LanguageSelector() {
 
 function Header({ theme, setTheme, route }: { theme: string; setTheme: (v: string) => void; route: string }) {
   const [open, setOpen] = useState(false);
+  useEffect(()=>setOpen(false),[route]);
   const isActive=(href:string)=>href==="/documentation"?["/documentation","/actualites","/notes-de-version","/faq"].includes(route):route===href;
   return <header className="header"><div className="nav-wrap">
     <SiteLink className="brand" href="/" aria-label="Bomoi, accueil"><AnimatedBrandLogo/><span>Bomoi</span></SiteLink>
@@ -335,6 +341,31 @@ function AppContent({route}:{route:string}) { switch(route){case"/":return <Home
 
 export default function BomoiSite({route}:{route:string}) {
   const [theme,setThemeState]=useState("dark");
+  const [currentRoute,setCurrentRoute]=useState(route);
+  const [navigating,setNavigating]=useState(false);
+  useEffect(()=>{
+    const normalize=(pathname:string)=>pathname.replace(/\/$/,"")||"/";
+    let finishTimer=0;
+    const showRoute=(href:string,push:boolean)=>{
+      const destination=new URL(href,location.href);
+      if(push&&destination.pathname===location.pathname&&destination.search===location.search){scrollTo({top:0,behavior:"smooth"});return;}
+      setNavigating(true);
+      const update=()=>{
+        if(push)history.pushState({},"",destination.href);
+        setCurrentRoute(normalize(destination.pathname));
+        scrollTo({top:0,behavior:"auto"});
+      };
+      const documentWithTransition=document as Document&{startViewTransition?:(callback:()=>void)=>unknown};
+      requestAnimationFrame(()=>{
+        if(documentWithTransition.startViewTransition&&!matchMedia("(prefers-reduced-motion: reduce)").matches)documentWithTransition.startViewTransition(update);else update();
+        clearTimeout(finishTimer);finishTimer=window.setTimeout(()=>setNavigating(false),320);
+      });
+    };
+    const navigate=(event:Event)=>showRoute((event as CustomEvent<string>).detail,true);
+    const restore=()=>showRoute(location.href,false);
+    addEventListener("bomoi:navigate",navigate);addEventListener("popstate",restore);
+    return()=>{removeEventListener("bomoi:navigate",navigate);removeEventListener("popstate",restore);clearTimeout(finishTimer)};
+  },[]);
   // Synchronize the saved browser preference after hydration.
   useEffect(()=>{const saved=localStorage.getItem("bomoi-theme"); const next=saved||((matchMedia("(prefers-color-scheme: light)").matches)?"light":"dark");setThemeState(next);document.documentElement.dataset.theme=next},[]);
   useEffect(()=>{
@@ -366,8 +397,8 @@ export default function BomoiSite({route}:{route:string}) {
     updateScroll();
     addEventListener("scroll",updateScroll,{passive:true});
     return()=>{observer.disconnect();removeEventListener("scroll",updateScroll);if(frame)cancelAnimationFrame(frame);root.classList.remove("motion-ready");motionScenes.forEach(scene=>scene.classList.remove("motion-scene"))};
-  },[route]);
+  },[currentRoute]);
   const setTheme=(next:string)=>{setThemeState(next);document.documentElement.dataset.theme=next;localStorage.setItem("bomoi-theme",next)};
-  const docs=route==="/documentation";
-  return <div className="site"><div className="scroll-progress" aria-hidden="true"/><Header theme={theme} setTheme={setTheme} route={route}/><AppContent route={route}/>{!docs&&<Footer/>}<BackToTopButton/><WhatsAppButton/></div>;
+  const docs=currentRoute==="/documentation";
+  return <div className="site"><div className="scroll-progress" aria-hidden="true"/><div className={navigating?"route-loader active":"route-loader"} role="status" aria-live="polite" aria-label={navigating?"Chargement de la page":""}><span/><i/><i/><i/></div><Header theme={theme} setTheme={setTheme} route={currentRoute}/><AppContent route={currentRoute}/>{!docs&&<Footer/>}<BackToTopButton/><WhatsAppButton/></div>;
 }
