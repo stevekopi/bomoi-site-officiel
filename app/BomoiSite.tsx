@@ -60,6 +60,31 @@ function AnimatedBrandLogo() {
   </span>;
 }
 
+const siteLanguages = [
+  { code: "fr", label: "FR", name: "Français" },
+  { code: "en", label: "EN", name: "English" },
+  { code: "ln", label: "LN", name: "Lingála" },
+  { code: "pt", label: "PT", name: "Português" },
+  { code: "es", label: "ES", name: "Español" },
+  { code: "ar", label: "AR", name: "العربية" },
+  { code: "de", label: "DE", name: "Deutsch" },
+];
+
+function LanguageSelector() {
+  const [language,setLanguage]=useState("fr");
+  const applyLanguage=(next:string)=>{
+    setLanguage(next);localStorage.setItem("bomoi-language",next);document.documentElement.lang=next;document.documentElement.dir=next==="ar"?"rtl":"ltr";
+    let attempts=0;const selectLanguage=()=>{const combo=document.querySelector<HTMLSelectElement>("select.goog-te-combo");if(combo){combo.value=next;combo.dispatchEvent(new Event("change",{bubbles:true}));return}if(attempts++<80)setTimeout(selectLanguage,100)};selectLanguage();
+  };
+  useEffect(()=>{
+    const supported=siteLanguages.map(item=>item.code);const browserLanguage=navigator.language.split("-")[0];const initial=localStorage.getItem("bomoi-language")||((supported.includes(browserLanguage))?browserLanguage:"fr");setLanguage(initial);document.documentElement.lang=initial;document.documentElement.dir=initial==="ar"?"rtl":"ltr";
+    const translateWindow=window as typeof window & {google?:{translate:{TranslateElement:new(options:Record<string,unknown>,elementId:string)=>unknown}};googleTranslateElementInit?:()=>void};
+    translateWindow.googleTranslateElementInit=()=>{if(!translateWindow.google)return;new translateWindow.google.translate.TranslateElement({pageLanguage:"fr",includedLanguages:"fr,en,ln,pt,es,ar,de",autoDisplay:false},"google_translate_element");setTimeout(()=>applyLanguage(initial),150)};
+    if(!document.querySelector("script[data-bomoi-translate]")){const script=document.createElement("script");script.src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";script.async=true;script.dataset.bomoiTranslate="true";document.head.appendChild(script)}else if(translateWindow.google){translateWindow.googleTranslateElementInit()}
+  },[]);
+  return <div className="language-control notranslate" translate="no"><span id="google_translate_element" aria-hidden="true"/><label><span className="sr-only">Langue du site</span><select value={language} onChange={event=>applyLanguage(event.target.value)} aria-label="Choisir la langue du site">{siteLanguages.map(item=><option value={item.code} key={item.code}>{item.label} · {item.name}</option>)}</select></label></div>;
+}
+
 function Header({ theme, setTheme, route }: { theme: string; setTheme: (v: string) => void; route: string }) {
   const [open, setOpen] = useState(false);
   const isActive=(href:string)=>href==="/documentation"?["/documentation","/actualites","/notes-de-version","/faq"].includes(route):route===href;
@@ -70,6 +95,7 @@ function Header({ theme, setTheme, route }: { theme: string; setTheme: (v: strin
       <SiteLink className={route==="/actualites"?"mobile-only active":"mobile-only"} aria-current={route==="/actualites"?"page":undefined} href="/actualites">Actualités</SiteLink><SiteLink className={route==="/contact"?"mobile-only active":"mobile-only"} aria-current={route==="/contact"?"page":undefined} href="/contact">Contact</SiteLink><SiteLink className="mobile-only" href="https://app.bomoi.cd/login">Connectez-vous ↗</SiteLink>
     </nav>
     <div className="nav-actions">
+      <LanguageSelector/>
       <button className="theme-toggle" onClick={() => setTheme(theme === "dark" ? "light" : "dark")} aria-label={`Activer le mode ${theme === "dark" ? "clair" : "sombre"}`}><span>{theme === "dark" ? "☀" : "☾"}</span></button>
       <SiteLink className="login-link" href="https://app.bomoi.cd/login">Connectez-vous</SiteLink>
       <SiteLink className="btn btn-small" href="/demonstration">Démonstration</SiteLink>
