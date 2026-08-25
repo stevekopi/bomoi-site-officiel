@@ -89,7 +89,7 @@ function Footer() {
     <div><h4>Produit</h4><SiteLink href="/modules">Modules</SiteLink><SiteLink href="/secteurs">Secteurs</SiteLink><SiteLink href="/avantages">Avantages</SiteLink><SiteLink href="/abonnements">Abonnements</SiteLink><SiteLink href="/demonstration">Démonstration</SiteLink></div>
     <div><h4>Ressources</h4><SiteLink href="/documentation">Documentation</SiteLink><SiteLink href="/actualites">Actualités</SiteLink><SiteLink href="/notes-de-version">Notes de version</SiteLink><SiteLink href="/faq">Questions fréquentes</SiteLink></div>
     <div><h4>Bomoi</h4><SiteLink href="/a-propos">À propos</SiteLink><SiteLink href="/partenaires">Partenaires</SiteLink><SiteLink href="/contact">Contact</SiteLink><SiteLink href="/confidentialite">Confidentialité</SiteLink></div>
-  </div><div className="footer-bottom"><span>© 2026 Bomoi. Tous droits réservés.</span><span>Conçu pour les entreprises qui avancent.</span>{buildInfo&&<span className="build-info" title={`Commit ${buildInfo.commit} · ${buildInfo.builtAt}`}><b>{buildInfo.target}</b><small>{buildInfo.version} · Déployé le {deployedAt}</small></span>}</div></footer>;
+  </div><div className="footer-bottom"><span>© 2026 Bomoi. Tous droits réservés.</span><span>Conçu pour les entreprises qui avancent.</span>{buildInfo&&<span className="build-info" title={`${buildInfo.target} · Commit ${buildInfo.commit} · ${buildInfo.builtAt}`}>{buildInfo.version} du {deployedAt}</span>}</div></footer>;
 }
 
 function Dashboard() {
