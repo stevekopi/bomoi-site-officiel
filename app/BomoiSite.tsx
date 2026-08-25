@@ -282,6 +282,13 @@ function WhatsAppButton() {
   </SiteLink>;
 }
 
+function BackToTopButton() {
+  const [visible,setVisible]=useState(false);
+  useEffect(()=>{const update=()=>setVisible(scrollY>500);update();addEventListener("scroll",update,{passive:true});return()=>removeEventListener("scroll",update)},[]);
+  const backToTop=()=>scrollTo({top:0,behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});
+  return <button type="button" className={visible?"back-to-top visible":"back-to-top"} onClick={backToTop} aria-label="Retour en haut de la page" title="Retour en haut"><span aria-hidden="true">↑</span></button>;
+}
+
 function PrivacyPage() { return <><PageHero eyebrow="CONFIDENTIALITÉ" title="Politique de confidentialité." intro="Cette page décrit provisoirement les principes de traitement des données du site public Bomoi."/><section className="section legal"><div className="callout warning"><b>Document provisoire</b><p>Le contenu devra être validé juridiquement avant la publication publique du site.</p></div><h2>1. Données collectées</h2><p>Le site pourra collecter les informations fournies volontairement dans les formulaires de contact et de démonstration : identité, coordonnées professionnelles, entreprise et message.</p><h2>2. Finalités</h2><p>Ces données seront utilisées pour répondre aux demandes, organiser des démonstrations, améliorer les services et assurer le suivi de la relation commerciale.</p><h2>3. Conservation et sécurité</h2><p>Les données seront conservées pendant une durée proportionnée à la finalité et protégées par des mesures organisationnelles et techniques adaptées.</p><h2>4. Vos droits</h2><p>Les modalités d’accès, de rectification ou de suppression seront précisées avec les coordonnées officielles du responsable du traitement.</p><h2>5. Contact</h2><p>Pour toute question relative à la confidentialité, écrivez à <SiteLink className="text-link" href={`mailto:${contact.email}`}>{contact.email}</SiteLink>.</p><small>Dernière mise à jour provisoire : 1er août 2026.</small></section></>; }
 
 function AppContent({route}:{route:string}) { switch(route){case"/":return <HomePage/>;case"/a-propos":return <AboutPage/>;case"/modules":return <ModulesPage/>;case"/secteurs":return <SectorsPage/>;case"/avantages":return <AdvantagesPage/>;case"/abonnements":return <PricingPage/>;case"/actualites":return <NewsPage/>;case"/documentation":return <DocumentationPage/>;case"/notes-de-version":return <ReleasesPage/>;case"/partenaires":return <PartnersPage/>;case"/demonstration":return <FormPage type="demo"/>;case"/contact":return <FormPage type="contact"/>;case"/faq":return <FAQPage/>;case"/confidentialite":return <PrivacyPage/>;default:return <><PageHero eyebrow="404" title="Cette page reste à écrire." intro="Revenez à l’accueil ou consultez la documentation Bomoi."/><div className="center section"><SiteLink className="btn" href="/">Retour à l’accueil</SiteLink></div></>}}
@@ -320,5 +327,5 @@ export default function BomoiSite({route}:{route:string}) {
   },[route]);
   const setTheme=(next:string)=>{setThemeState(next);document.documentElement.dataset.theme=next;localStorage.setItem("bomoi-theme",next)};
   const docs=route==="/documentation";
-  return <div className="site"><div className="scroll-progress" aria-hidden="true"/><Header theme={theme} setTheme={setTheme} route={route}/><AppContent route={route}/>{!docs&&<Footer/>}<WhatsAppButton/></div>;
+  return <div className="site"><div className="scroll-progress" aria-hidden="true"/><Header theme={theme} setTheme={setTheme} route={route}/><AppContent route={route}/>{!docs&&<Footer/>}<BackToTopButton/><WhatsAppButton/></div>;
 }
