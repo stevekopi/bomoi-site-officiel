@@ -340,13 +340,14 @@ export default function BomoiSite({route}:{route:string}) {
   useEffect(()=>{
     const reduceMotion=matchMedia("(prefers-reduced-motion: reduce)").matches;
     const root=document.documentElement;
-    const revealTargets=[...document.querySelectorAll<HTMLElement>("main > section, .site > section, .section-heading, .feature-card, .partner-logo-card, .product-screen, .sector-grid a, .benefit-grid article, .plan-card, .news-grid article, .module-group, .sector-detail article")];
+    const revealTargets=[...document.querySelectorAll<HTMLElement>("main > section, .site > section, .section-heading, .feature-card, .partner-logo-card, .product-screen, .sector-grid a, .benefit-grid article, .plan-card, .news-grid article, .module-group, .sector-detail article, .quote-card, .report-card, .youtube-player, .cta")];
     revealTargets.forEach((element,index)=>{
       element.classList.add("reveal-item");
       element.style.setProperty("--reveal-delay",`${Math.min(index%6,5)*70}ms`);
     });
     if(reduceMotion){revealTargets.forEach(element=>element.classList.add("is-visible"));return;}
     root.classList.add("motion-ready");
+    const motionScenes=[...document.querySelectorAll<HTMLElement>(".hero-product, .real-workspace-shot, .product-screen, .youtube-player, .trust-story-card")];motionScenes.forEach(scene=>scene.classList.add("motion-scene"));
     const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{
       if(entry.isIntersecting){entry.target.classList.add("is-visible");observer.unobserve(entry.target)}
     }),{threshold:.12,rootMargin:"0px 0px -7% 0px"});
@@ -358,12 +359,13 @@ export default function BomoiSite({route}:{route:string}) {
         const max=document.documentElement.scrollHeight-innerHeight;
         root.style.setProperty("--scroll-progress",String(max>0?scrollY/max:0));
         root.style.setProperty("--hero-shift",`${Math.min(scrollY*.08,48)}px`);
+        motionScenes.forEach(scene=>{const rect=scene.getBoundingClientRect();const progress=Math.max(0,Math.min(1,(innerHeight-rect.top)/(innerHeight+rect.height)));scene.style.setProperty("--motion-shift",`${(progress-.5)*-24}px`);scene.style.setProperty("--motion-scale",String(1.045+Math.abs(progress-.5)*.035))});
         frame=0;
       });
     };
     updateScroll();
     addEventListener("scroll",updateScroll,{passive:true});
-    return()=>{observer.disconnect();removeEventListener("scroll",updateScroll);if(frame)cancelAnimationFrame(frame);root.classList.remove("motion-ready")};
+    return()=>{observer.disconnect();removeEventListener("scroll",updateScroll);if(frame)cancelAnimationFrame(frame);root.classList.remove("motion-ready");motionScenes.forEach(scene=>scene.classList.remove("motion-scene"))};
   },[route]);
   const setTheme=(next:string)=>{setThemeState(next);document.documentElement.dataset.theme=next;localStorage.setItem("bomoi-theme",next)};
   const docs=route==="/documentation";
