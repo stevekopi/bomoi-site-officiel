@@ -8,7 +8,7 @@
   "scripts": {
     "install:ci": "bash scripts/install-ci.sh",
     "dev": "WRANGLER_LOG_PATH=.wrangler/wrangler.log vite",
-    "build": "bash scripts/build-verified.sh",
+    "build": "node scripts/build-verified.mjs",
     "build:iis": "node scripts/generate-build-info.mjs iis && tsc --noEmit -p tsconfig.iis.json && next build --webpack",
     "package:iis": "npm run build:iis && node scripts/package-iis.mjs",
     "start": "WRANGLER_LOG_PATH=.wrangler/wrangler.log vinext start",
