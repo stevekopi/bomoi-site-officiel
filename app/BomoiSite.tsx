@@ -158,7 +158,6 @@ const sectors = ["Commerces & supermarchés", "Distribution", "Pharmacies", "Dé
 const trustedPartners = [
   { name: "Congo Build", logo: "/partner-congo-build.jpeg", tone: "dark", sector: "Construction", strength: "Gestion", strengthLabel: "Centralisée", scope: "Suivi", scopeLabel: "En temps réel" },
   { name: "Cure Pharma", logo: "/partner-cure-pharma.png", tone: "light", sector: "Pharmacie & santé", strength: "Stocks", strengthLabel: "Maîtrisés", scope: "Traçabilité", scopeLabel: "Renforcée" },
-  { name: "Vitale Business", logo: "/partner-vitale-business.jpeg", tone: "light", sector: "Commerce & distribution", strength: "Opérations", strengthLabel: "Connectées", scope: "Pilotage", scopeLabel: "Consolidé" },
 ];
 
 function TrustedPartnersSlider(){
