@@ -26,7 +26,7 @@ const modules: Module[] = [
 ];
 
 const nav = [
-  ["Produit", "/a-propos"], ["Modules", "/modules"], ["Secteurs", "/secteurs"], ["Avantages", "/avantages"], ["Abonnements", "/abonnements"], ["Ressources", "/documentation"],
+  ["Produits", "/produits"], ["Modules", "/modules"], ["Secteurs", "/secteurs"], ["Avantages", "/avantages"], ["Abonnements", "/abonnements"], ["Ressources", "/documentation"],
 ];
 
 const contact = {
@@ -127,7 +127,7 @@ function Footer() {
   const deployedAt=buildInfo?new Intl.DateTimeFormat("fr-FR",{dateStyle:"short",timeStyle:"medium",timeZone:"Africa/Kinshasa"}).format(new Date(buildInfo.builtAt)):null;
   return <footer><div className="footer-grid">
     <div><SiteLink className="brand" href="/"><AnimatedBrandLogo/><span>Bomoi</span></SiteLink><p>L’ERP moderne qui relie vos équipes, vos sites et vos opérations.</p><div className="footer-contact"><SiteLink href={contact.phoneHref}>{contact.phoneLabel}</SiteLink><SiteLink href={`mailto:${contact.email}`}>{contact.email}</SiteLink></div><SocialLinks/></div>
-    <div><h4>Produit</h4><SiteLink href="/modules">Modules</SiteLink><SiteLink href="/secteurs">Secteurs</SiteLink><SiteLink href="/avantages">Avantages</SiteLink><SiteLink href="/abonnements">Abonnements</SiteLink><SiteLink href="/demonstration">Démonstration</SiteLink></div>
+    <div><h4>Produits</h4><SiteLink href="/produits">Nos logiciels</SiteLink><SiteLink href="/modules">Modules</SiteLink><SiteLink href="/secteurs">Secteurs</SiteLink><SiteLink href="/avantages">Avantages</SiteLink><SiteLink href="/abonnements">Abonnements</SiteLink><SiteLink href="/demonstration">Démonstration</SiteLink></div>
     <div><h4>Ressources</h4><SiteLink href="/documentation">Documentation</SiteLink><SiteLink href="/actualites">Actualités</SiteLink><SiteLink href="/notes-de-version">Notes de version</SiteLink><SiteLink href="/faq">Questions fréquentes</SiteLink></div>
     <div><h4>Bomoi</h4><SiteLink href="/a-propos">À propos</SiteLink><SiteLink href="/partenaires">Partenaires</SiteLink><SiteLink href="/contact">Contact</SiteLink><SiteLink href="/confidentialite">Confidentialité</SiteLink></div>
   </div><div className="footer-bottom"><span>© 2026 Bomoi. Tous droits réservés.</span><span>Conçu pour les entreprises qui avancent.</span>{buildInfo&&<span className="build-info" title={`${buildInfo.target} · Commit ${buildInfo.commit} · ${buildInfo.builtAt}`}>{buildInfo.version} du {deployedAt}</span>}</div></footer>;
@@ -225,6 +225,65 @@ function YouTubeSection() {
       />
     </div>
   </section>;
+}
+
+const products = [
+  {
+    slug: "bomoi-stock", name: "Bomoi Stock", category: "ERP & COMPTABILITÉ", icon: "stock" as IconName,
+    intro: "Un ERP pour relier vos stocks, vos opérations commerciales et votre comptabilité, jusqu’à la génération des états financiers.",
+    highlights: ["Stocks, ventes et achats", "Finances, caisse et comptabilité", "États financiers, clients et fournisseurs"],
+    features: [
+      ["Stocks", "Suivez vos articles, vos entrées, vos sorties et les quantités disponibles."],
+      ["Ventes et achats", "Gérez les ventes et les achats en lien avec vos stocks et vos opérations financières."],
+      ["Finances et caisse", "Suivez les encaissements, les décaissements et les mouvements de caisse."],
+      ["Comptabilité et états financiers", "Tenez votre comptabilité et générez les états financiers pour analyser la situation de votre entreprise."],
+      ["Clients et fournisseurs", "Centralisez la gestion de vos clients et de vos fournisseurs dans le même ERP."],
+    ],
+  },
+  {
+    slug: "bomoi-immo", name: "Bomoi Immo", category: "GESTION DES IMMOBILISATIONS", icon: "multi" as IconName,
+    intro: "Suivez vos immobilisations tout au long de leur cycle de vie, de l’acquisition à la sortie ou à la mise au rebut.",
+    highlights: ["Acquisition et sortie des immobilisations", "Amortissements automatiques et réévaluation", "Transferts entre sites"],
+    features: [
+      ["Acquisition", "Enregistrez vos immobilisations dès leur acquisition pour commencer leur suivi."],
+      ["Amortissements automatiques", "Suivez automatiquement les amortissements de vos immobilisations."],
+      ["Réévaluation", "Gérez la réévaluation de vos immobilisations au cours de leur utilisation."],
+      ["Transferts entre sites", "Suivez les transferts d’immobilisations d’un site à un autre."],
+      ["Sortie et mise au rebut", "Gérez la fin du cycle de vie de chaque immobilisation, jusqu’à sa sortie ou sa mise au rebut."],
+    ],
+  },
+  {
+    slug: "bomoi-ged", name: "Bomoi GED", category: "GESTION ÉLECTRONIQUE DES DOCUMENTS", icon: "report" as IconName,
+    intro: "Organisez le parcours de vos documents, de leur création à leur archivage, et suivez leur circulation dans votre organisation.",
+    highlights: ["Création, classement et archivage", "Transferts entre secteurs, bureaux et agents", "Expiration, notifications et collaboration"],
+    features: [
+      ["Création et classement", "Gérez vos documents dès leur création et organisez leur classement."],
+      ["Circulation des documents", "Suivez les transferts entre les différents secteurs, bureaux et agents."],
+      ["Expiration et notifications", "Suivez les dates d’expiration des documents et les notifications associées."],
+      ["Annotations et commentaires", "Ajoutez des annotations et des commentaires pour accompagner le traitement des documents."],
+      ["Archivage", "Accompagnez les documents jusqu’à leur archivage dans la continuité de leur suivi."],
+    ],
+  },
+];
+
+function ProductsPage() {
+  return <><PageHero eyebrow="NOS PRODUITS" title="Trois logiciels pour vos besoins de gestion." intro="FISA propose Bomoi Stock, Bomoi Immo et Bomoi GED pour gérer votre activité, vos immobilisations et vos documents."/>
+    <section className="section product-catalog" aria-label="Les logiciels Bomoi">{products.map(product => <article className="product-card" key={product.slug}>
+      <Icon name={product.icon}/><span className="eyebrow">{product.category}</span><h2>{product.name}</h2><p>{product.intro}</p>
+      <ul className="check-list">{product.highlights.map(item => <li key={item}>{item}</li>)}</ul>
+      <SiteLink className="btn secondary" href={`/produits/${product.slug}`} aria-label={`Lire plus sur ${product.name}`}>Lire plus <span aria-hidden="true">→</span></SiteLink>
+    </article>)}</section></>;
+}
+
+function ProductDetailPage({product}:{product:typeof products[number]}) {
+  return <><div className="section product-back"><SiteLink className="text-link" href="/produits">← Tous les produits</SiteLink></div>
+    <PageHero eyebrow={product.category} title={product.name} intro={product.intro}/>
+    <section className="section"><div className="section-heading"><h2>Les fonctionnalités de {product.name}</h2></div>
+      <div className="feature-grid">{product.features.map(([title,description]) => <article className="feature-card" key={title}><h3>{title}</h3><p>{description}</p></article>)}</div>
+    </section>
+    {product.slug === "bomoi-stock" && <section className="section"><figure className="product-screen"><img src="/bomoi-dashboard.jpg" alt="Tableau de bord de Bomoi Stock" loading="lazy"/><figcaption>Bomoi Stock · Tableau de bord</figcaption></figure></section>}
+    <section className="cta"><div><h2>Découvrez {product.name} en démonstration.</h2><p>Présentez vos besoins à notre équipe et découvrez le logiciel.</p></div><SiteLink className="btn light" href="/demonstration">Demander une démonstration</SiteLink></section>
+  </>;
 }
 
 function AboutPage() { return <><PageHero eyebrow="À PROPOS" title="Une gestion plus claire pour des entreprises plus fortes." intro="Bomoi est une plateforme ERP conçue pour aider les organisations à structurer leurs opérations, fiabiliser leurs données et grandir avec maîtrise."/><section className="section prose-grid"><div><h2>Notre raison d’être</h2><p>De nombreuses entreprises pilotent encore leurs activités avec des informations dispersées. Bomoi rassemble ces flux dans un environnement cohérent, adapté aux réalités des équipes et des organisations multisites.</p><p>Notre ambition est simple : rendre les outils de gestion avancés plus accessibles, plus lisibles et réellement utiles au quotidien.</p></div><div className="quote-card"><span>NOTRE VISION</span><blockquote>Faire de la donnée opérationnelle un levier de confiance, de performance et de croissance durable.</blockquote><small>Texte institutionnel provisoire — à valider</small></div></section><section className="section values"><h2>Ce qui guide Bomoi</h2><div className="feature-grid three">{[["Clarté","Une information compréhensible et exploitable."],["Fiabilité","Des données tracées, cohérentes et sécurisées."],["Proximité","Une solution pensée avec les réalités du terrain."]].map(([t,d])=><article className="feature-card" key={t}><h3>{t}</h3><p>{d}</p></article>)}</div></section><CTA/></>; }
@@ -377,7 +436,7 @@ function BackToTopButton() {
 
 function PrivacyPage() { return <><PageHero eyebrow="CONFIDENTIALITÉ" title="Politique de confidentialité." intro="Cette page décrit provisoirement les principes de traitement des données du site public Bomoi."/><section className="section legal"><div className="callout warning"><b>Document provisoire</b><p>Le contenu devra être validé juridiquement avant la publication publique du site.</p></div><h2>1. Données collectées</h2><p>Le site pourra collecter les informations fournies volontairement dans les formulaires de contact et de démonstration : identité, coordonnées professionnelles, entreprise et message.</p><h2>2. Finalités</h2><p>Ces données seront utilisées pour répondre aux demandes, organiser des démonstrations, améliorer les services et assurer le suivi de la relation commerciale.</p><h2>3. Conservation et sécurité</h2><p>Les données seront conservées pendant une durée proportionnée à la finalité et protégées par des mesures organisationnelles et techniques adaptées.</p><h2>4. Vos droits</h2><p>Les modalités d’accès, de rectification ou de suppression seront précisées avec les coordonnées officielles du responsable du traitement.</p><h2>5. Contact</h2><p>Pour toute question relative à la confidentialité, écrivez à <SiteLink className="text-link" href={`mailto:${contact.email}`}>{contact.email}</SiteLink>.</p><small>Dernière mise à jour provisoire : 1er août 2026.</small></section></>; }
 
-function AppContent({route}:{route:string}) { switch(route){case"/":return <HomePage/>;case"/a-propos":return <AboutPage/>;case"/modules":return <ModulesPage/>;case"/secteurs":return <SectorsPage/>;case"/avantages":return <AdvantagesPage/>;case"/abonnements":return <PricingPage/>;case"/actualites":return <NewsPage/>;case"/documentation":return <DocumentationPage/>;case"/notes-de-version":return <ReleasesPage/>;case"/partenaires":return <PartnersPage/>;case"/demonstration":return <FormPage type="demo"/>;case"/contact":return <FormPage type="contact"/>;case"/faq":return <FAQPage/>;case"/confidentialite":return <PrivacyPage/>;default:return <><PageHero eyebrow="404" title="Cette page reste à écrire." intro="Revenez à l’accueil ou consultez la documentation Bomoi."/><div className="center section"><SiteLink className="btn" href="/">Retour à l’accueil</SiteLink></div></>}}
+function AppContent({route}:{route:string}) { const product=products.find(item=>route===`/produits/${item.slug}`); if(product)return <ProductDetailPage product={product}/>; switch(route){case"/":return <HomePage/>;case"/produits":return <ProductsPage/>;case"/a-propos":return <AboutPage/>;case"/modules":return <ModulesPage/>;case"/secteurs":return <SectorsPage/>;case"/avantages":return <AdvantagesPage/>;case"/abonnements":return <PricingPage/>;case"/actualites":return <NewsPage/>;case"/documentation":return <DocumentationPage/>;case"/notes-de-version":return <ReleasesPage/>;case"/partenaires":return <PartnersPage/>;case"/demonstration":return <FormPage type="demo"/>;case"/contact":return <FormPage type="contact"/>;case"/faq":return <FAQPage/>;case"/confidentialite":return <PrivacyPage/>;default:return <><PageHero eyebrow="404" title="Cette page reste à écrire." intro="Revenez à l’accueil ou consultez la documentation Bomoi."/><div className="center section"><SiteLink className="btn" href="/">Retour à l’accueil</SiteLink></div></>}}
 
 export default function BomoiSite({route}:{route:string}) {
   const [theme,setThemeState]=useState("dark");

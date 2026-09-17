@@ -2,6 +2,10 @@ import BomoiSite from "../BomoiSite";
 
 const staticRoutes = [
   "a-propos",
+  "produits",
+  "produits/bomoi-stock",
+  "produits/bomoi-immo",
+  "produits/bomoi-ged",
   "modules",
   "secteurs",
   "avantages",
@@ -17,7 +21,7 @@ const staticRoutes = [
 ];
 
 export function generateStaticParams() {
-  return staticRoutes.map((route) => ({ slug: [route] }));
+  return staticRoutes.map((route) => ({ slug: route.split("/") }));
 }
 
 export default async function CatchAll({ params }: { params: Promise<{ slug: string[] }> }) {
