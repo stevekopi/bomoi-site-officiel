@@ -459,5 +459,13 @@
   "Bomoi relie les données de chaque service. Vous disposez d’une vision fiable des ventes, du stock, des créances et de la trésorerie, au moment où vous en avez besoin.": "يقوم Bomoi بتوصيل البيانات من كل خدمة. لديك رؤية موثوقة للمبيعات والمخزون والذمم المدينة والتدفق النقدي، عندما تحتاج إليها.",
   "Le site pourra collecter les informations fournies volontairement dans les formulaires de contact et de démonstration : identité, coordonnées professionnelles, entreprise et message.": "قد يقوم الموقع بجمع المعلومات المقدمة طوعًا في نماذج الاتصال والعرض التوضيحي: الهوية وتفاصيل الاتصال المهنية والشركة والرسالة.",
   "Cette étape prépare uniquement votre demande. Aucun débit n’est réalisé et nous ne demandons jamais votre code PIN ni vos données de carte. Les API de paiement seront ajoutées ultérieurement.": "هذه الخطوة تقوم فقط بإعداد طلبك. لا يتم إجراء أي خصم ولا نطلب أبدًا رمز PIN الخاص بك أو بيانات البطاقة. ستتم إضافة واجهات برمجة تطبيقات الدفع لاحقًا.",
-  "De nombreuses entreprises pilotent encore leurs activités avec des informations dispersées. Bomoi rassemble ces flux dans un environnement cohérent, adapté aux réalités des équipes et des organisations multisites.": "لا تزال العديد من الشركات تعمل بمعلومات متناثرة. يجمع Bomoi هذه التدفقات في بيئة متماسكة، تتكيف مع واقع الفرق والمنظمات متعددة المواقع."
+  "De nombreuses entreprises pilotent encore leurs activités avec des informations dispersées. Bomoi rassemble ces flux dans un environnement cohérent, adapté aux réalités des équipes et des organisations multisites.": "لا تزال العديد من الشركات تعمل بمعلومات متناثرة. يجمع Bomoi هذه التدفقات في بيئة متماسكة، تتكيف مع واقع الفرق والمنظمات متعددة المواقع.",
+  "MISE EN SERVICE SUR MESURE": "تنفيذ مخصص",
+  "Un coût d’acquisition adapté à votre projet.": "تكلفة اقتناء تتناسب مع مشروعك.",
+  "Un coût initial s’ajoute à l’abonnement mensuel. Il est établi sur devis selon les besoins et la complexité du projet.": "تُضاف تكلفة أولية إلى الاشتراك الشهري، ويتم تحديدها بعرض سعر وفقًا لاحتياجات المشروع وتعقيده.",
+  "Déploiement de la solution": "نشر الحل",
+  "Formation des équipes": "تدريب الفرق",
+  "Paramétrage personnalisé": "إعداد مخصص",
+  "Niveau de détail comptable retenu": "مستوى التفاصيل المحاسبية المختار",
+  "Le montant mensuel et les frais d’acquisition sur devis seront confirmés par l’équipe Bomoi avant activation.": "سيؤكد فريق Bomoi الرسوم الشهرية وتكاليف الاقتناء المقدرة قبل التفعيل."
 }
