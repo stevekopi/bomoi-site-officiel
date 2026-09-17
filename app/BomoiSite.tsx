@@ -241,6 +241,8 @@ const plans = [
   { name: "Trio", users: "3 utilisateurs", price: "100", desc: "Pour les équipes souhaitant plus de collaboration." },
   { name: "Team", users: "5 utilisateurs", price: "155", desc: "Pour les équipes souhaitant plus de collaboration." },
   { name: "Business", users: "10 utilisateurs", price: "300", desc: "Tout ce qu’il vous faut pour une gestion performante.", popular: true },
+  { name: "Growth", users: "20 utilisateurs", price: "550", desc: "Pour les équipes souhaitant plus de collaboration." },
+  { name: "Pro", users: "30 utilisateurs", price: "880", desc: "Conçu pour les entreprises de grande taille." },
   { name: "Enterprise", users: "50 utilisateurs", price: "1450", desc: "Conçu pour les entreprises de grande taille." },
   { name: "Max", users: "100 utilisateurs", price: "2800", desc: "Pour les grandes organisations et réseaux multisites." },
 ];
