@@ -459,5 +459,13 @@
   "Bomoi relie les données de chaque service. Vous disposez d’une vision fiable des ventes, du stock, des créances et de la trésorerie, au moment où vous en avez besoin.": "Bomoi verbindet Daten von jedem Dienst. Sie haben jederzeit einen zuverlässigen Überblick über Umsätze, Lagerbestände, Forderungen und Cashflow.",
   "Le site pourra collecter les informations fournies volontairement dans les formulaires de contact et de démonstration : identité, coordonnées professionnelles, entreprise et message.": "Die Website kann Informationen sammeln, die freiwillig in den Kontakt- und Demoformularen angegeben werden: Identität, berufliche Kontaktdaten, Unternehmen und Nachricht.",
   "Cette étape prépare uniquement votre demande. Aucun débit n’est réalisé et nous ne demandons jamais votre code PIN ni vos données de carte. Les API de paiement seront ajoutées ultérieurement.": "Dieser Schritt bereitet lediglich Ihre Bewerbung vor. Es erfolgt keine Abbuchung und wir fragen niemals nach Ihrem PIN-Code oder Ihren Kartendaten. Zahlungs-APIs werden später hinzugefügt.",
-  "De nombreuses entreprises pilotent encore leurs activités avec des informations dispersées. Bomoi rassemble ces flux dans un environnement cohérent, adapté aux réalités des équipes et des organisations multisites.": "Viele Unternehmen arbeiten immer noch mit verstreuten Informationen. Bomoi führt diese Abläufe in einer kohärenten Umgebung zusammen, die an die Realitäten von Teams und Organisationen mit mehreren Standorten angepasst ist."
+  "De nombreuses entreprises pilotent encore leurs activités avec des informations dispersées. Bomoi rassemble ces flux dans un environnement cohérent, adapté aux réalités des équipes et des organisations multisites.": "Viele Unternehmen arbeiten immer noch mit verstreuten Informationen. Bomoi führt diese Abläufe in einer kohärenten Umgebung zusammen, die an die Realitäten von Teams und Organisationen mit mehreren Standorten angepasst ist.",
+  "MISE EN SERVICE SUR MESURE": "MASSGESCHNEIDERTE EINFÜHRUNG",
+  "Un coût d’acquisition adapté à votre projet.": "An Ihr Projekt angepasste Anschaffungskosten.",
+  "Un coût initial s’ajoute à l’abonnement mensuel. Il est établi sur devis selon les besoins et la complexité du projet.": "Zusätzlich zum monatlichen Abonnement fallen einmalige Kosten an, die je nach Bedarf und Komplexität des Projekts angeboten werden.",
+  "Déploiement de la solution": "Bereitstellung der Lösung",
+  "Formation des équipes": "Schulung der Teams",
+  "Paramétrage personnalisé": "Individuelle Konfiguration",
+  "Niveau de détail comptable retenu": "Gewählte Buchhaltungstiefe",
+  "Le montant mensuel et les frais d’acquisition sur devis seront confirmés par l’équipe Bomoi avant activation.": "Die monatliche Gebühr und die angebotenen Anschaffungskosten werden vor der Aktivierung vom Bomoi-Team bestätigt."
 }

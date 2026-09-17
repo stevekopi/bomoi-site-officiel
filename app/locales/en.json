@@ -459,5 +459,13 @@
   "Bomoi relie les données de chaque service. Vous disposez d’une vision fiable des ventes, du stock, des créances et de la trésorerie, au moment où vous en avez besoin.": "Bomoi connects data from each service. You have a reliable view of sales, inventory, receivables and cash flow, when you need it.",
   "Le site pourra collecter les informations fournies volontairement dans les formulaires de contact et de démonstration : identité, coordonnées professionnelles, entreprise et message.": "The site may collect information voluntarily provided in the contact and demo forms: identity, professional contact details, company and message.",
   "Cette étape prépare uniquement votre demande. Aucun débit n’est réalisé et nous ne demandons jamais votre code PIN ni vos données de carte. Les API de paiement seront ajoutées ultérieurement.": "This step only prepares your application. No debit is made and we never ask for your PIN code or card data. Payment APIs will be added later.",
-  "De nombreuses entreprises pilotent encore leurs activités avec des informations dispersées. Bomoi rassemble ces flux dans un environnement cohérent, adapté aux réalités des équipes et des organisations multisites.": "Many companies still operate with scattered information. Bomoi brings together these flows in a coherent environment, adapted to the realities of multi-site teams and organizations."
+  "De nombreuses entreprises pilotent encore leurs activités avec des informations dispersées. Bomoi rassemble ces flux dans un environnement cohérent, adapté aux réalités des équipes et des organisations multisites.": "Many companies still operate with scattered information. Bomoi brings together these flows in a coherent environment, adapted to the realities of multi-site teams and organizations.",
+  "MISE EN SERVICE SUR MESURE": "TAILORED IMPLEMENTATION",
+  "Un coût d’acquisition adapté à votre projet.": "An acquisition cost tailored to your project.",
+  "Un coût initial s’ajoute à l’abonnement mensuel. Il est établi sur devis selon les besoins et la complexité du projet.": "An initial cost is added to the monthly subscription. It is quoted according to the project’s needs and complexity.",
+  "Déploiement de la solution": "Solution deployment",
+  "Formation des équipes": "Team training",
+  "Paramétrage personnalisé": "Custom configuration",
+  "Niveau de détail comptable retenu": "Selected level of accounting detail",
+  "Le montant mensuel et les frais d’acquisition sur devis seront confirmés par l’équipe Bomoi avant activation.": "The monthly fee and quoted acquisition costs will be confirmed by the Bomoi team before activation."
 }

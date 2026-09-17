@@ -459,5 +459,13 @@
   "Bomoi relie les données de chaque service. Vous disposez d’une vision fiable des ventes, du stock, des créances et de la trésorerie, au moment où vous en avez besoin.": "Bomoi e relier ba données oyo ewutaka na service moko na moko. Ozali na vue ya confiance ya vente, inventaire, créances na flux ya mbongo, tango ozali na besoin na yango.",
   "Le site pourra collecter les informations fournies volontairement dans les formulaires de contact et de démonstration : identité, coordonnées professionnelles, entreprise et message.": "Site ekoki kosangisa makambo oyo epesami na bolingi na yango na ba formulaire ya contact mpe ya démonstration: identité, ba informations ya contact professionnelle, entreprise mpe message.",
   "Cette étape prépare uniquement votre demande. Aucun débit n’est réalisé et nous ne demandons jamais votre code PIN ni vos données de carte. Les API de paiement seront ajoutées ultérieurement.": "Etape oyo ebongisaka kaka demande na yo. Débit esalemaka te mpe tosengaka jamais code PIN to ba données ya carte na yo. Ba API ya kofuta ekobakisama sima.",
-  "De nombreuses entreprises pilotent encore leurs activités avec des informations dispersées. Bomoi rassemble ces flux dans un environnement cohérent, adapté aux réalités des équipes et des organisations multisites.": "Bakompani mingi ezali naino kosala na makambo oyo epalangani. Bomoi esangisaka ba flux oyo na environnement cohérent, adapté na ba réalités ya ba équipes pe ba organisations multi-sites."
+  "De nombreuses entreprises pilotent encore leurs activités avec des informations dispersées. Bomoi rassemble ces flux dans un environnement cohérent, adapté aux réalités des équipes et des organisations multisites.": "Bakompani mingi ezali naino kosala na makambo oyo epalangani. Bomoi esangisaka ba flux oyo na environnement cohérent, adapté na ba réalités ya ba équipes pe ba organisations multi-sites.",
+  "MISE EN SERVICE SUR MESURE": "BOBANDISI OYO EBONGISAMI MPO NA BINO",
+  "Un coût d’acquisition adapté à votre projet.": "Ntalo ya acquisition oyo ebongisami mpo na projet na bino.",
+  "Un coût initial s’ajoute à l’abonnement mensuel. Il est établi sur devis selon les besoins et la complexité du projet.": "Ntalo ya ebandeli ebakisami na abonnement ya sanza. Etangami na devis kolanda bamposa mpe complexité ya projet.",
+  "Déploiement de la solution": "Déploiement ya solution",
+  "Formation des équipes": "Formation ya ba équipes",
+  "Paramétrage personnalisé": "Paramétrage personnalisé",
+  "Niveau de détail comptable retenu": "Niveau ya détail comptable oyo eponami",
+  "Le montant mensuel et les frais d’acquisition sur devis seront confirmés par l’équipe Bomoi avant activation.": "Ntalo ya sanza mpe frais ya acquisition na devis ekondimama na équipe Bomoi liboso ya activation."
 }
