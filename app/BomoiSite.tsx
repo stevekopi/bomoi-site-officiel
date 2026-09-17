@@ -235,22 +235,40 @@ function SectorsPage() { const desc=["Centralisez ventes, stocks, caisses et poi
 
 function AdvantagesPage() { return <><PageHero eyebrow="AVANTAGES" title="Travaillez avec des données fiables, partout." intro="Bomoi réduit les tâches répétitives, fluidifie la collaboration et donne aux responsables une vision consolidée de l’activité."/><section className="section"><div className="benefit-grid large">{benefits.map(([t,d],i)=><article key={t}><span>0{i+1}</span><h3>{t}</h3><p>{d}</p></article>)}</div></section><section className="section comparison"><div><span className="eyebrow">AVANT BOMOI</span><h2>Fichiers dispersés, ressaisies et décisions tardives.</h2></div><div><span className="eyebrow">AVEC BOMOI</span><h2>Une information partagée, tracée et disponible.</h2></div></section><CTA/></>; }
 
-const plans = [
-  { name: "Start", users: "1 utilisateur", price: "35", desc: "Idéal pour les indépendants et petites structures." },
-  { name: "Duo", users: "2 utilisateurs", price: "65", desc: "Parfait pour les petites équipes en croissance." },
-  { name: "Trio", users: "3 utilisateurs", price: "100", desc: "Pour les équipes souhaitant plus de collaboration." },
-  { name: "Team", users: "5 utilisateurs", price: "155", desc: "Pour les équipes souhaitant plus de collaboration." },
-  { name: "Business", users: "10 utilisateurs", price: "300", desc: "Tout ce qu’il vous faut pour une gestion performante.", popular: true },
-  { name: "Growth", users: "20 utilisateurs", price: "550", desc: "Pour les équipes souhaitant plus de collaboration." },
-  { name: "Pro", users: "30 utilisateurs", price: "880", desc: "Conçu pour les entreprises de grande taille." },
-  { name: "Enterprise", users: "50 utilisateurs", price: "1450", desc: "Conçu pour les entreprises de grande taille." },
-  { name: "Max", users: "100 utilisateurs", price: "2800", desc: "Pour les grandes organisations et réseaux multisites." },
+const planCategories = [
+  { name: "Essentiel", desc: "Idéal pour les indépendants et petites structures.", popular: false, tiers: [
+    { users: "1 utilisateur", price: "35" },
+    { users: "2 utilisateurs", price: "65" },
+    { users: "3 utilisateurs", price: "100" },
+    { users: "5 utilisateurs", price: "155" },
+  ] },
+  { name: "Business", desc: "Tout ce qu’il vous faut pour une gestion performante.", popular: true, tiers: [
+    { users: "10 utilisateurs", price: "300" },
+    { users: "20 utilisateurs", price: "550" },
+    { users: "30 utilisateurs", price: "880" },
+  ] },
+  { name: "Enterprise", desc: "Pour les grandes organisations et réseaux multisites.", popular: false, tiers: [
+    { users: "50 utilisateurs", price: "1450" },
+    { users: "100 utilisateurs", price: "2800" },
+  ] },
 ];
+const plans = planCategories.flatMap(category => category.tiers.map(tier => ({
+  ...tier, name: category.name, id: `${category.name}-${tier.price}`,
+})));
 
 function PricingPage() {
-  const [selectedPlan, setSelectedPlan] = useState("Business");
+  const [selectedPlan, setSelectedPlan] = useState("Business-300");
+  const [categoryChoices, setCategoryChoices] = useState<Record<string, string>>({});
   const [requestUrl, setRequestUrl] = useState("");
-  const selected = plans.find(plan => plan.name === selectedPlan) ?? plans[3];
+  const selected = plans.find(plan => plan.id === selectedPlan) ?? plans[4];
+
+  function choosePlan(id: string) {
+    const plan = plans.find(item => item.id === id);
+    if (!plan) return;
+    setSelectedPlan(id);
+    setCategoryChoices(choices => ({ ...choices, [plan.name]: plan.price }));
+    setRequestUrl("");
+  }
 
   function prepareSubscription(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -259,7 +277,10 @@ function PricingPage() {
       "Bonjour Bomoi,",
       "",
       "Je souhaite finaliser une demande d’abonnement.",
-      `Plan : ${data.get("plan")}`,
+      `Plan : ${selected.name}`,
+      `Utilisateurs : ${selected.users}`,
+      `Abonnement mensuel (1 site inclus) : ${selected.price} USD`,
+      "Multisite et frais de mise en service : à confirmer séparément.",
       `Entreprise : ${data.get("company")}`,
       `Responsable : ${data.get("name")}`,
       `E-mail : ${data.get("email")}`,
@@ -271,15 +292,30 @@ function PricingPage() {
       "",
       "Aucun paiement n’a encore été effectué.",
     ];
-    setRequestUrl(`mailto:${contact.email}?subject=${encodeURIComponent(`Demande d’abonnement Bomoi — ${data.get("plan")}`)}&body=${encodeURIComponent(details.join("\n"))}`);
+    setRequestUrl(`mailto:${contact.email}?subject=${encodeURIComponent(`Demande d’abonnement Bomoi — ${selected.name} — ${selected.users}`)}&body=${encodeURIComponent(details.join("\n"))}`);
   }
 
   return <>
     <PageHero eyebrow="ABONNEMENT MENSUEL" title="Choisissez le plan adapté à votre équipe." intro="Des offres simples et évolutives pour gérer votre entreprise avec Bomoi, quelle que soit sa taille."/>
     <section className="section pricing-section">
-      <div className="plan-grid">{plans.map(plan=><article className={plan.popular?"plan-card popular":"plan-card"} key={plan.name}>{plan.popular&&<span className="popular-badge">POPULAIRE</span>}<div className="plan-users" aria-hidden="true">{plan.users.startsWith("1 ")?"●":"●●●"}</div><h2>{plan.name}</h2><p className="user-count">{plan.users}</p><div className="plan-price"><strong>{plan.price}</strong><span><b>USD</b>par mois</span></div><p className="plan-desc">{plan.desc}</p><SiteLink className={plan.popular?"btn":"btn secondary"} href="#souscription" onClick={()=>{setSelectedPlan(plan.name);setRequestUrl("")}}>Choisir {plan.name}</SiteLink></article>)}</div>
+      <div className="plan-grid">{planCategories.map(category => {
+        const tier = category.tiers.find(item => item.price === categoryChoices[category.name]) ?? category.tiers[0];
+        return <article className={category.popular ? "plan-card popular" : "plan-card"} key={category.name}>
+          {category.popular && <span className="popular-badge">POPULAIRE</span>}
+          <div className="plan-users" aria-hidden="true">●●●</div>
+          <h2>{category.name}</h2>
+          <label className="plan-selector" htmlFor={`users-${category.name}`}>Nombre d’utilisateurs
+            <select id={`users-${category.name}`} value={tier.price} onChange={event => choosePlan(`${category.name}-${event.target.value}`)}>
+              {category.tiers.map(option => <option key={option.price} value={option.price}>{option.users} — {option.price} USD/mois</option>)}
+            </select>
+          </label>
+          <div className="plan-price" aria-live="polite" aria-atomic="true" key={tier.price}><strong>{tier.price}</strong><span><b>USD</b>par mois</span></div>
+          <p className="plan-desc">{category.desc}</p>
+          <SiteLink className={category.popular ? "btn" : "btn secondary"} href="#souscription" onClick={() => choosePlan(`${category.name}-${tier.price}`)}>Choisir {category.name}</SiteLink>
+        </article>;
+      })}</div>
       <div className="plans-included"><span>✓ 1 site inclus</span><span>✓ Mises à jour régulières</span><span>✓ Sauvegardes automatiques</span><span>✓ Support dédié</span><span>✓ Accès partout, tout le temps</span><span>✓ Hébergement sécurisé</span></div>
-      <section className="multisite-pricing" aria-labelledby="multisite-title"><div className="multisite-heading"><div><span className="eyebrow">TARIFICATION MULTISITE</span><h2 id="multisite-title">Un prix simple, même lorsque votre réseau grandit.</h2></div><p>Chaque abonnement comprend un site. Les utilisateurs sont partagés entre tous les sites, dans la limite du forfait choisi.</p></div><div className="multisite-grid"><div className="multisite-table-wrap"><table><thead><tr><th>Configuration</th><th>Supplément mensuel</th></tr></thead><tbody><tr><td>1 site</td><td><strong>Inclus</strong></td></tr><tr><td>2 à 3 sites</td><td><strong>+50 USD</strong> par site supplémentaire</td></tr><tr><td>4 à 10 sites</td><td><strong>+40 USD</strong> par site supplémentaire</td></tr><tr><td>Plus de 10 sites</td><td><strong>Sur devis</strong></td></tr></tbody></table></div><div className="multisite-examples"><span className="eyebrow">EXEMPLES</span><article><div><b>Business · 3 sites</b><small>10 utilisateurs partagés</small></div><strong>400 USD<small>/mois</small></strong></article><article><div><b>Growth · 5 sites</b><small>20 utilisateurs partagés</small></div><strong>710 USD<small>/mois</small></strong></article><article><div><b>Pro · 10 sites</b><small>30 utilisateurs partagés</small></div><strong>1 240 USD<small>/mois</small></strong></article></div></div><p className="multisite-detail"><b>À savoir :</b> un point de vente supplémentaire et une société juridiquement distincte n’impliquent pas la même complexité. Les configurations avec comptabilités séparées, reprises de données ou règles propres à chaque entité font l’objet d’un devis personnalisé.</p></section>
+      <section className="multisite-pricing" aria-labelledby="multisite-title"><div className="multisite-heading"><div><span className="eyebrow">TARIFICATION MULTISITE</span><h2 id="multisite-title">Un prix simple, même lorsque votre réseau grandit.</h2></div><p>Chaque abonnement comprend un site. Les utilisateurs sont partagés entre tous les sites, dans la limite du forfait choisi.</p></div><div className="multisite-grid"><div className="multisite-table-wrap"><table><thead><tr><th>Configuration</th><th>Supplément mensuel</th></tr></thead><tbody><tr><td>1 site</td><td><strong>Inclus</strong></td></tr><tr><td>2 à 3 sites</td><td><strong>+50 USD</strong> par site supplémentaire</td></tr><tr><td>4 à 10 sites</td><td><strong>+40 USD</strong> par site supplémentaire</td></tr><tr><td>Plus de 10 sites</td><td><strong>Sur devis</strong></td></tr></tbody></table></div><div className="multisite-examples"><span className="eyebrow">EXEMPLES</span><article><div><b>Business · 3 sites</b><small>10 utilisateurs partagés</small></div><strong>400 USD<small>/mois</small></strong></article><article><div><b>Business · 5 sites</b><small>20 utilisateurs partagés</small></div><strong>710 USD<small>/mois</small></strong></article><article><div><b>Business · 10 sites</b><small>30 utilisateurs partagés</small></div><strong>1 240 USD<small>/mois</small></strong></article></div></div><p className="multisite-detail"><b>À savoir :</b> un point de vente supplémentaire et une société juridiquement distincte n’impliquent pas la même complexité. Les configurations avec comptabilités séparées, reprises de données ou règles propres à chaque entité font l’objet d’un devis personnalisé.</p></section>
       <aside className="acquisition-note" aria-labelledby="acquisition-title"><div className="acquisition-icon" aria-hidden="true">＋</div><div><span className="eyebrow">MISE EN SERVICE SUR MESURE</span><h2 id="acquisition-title">Un coût d’acquisition adapté à votre projet.</h2><p>Un coût initial s’ajoute à l’abonnement mensuel. Il est établi sur devis selon les besoins et la complexité du projet.</p><ul><li>Déploiement de la solution</li><li>Formation des équipes</li><li>Paramétrage personnalisé</li><li>Niveau de détail comptable retenu</li></ul></div></aside>
       <div className="billing-note"><div><span className="eyebrow">SÉCURISÉ · FIABLE · ÉVOLUTIF</span><h2>Tout ce qu’il faut pour avancer sereinement.</h2><p>Tous les plans incluent les mises à jour, la sauvegarde automatique et le support.</p></div><div><b>Facturation mensuelle</b><span>Sans engagement</span><span>Résiliez à tout moment</span></div></div>
     </section>
@@ -287,10 +323,10 @@ function PricingPage() {
       <div className="subscription-heading"><div><span className="eyebrow">SOUSCRIPTION</span><h2>Préparez votre abonnement.</h2><p>Renseignez les coordonnées de votre entreprise et du payeur. L’équipe Bomoi vous contactera pour confirmer l’activation.</p></div><ol aria-label="Étapes de souscription"><li className="done"><b>1</b>Plan</li><li className="active"><b>2</b>Coordonnées</li><li><b>3</b>Confirmation</li></ol></div>
       {requestUrl ? <div className="subscription-success"><span aria-hidden="true">✓</span><div><small>DEMANDE PRÊTE</small><h3>Aucune transaction n’a été effectuée.</h3><p>Vos coordonnées sont prêtes à être envoyées à l’équipe Bomoi. Vous pourrez confirmer le paiement avec elle dès qu’elle vous contacte.</p><div className="subscription-actions"><SiteLink className="btn" href={requestUrl}>Envoyer la demande par e-mail</SiteLink><button className="btn secondary" type="button" onClick={()=>setRequestUrl("")}>Modifier les coordonnées</button></div></div></div> :
       <form className="subscription-checkout" onSubmit={prepareSubscription}>
-        <aside className="subscription-summary"><span className="eyebrow">VOTRE CHOIX</span><h3>{selected.name}</h3><p>{selected.users}</p><div><strong>{selected.price}</strong><span><b>USD</b> / mois</span></div><ul><li>Mises à jour incluses</li><li>Sauvegarde automatique</li><li>Support Bomoi</li><li>Sans engagement</li></ul><small>Le montant mensuel et les frais d’acquisition sur devis seront confirmés par l’équipe Bomoi avant activation.</small></aside>
+        <aside className="subscription-summary"><span className="eyebrow">VOTRE CHOIX</span><h3 key={selected.name}>{selected.name}</h3><p key={selected.id}>{selected.users}</p><div key={selected.price}><strong>{selected.price}</strong><span><b>USD</b> / mois</span></div><ul><li>Mises à jour incluses</li><li>Sauvegarde automatique</li><li>Support Bomoi</li><li>Sans engagement</li></ul><small>Le montant mensuel et les frais d’acquisition sur devis seront confirmés par l’équipe Bomoi avant activation.</small></aside>
         <div className="subscription-form">
           <div className="form-section-title"><span>01</span><div><h3>Entreprise et responsable</h3><p>Les informations nécessaires pour créer votre dossier.</p></div></div>
-          <div className="form-row"><label>Plan choisi<select name="plan" value={selectedPlan} onChange={event=>{setSelectedPlan(event.target.value);setRequestUrl("")}}>{plans.map(plan=><option value={plan.name} key={plan.name}>{plan.name} — {plan.price} USD/mois</option>)}</select></label><label>Nom de l’entreprise<input name="company" required autoComplete="organization" placeholder="Ex. Société Bomoi"/></label></div>
+          <div className="form-row"><label>Plan choisi<select name="plan" value={selectedPlan} onChange={event=>choosePlan(event.target.value)}>{planCategories.map(category=><optgroup label={category.name} key={category.name}>{plans.filter(plan=>plan.name===category.name).map(plan=><option value={plan.id} key={plan.id}>{plan.name} — {plan.users} — {plan.price} USD/mois</option>)}</optgroup>)}</select></label><label>Nom de l’entreprise<input name="company" required autoComplete="organization" placeholder="Ex. Société Bomoi"/></label></div>
           <div className="form-row"><label>Nom du responsable<input name="name" required autoComplete="name" placeholder="Nom et prénom"/></label><label>Adresse e-mail<input name="email" type="email" required autoComplete="email" placeholder="nom@entreprise.cd"/></label></div>
           <div className="form-row"><label>Téléphone / WhatsApp<input name="phone" type="tel" required autoComplete="tel" placeholder="+243 ..."/></label><label>Ville et pays<input name="location" required autoComplete="address-level2" placeholder="Kinshasa, RDC"/></label></div>
           <div className="form-section-title payment-title"><span>02</span><div><h3>Coordonnées de paiement</h3><p>Choisissez le moyen que vous souhaitez utiliser après confirmation.</p></div></div>
