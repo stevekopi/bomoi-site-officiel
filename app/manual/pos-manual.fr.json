@@ -1,0 +1,535 @@
+{
+  "title": "Manuel utilisateur Bomoi POS",
+  "edition": "11 octobre 2026",
+  "version": "1.0",
+  "sections": [
+    {
+      "id": "demarrage",
+      "title": "Bien commencer",
+      "intro": "Bomoi POS accompagne les vendeurs sur Android, iPhone et terminaux de vente compatibles. Le catalogue, le panier, l’historique et les informations téléchargées peuvent être utilisés sans Internet après une première connexion réussie. Ce manuel décrit les actions de l’utilisateur ; certaines options dépendent des droits et réglages de l’entreprise.",
+      "steps": [
+        "Avant le départ, chargez l’appareil, vérifiez la date et l’heure du système, la connexion et le papier de l’imprimante.",
+        "Connectez-vous au bon site et vérifiez le nom de l’entreprise, votre identité et la date de votre journée.",
+        "Activez la synchronisation et actualisez le catalogue. Consultez les stocks et la caisse si elle vous est affectée.",
+        "Effectuez le test d’impression depuis les paramètres avant de commencer à encaisser."
+      ],
+      "notes": [
+        "Une vente doit être enregistrée une seule fois. Une impression ratée, un reçu sans numéro ou une vente en attente ne justifie pas un nouvel encaissement.",
+        "Les quantités et soldes reçus du serveur sont une photographie datée. D’autres vendeurs peuvent les modifier pendant que cet appareil est hors ligne."
+      ],
+      "issues": []
+    },
+    {
+      "id": "connexion",
+      "title": "Connexion, site et journée",
+      "intro": "La première connexion nécessite un accès au serveur. La configuration de l’appareil est généralement réalisée par un technicien ; l’agent utilise ensuite son identifiant et son mot de passe.",
+      "steps": [
+        "Ouvrez l’application. Saisissez votre identifiant ou adresse e-mail et votre mot de passe, puis appuyez sur Se connecter.",
+        "Si une vérification supplémentaire est demandée, saisissez le code reçu selon le moyen prévu par votre organisation.",
+        "Si plusieurs sites sont proposés, sélectionnez celui où vous effectuez les ventes. Vérifiez ensuite l’entreprise et la journée affichées.",
+        "En cas de mauvais site ou de mauvais compte, contrôlez d’abord les ventes en attente, puis utilisez Déconnexion dans le menu ⋮ et reconnectez-vous correctement."
+      ],
+      "notes": [
+        "La journée est la date de travail ouverte par l’organisation, pas nécessairement la date du calendrier du téléphone.",
+        "Quand la synchronisation est activée et l’application active, le contrôle de la journée s’effectue toutes les 10 secondes. Un changement de journée ou une session invalide peut nécessiter une reconnexion. Quand la synchronisation est désactivée, ce contrôle est suspendu."
+      ],
+      "issues": [
+        {
+          "problem": "Identifiant ou mot de passe refusé",
+          "action": "Vérifiez la saisie et le compte de l’entreprise. Demandez au responsable de contrôler votre accès ; ne communiquez pas votre mot de passe au support."
+        },
+        {
+          "problem": "Aucun site ou aucune journée disponible",
+          "action": "Demandez au responsable de vérifier votre affectation et d’ouvrir la journée appropriée. Une première utilisation ne peut pas être préparée entièrement hors ligne."
+        },
+        {
+          "problem": "Déconnexion annoncée après clôture",
+          "action": "Relisez la notification puis reconnectez-vous avec Internet au bon site. Les ventes enregistrées restent conservées sur l’appareil ; le panier non enregistré doit être vérifié avant reprise."
+        }
+      ]
+    },
+    {
+      "id": "navigation",
+      "title": "Se repérer dans l’application",
+      "intro": "Le haut de l’écran identifie l’entreprise, l’agent et la journée. Le menu ⋮ donne accès aux paramètres, à la personnalisation, à l’aide, aux informations Bomoi et à la déconnexion.",
+      "steps": [
+        "Vente : consultez Catalogue et Panier. Les onglets restent accessibles en haut lors du défilement sur les petits écrans.",
+        "Stocks : recherchez les articles et consultez les quantités serveur ainsi que les sorties locales non synchronisées.",
+        "Caisse : consultez les soldes par devise et les encaissements locaux en attente. Cet onglet apparaît uniquement si une caisse vous est affectée.",
+        "Historique : retrouvez les ventes de cet appareil, leurs détails, leurs reçus et leur état de synchronisation."
+      ],
+      "notes": [
+        "Les flèches indiquent un serveur accessible ; l’indicateur rouge signale une indisponibilité. Internet sur le téléphone ne garantit pas que le serveur de votre entreprise soit joignable.",
+        "Dernière sync indique le dernier contrôle ou échange réussi enregistré par l’application. Ce repère ne prouve pas que chaque vente est synchronisée : vérifiez aussi l’Historique.",
+        "Si un message de connexion peut être fermé, le fermer ne rétablit pas le serveur. L’indicateur reste votre repère."
+      ],
+      "issues": []
+    },
+    {
+      "id": "catalogue",
+      "title": "Rechercher et ajouter des articles",
+      "intro": "Le catalogue regroupe les articles téléchargés pour le site connecté. Le numéro dans le petit cercle sert à repérer une ligne ; ce n’est pas le code de l’article.",
+      "steps": [
+        "Ouvrez Vente puis Catalogue. Recherchez par nom ou code ; utilisez les filtres proposés si nécessaire.",
+        "Contrôlez la photo, le nom, la devise, le prix et la disponibilité avant d’ajouter l’article.",
+        "Ajoutez l’article au panier. Vérifiez le compteur du Panier, puis ouvrez celui-ci pour contrôler les quantités.",
+        "Utilisez Actualiser lorsque le serveur est accessible et la synchronisation activée pour télécharger les dernières données."
+      ],
+      "notes": [
+        "Quand la taxe est nulle, les informations HT inutiles sont masquées. En présence de taxe, le montant TTC et les détails utiles sont indiqués.",
+        "Le catalogue téléchargé permet de travailler hors ligne. Un article absent ne peut pas être ajouté à partir de données jamais téléchargées."
+      ],
+      "issues": [
+        {
+          "problem": "Article absent ou prix indisponible",
+          "action": "Vérifiez le site et la recherche, puis actualisez en ligne. Si le problème persiste, demandez au responsable de vérifier l’article, son prix et son affectation."
+        },
+        {
+          "problem": "Catalogue modifié pendant la vente",
+          "action": "Relisez le message. Retirez puis ajoutez à nouveau la ligne concernée si demandé, et revérifiez prix, taxes et total avant encaissement."
+        }
+      ]
+    },
+    {
+      "id": "scanner",
+      "title": "Scanner un QR code ou un code-barres",
+      "intro": "Deux modes sont proposés : QR / Barres utilise la caméra ; Scanner POS reçoit le code du lecteur matériel configuré en mode clavier.",
+      "steps": [
+        "Caméra : appuyez sur QR / Barres, autorisez la caméra et placez un seul code net dans le cadre. Utilisez la lampe si nécessaire.",
+        "Après une correspondance exacte et unique avec le code d’un article du catalogue local, l’article est ajouté au panier. Lisez le message de confirmation et vérifiez le compteur.",
+        "Utilisez Scanner un autre article pour lire à nouveau. Contrôlez la quantité si vous scannez plusieurs fois le même produit.",
+        "Lecteur matériel : ouvrez Scanner POS, placez le curseur dans le champ, puis utilisez la gâchette. Le lecteur doit envoyer le code suivi d’Entrée ; vous pouvez également saisir le code manuellement."
+      ],
+      "notes": [
+        "Un QR code doit correspondre au code attendu pour l’article. Une adresse web ou un texte libre n’est pas automatiquement reconnu comme un produit.",
+        "Scanner POS n’est pas un lecteur de puces NFC. Ce manuel ne décrit pas de vente par puce."
+      ],
+      "issues": [
+        {
+          "problem": "Caméra refusée ou écran caméra indisponible",
+          "action": "Autorisez la caméra dans les réglages Android/iOS, revenez dans l’application et réessayez. Fermez une autre application qui utilise la caméra si nécessaire."
+        },
+        {
+          "problem": "Code inconnu ou plusieurs correspondances",
+          "action": "Recherchez l’article manuellement et actualisez le catalogue en ligne. Demandez au responsable de corriger les codes absents ou dupliqués ; ne choisissez pas un article au hasard."
+        },
+        {
+          "problem": "La gâchette n’ajoute rien",
+          "action": "Vérifiez avec le technicien le mode clavier et le suffixe Entrée du lecteur. Replacez le curseur dans le champ Scanner POS."
+        }
+      ]
+    },
+    {
+      "id": "panier",
+      "title": "Préparer le panier, les bonus et le stockage",
+      "intro": "Le panier présente la photo réduite, la quantité et le nom de chaque article avec son montant. Vérifiez les lignes avant de recevoir le paiement.",
+      "steps": [
+        "Modifiez la quantité avec les commandes disponibles. Retirez toute ligne ajoutée par erreur.",
+        "Si l’entreprise autorise les bonus, renseignez la quantité offerte. Le bonus n’augmente pas le prix mais consomme du stock.",
+        "Si l’option Stockage est proposée, ouvrez-la et choisissez le stockage et éventuellement l’emplacement voulu. La liste numérotée facilite le repérage.",
+        "Le stockage reste optionnel : sans sélection, les règles de répartition du serveur s’appliquent. Avec une sélection, vérifiez la disponibilité indiquée pour ce choix.",
+        "Appliquez une remise uniquement selon les règles de votre entreprise. Contrôlez ensuite le total."
+      ],
+      "notes": [
+        "Remises et taxes ne s’affichent que si elles sont non nulles. Le sous-total avant remise est masqué si aucune remise n’est appliquée.",
+        "Une quantité offerte consomme du stock comme une quantité vendue. La sélection de stockage ne crée pas de stock supplémentaire."
+      ],
+      "issues": [
+        {
+          "problem": "Bonus ou stockage indisponible",
+          "action": "L’option peut dépendre de l’autorisation de l’entreprise et de données téléchargées. Actualisez en ligne ; faites vérifier les réglages par le responsable."
+        },
+        {
+          "problem": "Stock insuffisant dans le panier",
+          "action": "Réduisez la quantité avant d’encaisser ou demandez une vérification du stock et du stockage. Une vente déjà encaissée se traite dans l’Historique, sans recréer la vente."
+        }
+      ]
+    },
+    {
+      "id": "encaissement",
+      "title": "Encaisser et enregistrer une vente",
+      "intro": "Le montant reçu est prérempli pour couvrir le total. Modifiez-le si le client remet une autre somme. Les valeurs affichées sont arrondies pour la lecture ; les calculs conservent leur précision.",
+      "steps": [
+        "Vérifiez le panier, le total et le client si sa sélection est obligatoire. Choisissez aussi son site lorsque cela est demandé.",
+        "Contrôlez la devise de paiement. Lisez le montant reçu et modifiez-le uniquement pour correspondre à la somme réellement remise.",
+        "Vérifiez Monnaie à rendre. Cet encadré apparaît seulement si la monnaie est différente de zéro.",
+        "Appuyez une seule fois sur Encaisser et enregistrer. Attendez le résultat ; ne recréez pas la vente parce que l’impression prend du temps.",
+        "La vente est d’abord conservée sur l’appareil. Si le serveur est accessible et la synchronisation active, l’envoi démarre immédiatement. Le reçu suit les réglages d’impression.",
+        "En cas de doute après un message d’erreur, ouvrez Historique et recherchez l’opération par heure, montant et client avant toute nouvelle tentative."
+      ],
+      "notes": [],
+      "issues": [
+        {
+          "problem": "Le montant reçu ne couvre pas le total",
+          "action": "Corrigez le montant ou la devise avant validation. Vérifiez le taux proposé si le paiement est en devise étrangère."
+        },
+        {
+          "problem": "Le bouton d’encaissement est désactivé",
+          "action": "Vérifiez le panier, les éventuelles erreurs de calcul et l’affectation d’une caisse active. Attendez si une opération est déjà en cours."
+        },
+        {
+          "problem": "Enregistrement confirmé mais pas de papier",
+          "action": "La vente peut être enregistrée malgré un problème d’impression. Consultez Historique puis Réimprimer le reçu ; n’encaissez pas une seconde fois."
+        }
+      ]
+    },
+    {
+      "id": "devises",
+      "title": "Recevoir une autre devise et rendre la monnaie",
+      "intro": "Les articles et le total restent exprimés dans la devise de base. Le choix de paiement permet d’accepter une autre devise quand elle dispose d’un taux d’achat téléchargé et autorisé.",
+      "steps": [
+        "Dans Encaissement, sélectionnez la devise apportée par le client avant de saisir le montant reçu.",
+        "Lisez le taux d’achat, sa date et la contre-valeur dans la devise de base. Le taux indique combien vaut une unité de la devise reçue.",
+        "Saisissez la somme effectivement reçue dans la devise sélectionnée. Contrôlez que sa contre-valeur couvre le total.",
+        "Rendez la monnaie indiquée dans la devise de base. Vérifiez le code de devise à côté du nombre.",
+        "Dans Historique, ouvrez les détails de la vente pour retrouver devise reçue, taux, contre-valeur et monnaie rendue."
+      ],
+      "notes": [
+        "Exemple : total de 24 000 CDF ; taux de 1 USD = 3 000 CDF ; client remettant 10 USD. La contre-valeur est 30 000 CDF et la monnaie à rendre est 6 000 CDF. Ce taux est uniquement un exemple.",
+        "Le paiement et le taux enregistrés sur le mobile sont conservés lors de la synchronisation. Le reçu simplifié n’affiche pas le détail de répartition de l’argent ; consultez les détails de vente."
+      ],
+      "issues": [
+        {
+          "problem": "Un seul bouton de devise est visible",
+          "action": "Seule la devise de base est disponible. Actualisez les devises en ligne si le bouton est proposé, puis faites vérifier les devises autorisées et les taux d’achat de la journée."
+        },
+        {
+          "problem": "Une autre devise ou un taux n’est pas disponible hors ligne",
+          "action": "Utilisez uniquement les devises déjà téléchargées et autorisées. Ne remplacez pas manuellement la devise en modifiant le nombre reçu."
+        }
+      ]
+    },
+    {
+      "id": "recus",
+      "title": "Imprimer, réimprimer et obtenir le numéro de vente",
+      "intro": "Le reçu comporte les informations de l’entreprise et, lorsqu’il est disponible pour le mode d’impression, son logo. Il indique la date et l’heure d’impression du système. Une impression manuelle est signalée comme telle.",
+      "steps": [
+        "Après la vente, laissez l’impression suivre le pilote choisi. Si une fenêtre Android/iOS s’ouvre, sélectionnez l’imprimante et confirmez l’impression.",
+        "Pour récupérer le numéro officiel, ouvrez ⋮ puis Paramètres, Imprimante, Numéro de vente sur le reçu. Réglez le délai de 1 à 60 secondes ; la valeur initiale est 3 secondes.",
+        "Vous pouvez activer Attendre le numéro avant d’imprimer. L’application attend alors la réponse du serveur plutôt que le délai choisi ; un échec, un conflit ou l’arrêt de la synchronisation met fin à cette attente.",
+        "Pendant l’attente, Imprimer maintenant sans attendre le numéro permet de poursuivre. La vente reste enregistrée et sa synchronisation continue si elle est possible.",
+        "Si le numéro n’est pas encore disponible, aucun faux numéro de vente n’est imprimé. Après synchronisation, ouvrez Historique puis Réimprimer le reçu pour obtenir le numéro officiel."
+      ],
+      "notes": [
+        "Hors ligne ou synchronisation désactivée, l’impression n’attend pas le numéro du serveur.",
+        "La fermeture ou l’annulation de la fenêtre système ne supprime pas la vente. L’ouverture de cette fenêtre ne garantit pas qu’une feuille soit sortie.",
+        "Les lignes d’article utilisent quantité × nom à gauche et montant à droite. Montant TTC est indiqué si une taxe existe ; les mentions HT inutiles sont masquées quand la taxe est nulle.",
+        "Un logo téléchargé peut ne pas être disponible hors ligne ou sur un pilote texte. Sa présence à l’écran ne garantit pas que tous les pilotes matériels puissent l’imprimer."
+      ],
+      "issues": []
+    },
+    {
+      "id": "imprimantes",
+      "title": "Choisir et tester l’imprimante",
+      "intro": "Le format de papier de l’entreprise est défini par l’administrateur : 58 mm, 80 mm ou 112 mm. Le pilote et l’appareil d’impression se règlent localement. Le rouleau physique doit correspondre au matériel.",
+      "steps": [
+        "Ouvrez ⋮ puis Paramètres puis Imprimante. Essayez le pilote adapté à votre appareil, un à la fois.",
+        "Senraise H10S intégrée : réservé au service compatible détecté sur le terminal Android ; il s’agit d’une imprimante 58 mm.",
+        "Bluetooth ESC/POS : associez d’abord l’imprimante dans les réglages Android. Autorisez l’accès Bluetooth et sélectionnez l’appareil détecté. Ce mode nécessite un appareil Bluetooth Classic SPP compatible.",
+        "USB ESC/POS : branchez l’imprimante et accordez l’autorisation USB demandée. Une imprimante intégrée peut ne pas apparaître dans la liste USB.",
+        "Impression Android / iOS : utilisez la fenêtre système. Sur Android, un service installé et activé tel que NokoPrint peut être proposé ; sa compatibilité avec votre imprimante doit être testée. Sur iPhone, utilisez une imprimante compatible avec le système d’impression proposé.",
+        "Détectez ou choisissez l’appareil si le pilote le demande, enregistrez la configuration puis lancez Imprimer un test. Vérifiez la largeur et la lisibilité du papier avant une vente."
+      ],
+      "notes": [
+        "Les pilotes matériels Android nécessitent la version de l’application intégrant ces fonctions. Ils ne sont pas disponibles dans toutes les applications de test ni sur iPhone. Faites installer la version adaptée par le technicien.",
+        "Si le format configuré dépasse la largeur réelle du papier, le ticket peut être coupé. Demandez une correction du format à l’administrateur."
+      ],
+      "issues": [
+        {
+          "problem": "Aucune imprimante détectée",
+          "action": "Vérifiez alimentation, association Bluetooth ou câble USB, autorisations et pilote choisi. Un service d’impression système doit être activé dans les réglages de l’appareil."
+        },
+        {
+          "problem": "Le test fonctionne mais une vente ne sort pas",
+          "action": "Vérifiez si la vente est enregistrée dans Historique, si une fenêtre système attend confirmation et si le bon pilote est toujours sélectionné. Réimprimez cette vente."
+        },
+        {
+          "problem": "Module d’impression absent",
+          "action": "Demandez au technicien d’installer la version Android appropriée. En attendant, utilisez Impression Android / iOS si une imprimante compatible est disponible."
+        },
+        {
+          "problem": "Ticket vide, tronqué ou trop long",
+          "action": "Contrôlez le sens du rouleau thermique, le papier, le format et la compatibilité du pilote. Pour un reçu refusé comme trop long par un pilote matériel, choisissez Impression Android / iOS et réimprimez depuis Historique."
+        },
+        {
+          "problem": "Échec après changement de pilote",
+          "action": "Rouvrez la configuration, sélectionnez l’appareil pour ce pilote, enregistrez puis refaites le test avant de réimprimer la vente existante."
+        }
+      ]
+    },
+    {
+      "id": "hors-ligne",
+      "title": "Travailler sans Internet",
+      "intro": "Après une première préparation en ligne, les ventes peuvent être enregistrées localement. Hors ligne, le serveur ne confirme ni le numéro définitif, ni le stock global, ni le solde actualisé de la caisse.",
+      "steps": [
+        "Continuez à utiliser le catalogue déjà téléchargé et vérifiez les quantités du panier.",
+        "Enregistrez chaque vente une seule fois. Dans Historique, elle apparaît En attente jusqu’à confirmation du serveur.",
+        "Consultez les blocs locaux dans Stocks et Caisse pour connaître les opérations de cet appareil encore non synchronisées.",
+        "Au retour du réseau, vérifiez Synchronisation autorisée dans Paramètres puis consultez Historique. Utilisez Synchroniser les ventes si nécessaire.",
+        "Conservez l’appareil jusqu’à la confirmation de toutes les ventes. Un fichier PDF téléchargé de ce manuel peut être consulté sans réseau."
+      ],
+      "notes": [
+        "Le panier et les ventes déjà enregistrées sont deux choses différentes. Un panier non validé n’est pas une vente encaissée et synchronisable.",
+        "Ne désinstallez pas l’application et n’effacez pas ses données pour résoudre une panne tant que des ventes locales restent à transmettre. Une réinstallation ou un changement de téléphone ne transfère pas automatiquement ces ventes.",
+        "Un stock local estimé ne réserve pas le stock pour les autres appareils. Un conflit reste possible au retour en ligne."
+      ],
+      "issues": []
+    },
+    {
+      "id": "synchronisation",
+      "title": "Synchronisation et actualisation",
+      "intro": "L’envoi des ventes et le rechargement du catalogue ne suivent pas le même rythme : une vente est envoyée immédiatement si possible ; l’actualisation périodique recharge les données de consultation.",
+      "steps": [
+        "Ouvrez ⋮ puis Paramètres et vérifiez Synchronisation autorisée. Sans cette autorisation, les ventes restent locales même si Internet fonctionne.",
+        "Dans Actualisation automatique, choisissez un nombre entier de 1 à 1 440 minutes et enregistrez. Le délai initial est 5 minutes.",
+        "Utilisez Actualiser dans Catalogue, Stocks ou Caisse lorsque vous voulez une nouvelle lecture du serveur, sans attendre l’intervalle.",
+        "Dans Historique, utilisez Synchroniser les ventes pour relancer l’envoi autorisé. Attendez la confirmation Synchronisée de chaque vente.",
+        "Si certaines ventes passent À résoudre, suivez la procédure de conflit plutôt que de multiplier les tentatives."
+      ],
+      "notes": [
+        "Le bouton Actualiser peut être grisé pendant un traitement, hors ligne ou si la synchronisation est désactivée.",
+        "La surveillance de journée toutes les 10 secondes concerne l’application active et la synchronisation activée. Ne supposez pas qu’une application fermée continue tous ses contrôles.",
+        "Dernière sync ne se met à jour qu’après un échange réussi. Les échecs ne doivent pas être interprétés comme une synchronisation aboutie."
+      ],
+      "issues": [
+        {
+          "problem": "Internet est actif mais le serveur reste rouge",
+          "action": "Vérifiez l’accès au réseau de l’entreprise et l’adresse configurée avec le technicien. Un serveur interne peut être accessible uniquement depuis un Wi-Fi ou réseau autorisé."
+        },
+        {
+          "problem": "Les ventes restent En attente",
+          "action": "Activez la synchronisation, rendez le serveur accessible et vérifiez la session. Ouvrez Historique et relancez l’envoi. Notez le message précis si cela échoue."
+        },
+        {
+          "problem": "Les données ne changent pas après l’envoi",
+          "action": "Actualisez la vue concernée. Les soldes et quantités serveur affichent la dernière photographie téléchargée, qui peut être antérieure à la vente."
+        }
+      ]
+    },
+    {
+      "id": "stocks",
+      "title": "Lire les stocks et les sorties locales",
+      "intro": "Stocks présente les quantités reçues du serveur pour le site : Disponible serveur, Courant et Utilisé, avec la date de téléchargement. Le bloc Sorties non synchronisées présente séparément les articles des ventes locales en attente.",
+      "steps": [
+        "Recherchez un article par nom ou code. Consultez la date des données avant de promettre une quantité au client.",
+        "Consultez Sorties non synchronisées pour les quantités vendues et offertes sur cet appareil, toutes journées confondues.",
+        "Le nombre de ventes et de conflits permet de repérer les opérations qui doivent encore être confirmées. Les articles sans gestion de stock ne figurent pas dans ces sorties.",
+        "Ce bloc se relit localement toutes les 2 secondes lorsque la vue est active. Les ventes confirmées quittent le bloc ; actualisez les stocks pour récupérer ensuite la nouvelle situation du serveur."
+      ],
+      "notes": [
+        "Ne déduisez pas automatiquement une seconde fois ces sorties du Disponible serveur : le serveur peut avoir traité une vente avant que le mobile reçoive sa confirmation.",
+        "Ces sorties concernent uniquement cet appareil et ce site. Elles ne décrivent pas les ventes hors ligne des autres vendeurs.",
+        "Les chiffres locaux et serveur restent séparés : l’application n’affirme pas qu’ils forment un stock global exact."
+      ],
+      "issues": []
+    },
+    {
+      "id": "caisse",
+      "title": "Lire les soldes et les encaissements locaux",
+      "intro": "Caisse présente le nom de la caisse, son type et les soldes serveur par devise. Ventes non synchronisées affiche les encaissements nets conservés sur cet appareil en attendant la confirmation.",
+      "steps": [
+        "Vérifiez la date des soldes serveur et actualisez la caisse en ligne si nécessaire.",
+        "Consultez le nombre de ventes en attente et en conflit. Les montants locaux incluent toutes les journées de cet appareil dans le site connecté.",
+        "Lisez les devises séparément. Un paiement étranger augmente la devise réellement reçue ; la monnaie rendue diminue la devise de base.",
+        "Après synchronisation, les ventes confirmées sortent du bloc local. Actualisez la caisse pour télécharger les soldes serveur récents."
+      ],
+      "notes": [
+        "Exemple : réception de 10 USD et monnaie rendue de 6 000 CDF. Le bloc local indique +10 USD et -6 000 CDF pour cette opération ; le négatif représente la monnaie sortie, pas nécessairement un déficit de caisse.",
+        "Ne convertissez pas ni n’additionnez les devises sans règle comptable. Ne présentez pas la somme d’un ancien solde serveur et du bloc local comme un solde officiel.",
+        "Les montants locaux restent disponibles hors ligne et synchronisation désactivée. Une vente en conflit y reste jusqu’à sa confirmation.",
+        "Si l’onglet Caisse n’existe pas ou si aucune caisse active n’est renvoyée, demandez au responsable de vérifier votre affectation."
+      ],
+      "issues": []
+    },
+    {
+      "id": "historique",
+      "title": "Historique et documents de sortie",
+      "intro": "L’Historique recense les ventes enregistrées sur cet appareil. Il ne remplace pas la liste complète des ventes de tous les vendeurs dans l’application web.",
+      "steps": [
+        "Repèrez la vente par sa date, son montant, son client et son numéro officiel lorsqu’il est disponible. Un identifiant local peut apparaître en attendant.",
+        "Ouvrez les détails pour contrôler paiement réel, devise, taux, contre-valeur, affectation à la vente et monnaie rendue.",
+        "Utilisez Réimprimer le reçu sans recréer la vente. Une vente annulée sur le serveur ne doit pas être réimprimée comme une vente valide.",
+        "Après synchronisation, utilisez Imprimer la sortie de stock. Le document provient du serveur et requiert les droits correspondants.",
+        "Une fois le document de sortie téléchargé, une version conservée peut être réimprimée hors ligne via Impression Android / iOS. Sinon, reconnectez-vous pour le télécharger.",
+        "Utilisez Afficher les ventes précédentes si l’opération recherchée ne figure pas encore dans la liste."
+      ],
+      "notes": [
+        "En attente : enregistrée localement, sans confirmation serveur. Synchronisée : le serveur a confirmé. À résoudre : une condition empêche la confirmation.",
+        "Un reçu sorti de l’imprimante ne prouve pas la synchronisation. Un reçu sans numéro n’est pas une preuve d’échec de l’enregistrement."
+      ],
+      "issues": [
+        {
+          "problem": "Vente introuvable",
+          "action": "Vérifiez le compte, le site, l’appareil, l’heure et les ventes précédentes. Faites contrôler le web par un responsable avant de recréer quoi que ce soit."
+        },
+        {
+          "problem": "Sortie de stock indisponible",
+          "action": "Vérifiez d’abord Synchronisée, puis l’accès serveur, les droits et le téléchargement du document. Hors ligne, un document jamais téléchargé ne peut pas être récupéré."
+        }
+      ]
+    },
+    {
+      "id": "conflits",
+      "title": "Résoudre une vente en conflit",
+      "intro": "Une vente À résoudre et son paiement restent conservés sur le mobile. L’objectif est de corriger la cause puis d’envoyer la même vente, avec le même identifiant, sans réencaisser le client.",
+      "steps": [
+        "Ouvrez Historique, trouvez la vente puis appuyez sur Examiner le conflit. Lisez le motif et l’instruction proposés.",
+        "Notez l’identifiant, la date, le site et le message. Contactez le responsable pour la correction qui nécessite l’application web.",
+        "Après correction, avec le serveur accessible et la synchronisation active, appuyez sur Vérifier après correction.",
+        "Si l’envoi est autorisé, choisissez Synchroniser cette vente ou Réessayer avec le même identifiant selon les actions proposées.",
+        "Contrôlez que la vente devient Synchronisée et récupère son numéro. Réimprimez son reçu si nécessaire."
+      ],
+      "notes": [
+        "Le taux, le prix, les taxes et les bonus enregistrés sur le mobile sont conservés selon les règles de vente mobile. Ils ne doivent pas être modifiés pour forcer l’envoi d’une vente déjà encaissée.",
+        "Si la journée d’origine est clôturée, la comptabilisation utilise la journée ouverte selon les règles serveur ; l’historique peut afficher la date de comptabilisation différente.",
+        "Une ancienne opération peut proposer une validation au taux enregistré avec justification. N’utilisez cette action que si elle est explicitement proposée, que vos droits l’autorisent et que votre responsable la valide."
+      ],
+      "issues": [
+        {
+          "problem": "Stock insuffisant",
+          "action": "Le responsable corrige le stock réel dans le web, après vérification physique et des mouvements. La vente reste bloquée jusqu’à cette correction ; ne baissez pas artificiellement sa quantité."
+        },
+        {
+          "problem": "Stockage ou emplacement indisponible",
+          "action": "Faites vérifier son existence, son activation, son lien au site et la disponibilité nécessaire. Relancez la même vente après correction."
+        },
+        {
+          "problem": "Caisse indisponible",
+          "action": "Faites rétablir l’affectation et les paramètres de caisse du vendeur, notamment les devises nécessaires."
+        },
+        {
+          "problem": "Devise indisponible",
+          "action": "Faites rétablir la devise et les références comptables attendues. Le responsable examine le paiement initial ; ne remplacez pas la devise reçue."
+        },
+        {
+          "problem": "Client, site client ou article indisponible",
+          "action": "Le responsable vérifie les références et leur disponibilité pour l’entreprise et le site de la vente."
+        },
+        {
+          "problem": "Référence comptable de taxe indisponible",
+          "action": "Faites rétablir la référence concernée dans le web. Il ne s’agit pas de recalculer la taxe encaissée."
+        },
+        {
+          "problem": "Journée ou session à actualiser",
+          "action": "Reconnectez-vous en ligne au site approprié ; faites vérifier qu’une journée comptable est ouverte. Retrouvez ensuite la vente existante."
+        },
+        {
+          "problem": "Droits ou affectation à rétablir",
+          "action": "Le responsable habilité rétablit les droits ou l’affectation. Reconnectez-vous si demandé puis vérifiez la même opération."
+        },
+        {
+          "problem": "Configuration à vérifier",
+          "action": "Transmettez l’instruction précise au responsable. Il vérifie les paramètres manquants avant une nouvelle tentative."
+        },
+        {
+          "problem": "Vente annulée, identifiant en conflit ou données incohérentes",
+          "action": "Arrêtez les tentatives automatiques. Demandez un examen au responsable ou au support, qui rapproche les données mobile et web. Ne créez pas un nouvel identifiant et ne supprimez pas la vente pour contourner le blocage."
+        }
+      ]
+    },
+    {
+      "id": "parametres",
+      "title": "Paramètres, apparence et formats de nombres",
+      "intro": "Le menu ⋮ regroupe les réglages et la personnalisation. Les choix locaux de l’appareil ne remplacent pas les droits et paramètres définis par l’administrateur.",
+      "steps": [
+        "Paramètres : réglez l’actualisation automatique, l’autorisation de synchronisation, l’imprimante, l’attente du numéro de reçu et l’adresse du serveur si vous êtes chargé de cette configuration.",
+        "Affichage des montants : choisissez Espace (12 000,5), Point (12.000,5) ou Virgule (12,000.5). Le choix est mémorisé sur cet appareil ; les champs de saisie gardent leur format propre.",
+        "Personnalisation : choisissez clair, sombre ou Suivre le système. Avec Suivre le système, l’apparence suit le réglage du téléphone.",
+        "Choisissez une couleur d’accent et affichez ou masquez le bouton flottant. Vous pouvez toujours rouvrir la personnalisation depuis ⋮.",
+        "Aide et manuel utilisateur ouvre la documentation officielle. Téléchargez le PDF en ligne pour le conserver dans Fichiers ou Téléchargements."
+      ],
+      "notes": [
+        "Les montants sont regroupés par milliers et présentés avec une décimale sur le mobile ; cela ne change ni les calculs ni les données envoyées.",
+        "La personnalisation des nombres sur le web est mémorisée séparément dans le navigateur et conserve les décimales propres au web."
+      ],
+      "issues": []
+    },
+    {
+      "id": "serveur",
+      "title": "Configuration de l’appareil",
+      "intro": "L’agent ne doit changer l’adresse du serveur que sur instruction du technicien. Une adresse incorrecte peut empêcher la connexion et laisser les ventes en attente.",
+      "steps": [
+        "Avant la connexion, ouvrez Configuration de l’appareil. Une fois connecté, ouvrez ⋮ puis Paramètres puis Configuration du serveur.",
+        "Saisissez l’adresse unique du serveur communiquée par votre organisation, avec le protocole et le port s’il est demandé. N’ajoutez pas vous-même des chemins de services.",
+        "Enregistrez et suivez les indications affichées. Vérifiez ensuite l’entreprise et le site lors de la connexion.",
+        "Avant de changer de serveur, faites vérifier et synchroniser les ventes en attente. Si le serveur actuel est inaccessible, demandez de l’aide plutôt que de changer d’adresse pour contourner le problème."
+      ],
+      "notes": [
+        "Les données locales dépendent du compte, du site et du serveur. Changer ces éléments n’envoie pas automatiquement les ventes vers une autre entreprise.",
+        "N’utilisez pas l’adresse de démonstration ou d’une autre entreprise. Ne communiquez jamais vos mots de passe ni vos jetons au support."
+      ],
+      "issues": []
+    },
+    {
+      "id": "depannage",
+      "title": "Dépannage et incidents de l’appareil",
+      "intro": "Commencez toujours par rechercher la vente dans l’Historique. Conservez les données locales et le message précis. Une panne d’impression, de réseau ou une fermeture de l’application ne signifie pas automatiquement qu’une vente est absente.",
+      "steps": [],
+      "notes": [],
+      "issues": [
+        {
+          "problem": "Database is locked / NativeStatement.finalizeAsync",
+          "action": "Fermez complètement l’application, puis relancez-la avec la version à jour fournie par votre technicien. Vérifiez l’Historique avant de réessayer un encaissement. Si le message revient, notez l’action effectuée, l’heure et le modèle d’appareil et contactez le support. Ne désinstallez pas et n’effacez pas les données."
+        },
+        {
+          "problem": "L’application s’est fermée pendant une vente",
+          "action": "Rouvrez-la et recherchez l’opération enregistrée. Si elle existe, poursuivez sa synchronisation ou réimprimez. Si elle est absente, faites vérifier les faits avant une nouvelle saisie."
+        },
+        {
+          "problem": "Message réseau technique, requête annulée ou délai dépassé",
+          "action": "Vérifiez le réseau puis le serveur. Fermez le message si possible et consultez l’Historique ; l’envoi peut ne pas avoir reçu de confirmation. Relancez la synchronisation de la même vente lorsque la connexion revient."
+        },
+        {
+          "problem": "Erreur 401 ou session expirée",
+          "action": "Reconnectez-vous en ligne avec le bon compte et le bon site. Conservez les ventes locales puis vérifiez leur envoi."
+        },
+        {
+          "problem": "Erreur 403 ou accès refusé",
+          "action": "Demandez au responsable de vérifier vos droits et votre affectation. Changer de téléphone ne rétablit pas une permission."
+        },
+        {
+          "problem": "Erreur 404 ou ressource introuvable",
+          "action": "Faites contrôler l’adresse du serveur, la disponibilité du service et la version de l’application par le technicien. N’ajoutez pas au hasard des chemins à l’adresse."
+        },
+        {
+          "problem": "Erreur 400 ou données refusées",
+          "action": "Relisez le message associé. Avant l’encaissement, corrigez les champs demandés. Pour une vente enregistrée, consultez son conflit et transmettez le diagnostic au responsable."
+        },
+        {
+          "problem": "Batterie vide ou perte de l’appareil",
+          "action": "Rechargez puis vérifiez les ventes si l’appareil est disponible. En cas de perte, informez immédiatement le responsable pour protéger le compte et rapprocher les ventes. Les ventes non transmises ne peuvent pas être garanties récupérables sans l’appareil."
+        },
+        {
+          "problem": "Heure ou date incorrecte sur les reçus",
+          "action": "Corrigez l’horloge système avec le technicien et vérifiez le fuseau horaire. La date d’impression vient de l’appareil ; la journée comptable est une information distincte."
+        },
+        {
+          "problem": "Chargement durable ou bouton grisé",
+          "action": "Attendez la fin du traitement, vérifiez serveur et synchronisation, puis rouvrez la vue. Si cela persiste, relancez l’application et transmettez le contexte au support."
+        },
+        {
+          "problem": "Le lien du manuel ne s’ouvre pas",
+          "action": "Vérifiez Internet et le navigateur par défaut. Ouvrez https://bomoi.cd/documentation/bomoi-pos dans le navigateur. Si une mise à jour du site est en cours, réessayez plus tard ou utilisez le PDF déjà téléchargé."
+        }
+      ]
+    },
+    {
+      "id": "fin-journee",
+      "title": "Terminer la journée et contacter Bomoi",
+      "intro": "Un contrôle régulier des ventes en attente évite de reporter les problèmes au lendemain. La clôture de journée et les corrections de gestion relèvent du responsable habilité.",
+      "steps": [
+        "Avant de quitter le point de vente, reconnectez l’appareil et activez la synchronisation.",
+        "Ouvrez Historique : transmettez les ventes En attente et signalez celles À résoudre au responsable. Vérifiez les numéros officiels obtenus.",
+        "Actualisez Stocks et Caisse. Comparez la monnaie physique et les devises au relevé demandé par votre organisation, en isolant les ventes locales encore non confirmées.",
+        "Conservez l’appareil et ses données tant qu’une vente attend une correction. Déconnectez-vous via ⋮ seulement après avoir lu et compris l’avertissement.",
+        "Pour le support, fournissez le modèle, Android/iOS et sa version, la date/heure, l’action effectuée, le message exact et l’identifiant de vente concerné. Masquez les données personnelles inutiles."
+      ],
+      "notes": [
+        "Bomoi - plateforme ERP moderne, multisite et de gestion intégrée. Stocks, ventes, achats, finances et pilotage des opérations.",
+        "Contact : contact@bomoi.cd | +243 981 863 765 | Kinshasa, République démocratique du Congo | https://bomoi.cd",
+        "Le responsable de votre entreprise reste le premier interlocuteur pour les stocks, caisses, permissions et journées. N’envoyez jamais de mot de passe ni de jeton d’authentification."
+      ],
+      "issues": []
+    }
+  ]
+}

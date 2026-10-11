@@ -1,0 +1,77 @@
+"""Rebuild the public user manual from the same French content as the website.
+Usage: python3 scripts/generate-pos-manual.py (requires reportlab).
+"""
+import json
+from pathlib import Path
+from html import escape
+from reportlab.pdfgen import canvas
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak, Table, TableStyle, KeepTogether
+from reportlab.platypus.tableofcontents import TableOfContents
+from reportlab.lib import colors
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib.enums import TA_LEFT
+from reportlab.lib.utils import ImageReader
+from reportlab.lib.pagesizes import A4
+ROOT = Path(__file__).resolve().parents[1]
+DATA = json.loads((ROOT/'app/manual/pos-manual.fr.json').read_text())
+OUT = ROOT/'public/documentation/bomoi-pos-manuel-utilisateur.pdf'
+OUT.parent.mkdir(parents=True, exist_ok=True)
+BLUE=colors.HexColor('#2463EB'); NAVY=colors.HexColor('#102343'); INK=colors.HexColor('#243650'); MUTED=colors.HexColor('#52647C'); LIGHT=colors.HexColor('#EEF4FF')
+W,H=A4
+styles=getSampleStyleSheet()
+styles.add(ParagraphStyle(name='Chapter',fontName='Helvetica-Bold',fontSize=25,leading=29,textColor=NAVY,spaceAfter=16,keepWithNext=True))
+styles.add(ParagraphStyle(name='Intro',fontName='Helvetica',fontSize=11.5,leading=17,textColor=MUTED,spaceAfter=18))
+styles.add(ParagraphStyle(name='Copy',fontName='Helvetica',fontSize=10.5,leading=14.5,textColor=INK,spaceAfter=7))
+styles.add(ParagraphStyle(name='Step',parent=styles['Copy'],leftIndent=24,firstLineIndent=-24,spaceAfter=10))
+styles.add(ParagraphStyle(name='Label',fontName='Helvetica-Bold',fontSize=10,leading=14,textColor=BLUE,spaceBefore=14,spaceAfter=10,keepWithNext=True))
+styles.add(ParagraphStyle(name='Issue',fontName='Helvetica-Bold',fontSize=10.5,leading=15,textColor=NAVY,spaceBefore=10,spaceAfter=4,keepWithNext=True))
+styles.add(ParagraphStyle(name='Note',parent=styles['Copy'],textColor=MUTED,leftIndent=10,borderColor=colors.HexColor('#C8D9FF'),borderWidth=0,borderPadding=6,spaceAfter=9))
+styles.add(ParagraphStyle(name='Eyebrow',fontName='Helvetica-Bold',fontSize=9,leading=13,textColor=BLUE,spaceAfter=10,keepWithNext=True))
+def p(text,style='Copy'): return Paragraph(escape(text.replace("⋮", "menu")),styles[style])
+class Manual(SimpleDocTemplate):
+ def afterFlowable(self,flowable):
+  if isinstance(flowable,Paragraph) and flowable.style.name=='Chapter':
+   text=flowable.getPlainText(); key='chapter-'+str(self.seq.nextf('chapter'))
+   self.canv.bookmarkPage(key);self.canv.addOutlineEntry(text,key,0,False)
+   if text in {section['title'] for section in DATA['sections']}: self.notify('TOCEntry',(0,text,self.page,key))
+def cover(c,doc):
+ c.saveState();c.setFillColor(NAVY);c.rect(0,0,W,H,fill=1,stroke=0)
+ c.setFillColor(colors.HexColor('#173C84'));c.circle(W+120,H-180,330,fill=1,stroke=0)
+ c.setFillColor(colors.HexColor('#1D4ED8'));c.circle(W+160,H-150,295,fill=1,stroke=0)
+ c.drawImage(str(ROOT/'public/bomoi-logo.png'),46,H-190,width=124,height=124,mask='auto')
+ c.setFillColor(colors.white);c.setFont('Helvetica-Bold',20);c.drawString(46,H-220,'BOMOI')
+ c.setFillColor(colors.HexColor('#A8C8FF'));c.setFont('Helvetica',11);c.drawString(46,H-241,'ERP moderne  /  Multisite  /  Gestion intégrée')
+ c.setFillColor(colors.HexColor('#91B7FF'));c.setFont('Helvetica-Bold',10);c.drawString(46,H-320,'MANUEL UTILISATEUR')
+ c.setFillColor(colors.white);c.setFont('Helvetica-Bold',48);c.drawString(43,H-380,'Bomoi POS')
+ c.setFont('Helvetica',18);c.drawString(46,H-414,'La vente, au rythme du terrain.')
+ c.setFillColor(colors.HexColor('#D0DFFF'));c.setFont('Helvetica',12)
+ for i,line in enumerate(['Android, iPhone et terminaux compatibles','Vendre. Encaisser. Imprimer. Synchroniser.','Guide pratique et dépannage, avec ou sans Internet.']): c.drawString(46,H-467-i*22,line)
+ c.setStrokeColor(colors.HexColor('#45628C'));c.line(46,235,W-46,235)
+ c.setFillColor(colors.white);c.setFont('Helvetica-Bold',12);c.drawString(46,208,'Bomoi - Gestion intégrée des entreprises')
+ c.setFont('Helvetica',10);c.setFillColor(colors.HexColor('#D0DFFF'))
+ for y,line in [(188,'Stocks, ventes, achats, finances et opérations multisites.'),(157,'Kinshasa, République démocratique du Congo'),(137,'contact@bomoi.cd  |  +243 981 863 765'),(117,'https://bomoi.cd'),(70,'Édition du '+DATA['edition']+'  |  Version '+DATA['version']+'  |  Français')]: c.drawString(46,y,line)
+ c.linkURL('https://bomoi.cd',(46,110,190,128),relative=0)
+ c.restoreState()
+def running(c,doc):
+ c.saveState();c.setStrokeColor(colors.HexColor('#DCE6F4'));c.line(46,H-46,W-46,H-46)
+ c.setFillColor(MUTED);c.setFont('Helvetica',8);c.drawString(46,H-34,'BOMOI POS  /  MANUEL UTILISATEUR');c.drawRightString(W-46,H-34,'Édition '+DATA['version'])
+ c.line(46,43,W-46,43);c.drawString(46,28,'bomoi.cd  |  contact@bomoi.cd');c.drawRightString(W-46,28,str(doc.page))
+ c.restoreState()
+story=[Spacer(1,1),PageBreak(),p('Votre guide de terrain','Chapter'),p('Ce manuel s’adresse aux vendeurs, agents et responsables qui utilisent Bomoi POS. Les procédures décrivent les commandes visibles dans l’application et les démarches à suivre auprès du responsable en cas de blocage.','Intro'),p('Lecture rapide','Label'),p('Pour démarrer : chapitres 1 à 3. Pour réaliser une vente : chapitres 4 à 10. Pour le travail hors ligne et les contrôles : chapitres 11 à 15. Pour les réglages et incidents : chapitres 16 à 20.'),p('Conservez vos opérations','Label'),p('Une vente enregistrée ne doit pas être recréée à cause d’une impression ou d’une synchronisation en échec. Vérifiez toujours l’Historique. Ne désinstallez pas l’application et n’effacez pas ses données tant que des ventes restent à transmettre.'),p('Documentation en ligne','Label'),Paragraph('<link href="https://bomoi.cd/documentation/bomoi-pos" color="#2463EB">bomoi.cd/documentation/bomoi-pos</link>',styles['Copy']),p('Les droits, devises, formats de papier et options disponibles dépendent de la configuration de votre entreprise. Certaines commandes peuvent être absentes de votre appareil. Le responsable habilité est votre premier interlocuteur pour les corrections dans le web.'),PageBreak(),p('Sommaire','Chapter')]
+toc=TableOfContents();toc.levelStyles=[ParagraphStyle(name='Toc',fontName='Helvetica',fontSize=10,leading=14,textColor=INK,spaceBefore=4,leftIndent=0,rightIndent=20)]
+story.extend([toc,PageBreak()])
+for index,section in enumerate(DATA['sections'],1):
+ story.extend([p('CHAPITRE '+str(index).zfill(2),'Eyebrow'),p(section['title'],'Chapter'),p(section['intro'],'Intro')])
+ if section['steps']:
+  story.append(p('COMMENT FAIRE','Label'))
+  for n,step in enumerate(section['steps'],1): story.append(p(str(n).zfill(2)+'   '+step,'Step'))
+ if section['notes']:
+  story.append(p('À RETENIR','Label'))
+  for note in section['notes']:story.append(p(note,'Note'))
+ if section['issues']:
+  story.append(p('SITUATIONS ET SOLUTIONS','Label'))
+  for issue in section['issues']: story.extend([p(issue['problem'],'Issue'),p(issue['action'])])
+ if index<len(DATA['sections']):story.append(PageBreak())
+doc=Manual(str(OUT),pagesize=A4,rightMargin=46,leftMargin=46,topMargin=68,bottomMargin=62,title=DATA['title'],author='Bomoi',subject='Guide utilisateur et dépannage Bomoi POS - Android et iOS')
+doc.multiBuild(story,onFirstPage=cover,onLaterPages=running)
+print(OUT)
