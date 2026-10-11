@@ -1,8 +1,8 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.1",
   "date": "11 octobre 2026",
-  "bytes": 136278367,
-  "sha256": "194b76531274f6eed64f6c9a47191ab5e0783f1797e3d2451f34f8798bf5e23c",
-  "path": "/downloads/Bomoi-POS-1.0.0.apk",
-  "source": "https://expo.dev/artifacts/eas/QirOEecEThGyruBIGZ75a4CZrTrnZpsGqu7VnSUvZCs.apk"
+  "bytes": 136439593,
+  "sha256": "4a4c881beb0b03c78ea03063f7cabf85e616f46e5b74dfa0faa8ce1b8b917977",
+  "path": "/downloads/Bomoi-POS-1.0.1.apk",
+  "source": "https://expo.dev/artifacts/eas/rp4jF6CwgEpLl8lmG1CgxHgq3WVJypHcyiAdD3u62A8.apk"
 }
