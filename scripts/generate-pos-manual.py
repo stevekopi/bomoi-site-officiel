@@ -2,6 +2,7 @@
 Usage: python3 scripts/generate-pos-manual.py (requires reportlab).
 """
 import json
+import argparse
 from pathlib import Path
 from html import escape
 from reportlab.pdfgen import canvas
@@ -13,8 +14,15 @@ from reportlab.lib.enums import TA_LEFT
 from reportlab.lib.utils import ImageReader
 from reportlab.lib.pagesizes import A4
 ROOT = Path(__file__).resolve().parents[1]
-DATA = json.loads((ROOT/'app/manual/pos-manual.fr.json').read_text())
-OUT = ROOT/'public/documentation/bomoi-pos-manuel-utilisateur.pdf'
+parser=argparse.ArgumentParser(description='Générer un manuel utilisateur Bomoi.')
+parser.add_argument('--product',choices=['pos','erp'],default='pos')
+PRODUCT=parser.parse_args().product
+IS_POS=PRODUCT=='pos'
+NAME='Bomoi POS' if IS_POS else 'Bomoi ERP'
+DATA = json.loads((ROOT/f'app/manual/{PRODUCT}-manual.fr.json').read_text())
+DATA.setdefault('version','1.0')
+DATA.setdefault('title','Manuel utilisateur '+NAME)
+OUT = ROOT/f'public/documentation/bomoi-{PRODUCT}-manuel-utilisateur.pdf'
 OUT.parent.mkdir(parents=True, exist_ok=True)
 BLUE=colors.HexColor('#2463EB'); NAVY=colors.HexColor('#102343'); INK=colors.HexColor('#243650'); MUTED=colors.HexColor('#52647C'); LIGHT=colors.HexColor('#EEF4FF')
 W,H=A4
@@ -42,10 +50,10 @@ def cover(c,doc):
  c.setFillColor(colors.white);c.setFont('Helvetica-Bold',20);c.drawString(46,H-220,'BOMOI')
  c.setFillColor(colors.HexColor('#A8C8FF'));c.setFont('Helvetica',11);c.drawString(46,H-241,'ERP moderne  /  Multisite  /  Gestion intégrée')
  c.setFillColor(colors.HexColor('#91B7FF'));c.setFont('Helvetica-Bold',10);c.drawString(46,H-320,'MANUEL UTILISATEUR')
- c.setFillColor(colors.white);c.setFont('Helvetica-Bold',48);c.drawString(43,H-380,'Bomoi POS')
- c.setFont('Helvetica',18);c.drawString(46,H-414,'La vente, au rythme du terrain.')
+ c.setFillColor(colors.white);c.setFont('Helvetica-Bold',48);c.drawString(43,H-380,NAME)
+ c.setFont('Helvetica',18);c.drawString(46,H-414,'La vente, au rythme du terrain.' if IS_POS else 'Votre entreprise, au quotidien.')
  c.setFillColor(colors.HexColor('#D0DFFF'));c.setFont('Helvetica',12)
- for i,line in enumerate(['Android, iPhone et terminaux compatibles','Vendre. Encaisser. Imprimer. Synchroniser.','Guide pratique et dépannage, avec ou sans Internet.']): c.drawString(46,H-467-i*22,line)
+ for i,line in enumerate((['Android, iPhone et terminaux compatibles','Vendre. Encaisser. Imprimer. Synchroniser.','Guide pratique et dépannage, avec ou sans Internet.'] if IS_POS else ['Application web de gestion intégrée','Stocks. Ventes. Achats. Caisses. Rapports.','Guide pratique et résolution des incidents.'])): c.drawString(46,H-467-i*22,line)
  c.setStrokeColor(colors.HexColor('#45628C'));c.line(46,235,W-46,235)
  c.setFillColor(colors.white);c.setFont('Helvetica-Bold',12);c.drawString(46,208,'Bomoi - Gestion intégrée des entreprises')
  c.setFont('Helvetica',10);c.setFillColor(colors.HexColor('#D0DFFF'))
@@ -54,10 +62,10 @@ def cover(c,doc):
  c.restoreState()
 def running(c,doc):
  c.saveState();c.setStrokeColor(colors.HexColor('#DCE6F4'));c.line(46,H-46,W-46,H-46)
- c.setFillColor(MUTED);c.setFont('Helvetica',8);c.drawString(46,H-34,'BOMOI POS  /  MANUEL UTILISATEUR');c.drawRightString(W-46,H-34,'Édition '+DATA['version'])
+ c.setFillColor(MUTED);c.setFont('Helvetica',8);c.drawString(46,H-34,NAME.upper()+'  /  MANUEL UTILISATEUR');c.drawRightString(W-46,H-34,'Édition '+DATA['version'])
  c.line(46,43,W-46,43);c.drawString(46,28,'bomoi.cd  |  contact@bomoi.cd');c.drawRightString(W-46,28,str(doc.page))
  c.restoreState()
-story=[Spacer(1,1),PageBreak(),p('Votre guide de terrain','Chapter'),p('Ce manuel s’adresse aux vendeurs, agents et responsables qui utilisent Bomoi POS. Les procédures décrivent les commandes visibles dans l’application et les démarches à suivre auprès du responsable en cas de blocage.','Intro'),p('Lecture rapide','Label'),p('Pour démarrer : chapitres 1 à 3. Pour réaliser une vente : chapitres 4 à 10. Pour le travail hors ligne et les contrôles : chapitres 11 à 15. Pour les réglages et incidents : chapitres 16 à 20.'),p('Conservez vos opérations','Label'),p('Une vente enregistrée ne doit pas être recréée à cause d’une impression ou d’une synchronisation en échec. Vérifiez toujours l’Historique. Ne désinstallez pas l’application et n’effacez pas ses données tant que des ventes restent à transmettre.'),p('Documentation en ligne','Label'),Paragraph('<link href="https://bomoi.cd/documentation/bomoi-pos" color="#2463EB">bomoi.cd/documentation/bomoi-pos</link>',styles['Copy']),p('Les droits, devises, formats de papier et options disponibles dépendent de la configuration de votre entreprise. Certaines commandes peuvent être absentes de votre appareil. Le responsable habilité est votre premier interlocuteur pour les corrections dans le web.'),PageBreak(),p('Sommaire','Chapter')]
+story=[Spacer(1,1),PageBreak(),p('Votre guide de terrain' if IS_POS else 'Votre guide de gestion','Chapter'),p('Ce manuel s’adresse aux vendeurs, agents et responsables qui utilisent Bomoi POS. Les procédures décrivent les commandes visibles dans l’application et les démarches à suivre auprès du responsable en cas de blocage.' if IS_POS else 'Ce manuel accompagne les utilisateurs de Bomoi ERP dans leurs opérations sur le web. Il présente les principaux parcours de consultation, de vente et de gestion des stocks, ainsi que les démarches à suivre en cas de blocage.','Intro'),p('Lecture rapide','Label'),p('Pour démarrer : chapitres 1 à 3. Pour réaliser une vente : chapitres 4 à 10. Pour le travail hors ligne et les contrôles : chapitres 11 à 15. Pour les réglages et incidents : chapitres 16 à 20.' if IS_POS else 'Pour commencer : chapitres 1 à 3. Stocks et inventaires : chapitres 4 à 6. Ventes, paiements et achats : chapitres 7 à 9. Caisses, conflits POS, rapports et personnalisation : chapitres 10 à 13.'),p('Conservez vos opérations','Label'),p('Une vente enregistrée ne doit pas être recréée à cause d’une impression ou d’une synchronisation en échec. Vérifiez toujours l’Historique. Ne désinstallez pas l’application et n’effacez pas ses données tant que des ventes restent à transmettre.' if IS_POS else 'Avant de ressaisir une opération après une erreur, vérifiez sa présence dans la liste et consultez son état. Pour une vente mobile en conflit, corrigez la cause et conservez la vente d’origine, sans encaisser le client une seconde fois.'),p('Documentation en ligne','Label'),Paragraph(f'<link href="https://bomoi.cd/documentation/bomoi-{PRODUCT}" color="#2463EB">bomoi.cd/documentation/bomoi-{PRODUCT}</link>',styles['Copy']),p('Les droits, devises, formats de papier et options disponibles dépendent de la configuration de votre entreprise. Certaines commandes peuvent être absentes de votre appareil. Le responsable habilité est votre premier interlocuteur pour les corrections dans le web.'),PageBreak(),p('Sommaire','Chapter')]
 toc=TableOfContents();toc.levelStyles=[ParagraphStyle(name='Toc',fontName='Helvetica',fontSize=10,leading=14,textColor=INK,spaceBefore=4,leftIndent=0,rightIndent=20)]
 story.extend([toc,PageBreak()])
 for index,section in enumerate(DATA['sections'],1):
@@ -72,6 +80,6 @@ for index,section in enumerate(DATA['sections'],1):
   story.append(p('SITUATIONS ET SOLUTIONS','Label'))
   for issue in section['issues']: story.extend([p(issue['problem'],'Issue'),p(issue['action'])])
  if index<len(DATA['sections']):story.append(PageBreak())
-doc=Manual(str(OUT),pagesize=A4,rightMargin=46,leftMargin=46,topMargin=68,bottomMargin=62,title=DATA['title'],author='Bomoi',subject='Guide utilisateur et dépannage Bomoi POS - Android et iOS')
+doc=Manual(str(OUT),pagesize=A4,rightMargin=46,leftMargin=46,topMargin=68,bottomMargin=62,title=DATA['title'],author='Bomoi',subject='Guide utilisateur et dépannage '+NAME)
 doc.multiBuild(story,onFirstPage=cover,onLaterPages=running)
 print(OUT)

@@ -1,0 +1,272 @@
+{
+  "edition": "11 octobre 2026",
+  "sections": [
+    {
+      "id": "connexion",
+      "title": "Connexion et choix du site",
+      "intro": "Accédez à votre espace Bomoi ERP avec le compte fourni par votre entreprise.",
+      "steps": [
+        "Connectez-vous à l’application web avec vos identifiants personnels.",
+        "Choisissez le site sur lequel vous allez travailler.",
+        "Vérifiez l’exercice, la période et la journée proposés avant de commencer."
+      ],
+      "notes": [
+        "Les menus et actions disponibles dépendent de vos permissions."
+      ],
+      "issues": [
+        {
+          "problem": "Mon site ou mon menu est absent",
+          "action": "Demandez à votre administrateur de vérifier votre affectation au site et les permissions de votre profil. Ne partagez pas vos identifiants."
+        }
+      ]
+    },
+    {
+      "id": "navigation",
+      "title": "Navigation et consultation",
+      "intro": "Retrouvez les opérations depuis les menus du module Stock et les listes de consultation.",
+      "steps": [
+        "Ouvrez le menu correspondant à votre opération.",
+        "Utilisez la recherche et les filtres pour retrouver une fiche.",
+        "Lorsque les commandes sont proposées, choisissez Détail, Liste ou Vignette.",
+        "Ouvrez la fiche pour consulter ses lignes et les actions disponibles."
+      ],
+      "notes": [
+        "Vérifiez les filtres et la pagination avant de conclure qu’une opération est absente."
+      ],
+      "issues": [
+        {
+          "problem": "Une opération ne figure pas dans la liste",
+          "action": "Contrôlez le site, la période, les filtres et les pages suivantes, puis actualisez la liste."
+        }
+      ]
+    },
+    {
+      "id": "referentiels",
+      "title": "Articles, clients et fournisseurs",
+      "intro": "Préparez les fiches utilisées dans les ventes, achats et mouvements.",
+      "steps": [
+        "Ouvrez le référentiel des articles, clients ou fournisseurs.",
+        "Recherchez une fiche existante avant d’en créer une nouvelle.",
+        "Complétez les champs obligatoires et les relations demandées.",
+        "Enregistrez, puis contrôlez la fiche obtenue."
+      ],
+      "notes": [
+        "Les catégories, unités, tarifs et autres paramètres disponibles dépendent de la configuration de l’entreprise."
+      ],
+      "issues": [
+        {
+          "problem": "Impossible de sélectionner un article",
+          "action": "Vérifiez son existence, son état et sa disponibilité dans le contexte du site avec un responsable."
+        }
+      ]
+    },
+    {
+      "id": "stocks",
+      "title": "Consulter les stocks disponibles",
+      "intro": "La consultation des stocks permet de vérifier les quantités par article et par stockage.",
+      "steps": [
+        "Ouvrez Stock et mouvement, puis la consultation des stocks.",
+        "Recherchez l’article et appliquez les filtres utiles.",
+        "Ouvrez le détail de l’article ou du stockage pour identifier les quantités concernées.",
+        "Actualisez avant de préparer une opération importante."
+      ],
+      "notes": [
+        "Une quantité doit être interprétée dans le stockage et le site affichés."
+      ],
+      "issues": [
+        {
+          "problem": "Le total ne correspond pas au stock physique",
+          "action": "Vérifiez les mouvements et les opérations en attente. Faites contrôler l’écart avant de réaliser un ajustement ou un inventaire."
+        }
+      ]
+    },
+    {
+      "id": "mouvements",
+      "title": "Entrées, sorties et transferts",
+      "intro": "Tracez les variations de stock avec les opérations prévues par votre entreprise.",
+      "steps": [
+        "Ouvrez les mouvements de stock et créez une opération.",
+        "Choisissez le type de mouvement et le stockage concernés.",
+        "Ajoutez les articles, les quantités et les emplacements demandés.",
+        "Relisez les lignes avant l’enregistrement et la validation si celle-ci est requise.",
+        "Pour déplacer du stock entre stockages, utilisez le transfert et contrôlez sa réception."
+      ],
+      "notes": [
+        "Une opération validée peut modifier les quantités disponibles. Consultez son état avant de la ressaisir."
+      ],
+      "issues": [
+        {
+          "problem": "Une sortie est refusée pour stock insuffisant",
+          "action": "Contrôlez le stockage, l’emplacement et la quantité. Faites corriger le stock réel par un utilisateur habilité si nécessaire."
+        }
+      ]
+    },
+    {
+      "id": "inventaires",
+      "title": "Réaliser un inventaire",
+      "intro": "Comparez les quantités enregistrées avec le comptage physique.",
+      "steps": [
+        "Ouvrez les inventaires et préparez l’opération pour le périmètre concerné.",
+        "Effectuez le comptage physique des articles.",
+        "Saisissez les quantités comptées et contrôlez les écarts.",
+        "Relisez le détail et appliquez la validation proposée selon vos permissions."
+      ],
+      "notes": [
+        "Coordonnez les ventes et mouvements pendant le comptage pour éviter de fausser les écarts."
+      ],
+      "issues": [
+        {
+          "problem": "Un écart semble anormal",
+          "action": "Recomptez l’article et vérifiez les mouvements intervenus pendant l’inventaire avant de valider."
+        }
+      ]
+    },
+    {
+      "id": "ventes",
+      "title": "Enregistrer et consulter une vente",
+      "intro": "Préparez les articles, les montants et l’encaissement dans le menu Vente.",
+      "steps": [
+        "Ouvrez Vente et créez une vente.",
+        "Choisissez le client et ajoutez les articles.",
+        "Renseignez les quantités et, lorsque l’entreprise l’autorise, les bonus.",
+        "Sélectionnez éventuellement les stockages ou emplacements concernés, puis vérifiez les disponibilités recalculées.",
+        "Contrôlez les prix, remises, taxes et le total.",
+        "Complétez le paiement proposé et enregistrez une seule fois.",
+        "Retrouvez la vente dans la liste pour consulter ses détails et imprimer le reçu ou les mouvements de sortie."
+      ],
+      "notes": [
+        "Les ventes directes sont confirmées lors de leur création. Le menu Validation sert également au traitement des conflits POS."
+      ],
+      "issues": [
+        {
+          "problem": "Quantité et bonus dépassent la disponibilité",
+          "action": "Réduisez les quantités ou choisissez un stockage approvisionné. Le bonus consomme aussi du stock."
+        }
+      ]
+    },
+    {
+      "id": "paiements",
+      "title": "Paiements et multidevise",
+      "intro": "Contrôlez la devise des montants et les règlements associés aux opérations.",
+      "steps": [
+        "Vérifiez la devise du document et la devise du règlement.",
+        "Renseignez le montant reçu et contrôlez le taux affiché lorsqu’une conversion intervient.",
+        "Contrôlez le solde, la monnaie et la caisse concernés avant confirmation.",
+        "Consultez le détail de l’opération pour retrouver la répartition des montants."
+      ],
+      "notes": [
+        "Ne comparez pas directement deux montants exprimés dans des devises différentes."
+      ],
+      "issues": [
+        {
+          "problem": "Le montant converti semble incorrect",
+          "action": "Vérifiez les devises et le taux applicable avec le responsable avant de confirmer le règlement."
+        }
+      ]
+    },
+    {
+      "id": "commandes-achats",
+      "title": "Commandes, achats et livraisons",
+      "intro": "Suivez les commandes et les opérations de réception ou de livraison.",
+      "steps": [
+        "Choisissez les commandes clients ou fournisseurs selon le besoin.",
+        "Sélectionnez le partenaire et complétez les lignes d’articles.",
+        "Contrôlez l’état du document avant de préparer sa livraison ou sa réception.",
+        "Enregistrez les quantités réellement livrées ou reçues.",
+        "Consultez le suivi pour repérer les quantités restantes et les paiements."
+      ],
+      "notes": [
+        "Les achats directs, commandes et réceptions sont des opérations distinctes : utilisez le parcours correspondant au document initial."
+      ],
+      "issues": [
+        {
+          "problem": "Une commande paraît encore incomplète",
+          "action": "Vérifiez les quantités livrées ou reçues et les documents associés au lieu de créer une seconde commande."
+        }
+      ]
+    },
+    {
+      "id": "caisses",
+      "title": "Caisses et mouvements financiers",
+      "intro": "Consultez les mouvements et soldes par caisse et par devise.",
+      "steps": [
+        "Ouvrez le menu financier et choisissez la caisse ou les mouvements à consulter.",
+        "Appliquez les filtres de période, de caisse et de devise.",
+        "Ouvrez le détail d’un mouvement pour identifier son opération d’origine.",
+        "Pour un transfert de fonds, vérifiez les caisses et montants avant confirmation."
+      ],
+      "notes": [
+        "Les ventes mobiles non synchronisées ne sont pas encore intégrées au solde du serveur."
+      ],
+      "issues": [
+        {
+          "problem": "Le solde ne comprend pas une vente mobile",
+          "action": "Vérifiez la synchronisation et les conflits sur le mobile. Ne saisissez pas un second encaissement pour compenser une vente en attente."
+        }
+      ]
+    },
+    {
+      "id": "conflits-pos",
+      "title": "Traiter les conflits Bomoi POS",
+      "intro": "Le web permet au responsable habilité de corriger les causes bloquant une vente mobile.",
+      "steps": [
+        "Ouvrez Vente → Validation ou la liste des conflits POS.",
+        "Consultez le motif, la vente, le site et les montants concernés.",
+        "Corrigez la cause dans le module approprié : stock, caisse, affectation ou référentiel.",
+        "Appliquez l’action de résolution proposée uniquement après vérification.",
+        "Relancez la synchronisation sur le mobile et contrôlez l’état final de la vente."
+      ],
+      "notes": [
+        "Un stock réellement insuffisant bloque la vente jusqu’à correction dans le web.",
+        "Le taux, les prix, les taxes et les bonus transmis par le mobile sont conservés. Une journée clôturée est traitée sur la journée comptable ouverte.",
+        "Conservez la vente d’origine : ne recréez pas la vente et ne faites pas payer le client une seconde fois."
+      ],
+      "issues": [
+        {
+          "problem": "Le conflit réapparaît après une tentative",
+          "action": "Relisez le motif actualisé et contrôlez la correction dans le bon site et stockage. Contactez le responsable si vous ne disposez pas des permissions nécessaires."
+        }
+      ]
+    },
+    {
+      "id": "rapports",
+      "title": "Rapports et impressions",
+      "intro": "Consultez les documents et rapports depuis les listes ou les détails des opérations.",
+      "steps": [
+        "Ouvrez la liste ou le détail de l’opération.",
+        "Choisissez le reçu, le rapport ou le document de mouvement disponible.",
+        "Vérifiez le site, la période et les filtres avant de générer un rapport.",
+        "Contrôlez l’aperçu puis imprimez ou enregistrez le document avec les options proposées."
+      ],
+      "notes": [
+        "Le reçu de vente et le rapport de sortie de stock répondent à des besoins différents."
+      ],
+      "issues": [
+        {
+          "problem": "Le rapport est vide",
+          "action": "Vérifiez les dates, le site, les filtres et l’état des opérations, puis générez à nouveau le rapport."
+        }
+      ]
+    },
+    {
+      "id": "parametres",
+      "title": "Apparence, permissions et assistance",
+      "intro": "Adaptez votre affichage et faites intervenir l’administrateur pour les accès.",
+      "steps": [
+        "Ouvrez la personnalisation pour choisir le thème clair, sombre ou Suivre le système.",
+        "Choisissez le séparateur de milliers souhaité dans les réglages d’affichage des nombres.",
+        "Demandez au responsable les modifications de profils, permissions et affectations.",
+        "En cas d’erreur, relevez le menu, l’heure et le message sans transmettre de mot de passe."
+      ],
+      "notes": [
+        "Une préférence d’affichage ne modifie pas les montants enregistrés."
+      ],
+      "issues": [
+        {
+          "problem": "Une action est refusée ou la session expire",
+          "action": "Reconnectez-vous si la session a expiré. Si l’accès reste refusé, faites vérifier vos permissions ; vérifiez d’abord si l’opération a été enregistrée avant de recommencer."
+        }
+      ]
+    }
+  ]
+}
