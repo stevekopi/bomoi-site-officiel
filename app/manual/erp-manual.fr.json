@@ -17,6 +17,10 @@
         {
           "problem": "Mon site ou mon menu est absent",
           "action": "Demandez à votre administrateur de vérifier votre affectation au site et les permissions de votre profil. Ne partagez pas vos identifiants."
+        },
+        {
+          "problem": "Identifiant ou mot de passe refusé",
+          "action": "Vérifiez votre identifiant et la saisie du mot de passe. Vous pouvez réinitialiser votre mot de passe depuis la page d’authentification de Bomoi ERP / Bomoi Web : utilisez l’option de réinitialisation, renseignez l’adresse e-mail associée à votre compte, puis suivez les instructions reçues par e-mail. Vérifiez aussi les courriers indésirables. Si vous n’avez plus accès à cette adresse ou si le problème persiste, contactez votre responsable. Ne communiquez pas votre mot de passe au support."
         }
       ]
     },

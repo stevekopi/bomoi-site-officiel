@@ -14,6 +14,7 @@ const staticRoutes = [
   "avantages",
   "abonnements",
   "actualites",
+  "telechargements/bomoi-pos",
   "documentation",
   "documentation/bomoi-erp",
   ...erpManual.sections.map(section => `documentation/bomoi-erp/${section.id}`),
@@ -30,6 +31,7 @@ const staticRoutes = [
 export async function generateMetadata({ params }: { params: Promise<{ slug: string[] }> }) {
   const { slug } = await params;
   const route = slug.join("/");
+  if(route==="telechargements/bomoi-pos")return {title:"Télécharger Bomoi POS pour Android | Bomoi",description:"Téléchargez l’APK Android signé de Bomoi POS. Installation directe sur téléphone, tablette et terminal POS. Play Store et App Store prochainement.",alternates:{canonical:"https://bomoi.cd/telechargements/bomoi-pos"}};
   if (route === "documentation/bomoi-erp" || route.startsWith("documentation/bomoi-erp/")) {
     const chapter = erpManual.sections.find(section => route === `documentation/bomoi-erp/${section.id}`);
     return { title: chapter ? `${chapter.title} | Manuel Bomoi ERP` : "Manuel utilisateur Bomoi ERP | Bomoi", description: chapter?.intro ?? "Guide d’utilisation du logiciel web Bomoi ERP : stocks, ventes, achats, caisses, rapports et conflits POS.", alternates: { canonical: `https://bomoi.cd/${route}` } };

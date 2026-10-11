@@ -41,3 +41,6 @@ next-env.d.ts
 /outputs/
 /work/
 /public/build-info.json
+
+# Signed Android binaries are restored from verified release metadata.
+/public/downloads/*.apk

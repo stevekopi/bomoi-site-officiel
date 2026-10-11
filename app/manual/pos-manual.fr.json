@@ -36,7 +36,7 @@
       "issues": [
         {
           "problem": "Identifiant ou mot de passe refusé",
-          "action": "Vérifiez la saisie et le compte de l’entreprise. Demandez au responsable de contrôler votre accès ; ne communiquez pas votre mot de passe au support."
+          "action": "Vérifiez votre identifiant et la saisie du mot de passe. Vous pouvez réinitialiser votre mot de passe depuis la page d’authentification de Bomoi ERP / Bomoi Web : utilisez l’option de réinitialisation, renseignez l’adresse e-mail associée à votre compte, puis suivez les instructions reçues par e-mail. Vérifiez aussi les courriers indésirables. Si vous n’avez plus accès à cette adresse ou si le problème persiste, contactez votre responsable. Ne communiquez pas votre mot de passe au support."
         },
         {
           "problem": "Aucun site ou aucune journée disponible",
