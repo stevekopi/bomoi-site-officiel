@@ -1,0 +1,573 @@
+{
+  "edition": "15 octobre 2026",
+  "sections": [
+    {
+      "id": "presentation",
+      "title": "Découvrir Bomoi Exchange",
+      "intro": "Bomoi Exchange accompagne le travail quotidien d’un bureau de change : achats et ventes de devises, caisses, partenaires, suivi des valeurs et rapports.",
+      "steps": [
+        "Repérez les espaces Accueil, Tableau de bord, Registres, Ressources humaines, Opérations, Comptabilité et Paramètres selon vos permissions.",
+        "Distinguez la devise physique manipulée, la contre-valeur CDF de l’opération et la valeur comptable suivie.",
+        "Consultez les chapitres de préparation avant la première opération réelle."
+      ],
+      "notes": [
+        "Un achat signifie que le bureau achète la devise étrangère ; une vente signifie qu’il la vend.",
+        "Stock et Exchange sont des modules distincts : leurs opérations, agents, caisses et données métier restent séparés.",
+        "Ce guide décrit les fonctionnalités disponibles dans la version documentée. Les menus dépendent de votre installation et de vos droits."
+      ],
+      "issues": [
+        {
+          "problem": "Je ne retrouve pas un menu décrit dans ce guide",
+          "action": "Vérifiez que vous avez ouvert Exchange, puis demandez à votre responsable de vérifier votre profil et la version déployée."
+        }
+      ]
+    },
+    {
+      "id": "connexion",
+      "title": "Se connecter et choisir son contexte",
+      "intro": "Ouvrez Exchange avec votre compte personnel, puis travaillez sur le site et la journée qui vous sont affectés.",
+      "steps": [
+        "Connectez-vous à Bomoi avec votre compte habituel et terminez la double authentification lorsqu’elle est demandée.",
+        "Dans la page des modules, choisissez Bomoi Exchange.",
+        "Sélectionnez votre site et contrôlez l’exercice, la période et la journée proposés.",
+        "Vérifiez le site et la journée dans votre session avant de saisir une opération."
+      ],
+      "notes": [
+        "Une connexion Identity ne remplace pas l’affectation à un agent et à un poste Exchange.",
+        "Revenir à la page des modules ferme le contexte métier ; ouvrir de nouveau Exchange reconstruit ce contexte.",
+        "Ne partagez jamais votre compte avec un collègue."
+      ],
+      "issues": [
+        {
+          "problem": "Exchange n’apparaît pas",
+          "action": "Demandez au responsable de vérifier l’accès au module et l’abonnement de votre entreprise."
+        },
+        {
+          "problem": "Mon site est absent",
+          "action": "Faites vérifier la liaison à votre agent Exchange, son profil et ses affectations."
+        },
+        {
+          "problem": "La journée a été clôturée",
+          "action": "Reconnectez-vous et faites vérifier l’ouverture de la journée autorisée avant de continuer."
+        }
+      ]
+    },
+    {
+      "id": "premiere-utilisation",
+      "title": "Préparer la première utilisation",
+      "intro": "Le responsable prépare l’entreprise, les ressources, les devises et la comptabilité avant l’ouverture du bureau.",
+      "steps": [
+        "Suivez l’assistant de première utilisation lorsqu’il est proposé.",
+        "Contrôlez les informations de l’entreprise et créez ou vérifiez le premier agent autorisé.",
+        "Préparez le site, les profils, les postes, les affectations, les caisses et les devises.",
+        "Faites vérifier les exercices, périodes, journaux, comptes et ouvertures comptables par le responsable habilité.",
+        "Préparez les profils de valorisation et la reprise des devises avant les premiers achats ou ventes."
+      ],
+      "notes": [
+        "Sur une installation déjà utilisée, conservez les agents, comptes et soldes existants ; ne recréez pas l’entreprise pour débloquer un écran.",
+        "Un statut incomplet dans l’assistant demande de terminer la configuration correspondante, pas d’inventer des soldes."
+      ],
+      "issues": [
+        {
+          "problem": "Le compte initial ne peut pas être préparé",
+          "action": "Vérifiez le compte initial de l’entreprise et la disponibilité du service de connexion avec votre administrateur."
+        },
+        {
+          "problem": "Une configuration existe déjà",
+          "action": "Consultez son détail et complétez les éléments manquants avec le responsable. Ne supprimez pas des données historiques pour relancer l’assistant."
+        }
+      ]
+    },
+    {
+      "id": "utilisateurs-agents",
+      "title": "Comptes, agents et permissions",
+      "intro": "Le compte de connexion est commun à Bomoi ; l’agent, son profil et ses affectations appartiennent au module utilisé.",
+      "steps": [
+        "Dans Identity, un administrateur habilité crée ou prépare le compte de l’utilisateur dans sa propre entreprise.",
+        "Dans Exchange, préparez l’agent, son profil, son poste et ses affectations dans Ressources humaines.",
+        "Depuis Comptes et accès, utilisez la liaison d’agent Exchange pour associer le compte à cet agent.",
+        "Vérifiez les permissions nécessaires : consulter, créer, confirmer, annuler ou produire un rapport selon la fonction.",
+        "Reconnectez l’utilisateur pour charger son contexte actualisé."
+      ],
+      "notes": [
+        "Un compte est lié à un seul agent par module et entreprise. Il peut être lié à un autre agent dans Stock.",
+        "La gestion des utilisateurs et la consultation des détails d’abonnement sont deux permissions distinctes.",
+        "La création des entreprises, la gestion globale des souscriptions et l’accès à toutes les entreprises restent réservés au propriétaire habilité.",
+        "Lier un compte ne crée pas automatiquement un agent et n’accorde pas automatiquement des permissions métier."
+      ],
+      "issues": [
+        {
+          "problem": "Ce compte possède déjà une liaison différente",
+          "action": "Faites examiner la liaison existante par le responsable. Ne créez pas une seconde identité pour contourner le contrôle."
+        },
+        {
+          "problem": "Le menu est visible mais l’action est refusée",
+          "action": "Demandez la vérification du droit précis de l’action et des conditions du site, de la journée et de l’opération."
+        }
+      ]
+    },
+    {
+      "id": "devises-taux",
+      "title": "Devises et cotations",
+      "intro": "Préparez les devises manipulées et vérifiez le sens du taux avant chaque achat ou vente.",
+      "steps": [
+        "Dans Paramètres, vérifiez les devises utilisées par le bureau et la devise de référence CDF.",
+        "Contrôlez les cotations disponibles et leur date.",
+        "Dans l’opération, sélectionnez la devise étrangère et vérifiez la contre-valeur CDF calculée.",
+        "Comparez le taux, la quantité et les montants à la cotation convenue avec le client avant confirmation."
+      ],
+      "notes": [
+        "La version documentée traite les nouvelles opérations de change entre une devise étrangère et le CDF.",
+        "L’échange direct entre deux devises étrangères n’est pas proposé dans ce circuit.",
+        "Un taux de vente ne remplace pas la valeur comptable d’une devise déjà détenue."
+      ],
+      "issues": [
+        {
+          "problem": "Le montant semble inversé",
+          "action": "Contrôlez le sens achat/vente et l’unité du taux affiché. Corrigez la saisie ou faites vérifier le taux configuré, puis calculez de nouveau la cotation avant de confirmer."
+        },
+        {
+          "problem": "Je veux échanger directement USD contre EUR",
+          "action": "Ce parcours n’est pas disponible dans cette version. Faites définir le traitement autorisé par votre responsable ; ne détournez pas un dépôt tiers."
+        }
+      ]
+    },
+    {
+      "id": "preparation-comptable",
+      "title": "Préparer les comptes et journaux",
+      "intro": "Le responsable comptable prépare les comptes nécessaires aux opérations et aux rapports Exchange.",
+      "steps": [
+        "Préparez ou importez le plan comptable autorisé pour votre entreprise.",
+        "Vérifiez les journaux et les comptes généraux utilisables dans les devises attendues.",
+        "Préparez les profils comptables des caisses et les profils de valorisation de chaque devise étrangère.",
+        "Contrôlez les ouvertures et les soldes de départ avant d’autoriser les premières opérations.",
+        "Préparez le paramétrage du bilan et les permissions de consultation des rapports."
+      ],
+      "notes": [
+        "Les quantités physiques restent suivies dans leur devise ; les nouvelles écritures du circuit achat/vente sont enregistrées en CDF.",
+        "Les comptes de contre-valeur, gains, pertes et reprise sont choisis dans le paramétrage par le responsable comptable.",
+        "Cette documentation décrit le fonctionnement du logiciel ; le plan de comptes et les justificatifs de l’entreprise restent à valider par le responsable compétent."
+      ],
+      "issues": [
+        {
+          "problem": "Un compte est absent du choix",
+          "action": "Vérifiez sa devise, son état et son utilisation autorisée dans le profil concerné."
+        },
+        {
+          "problem": "Des écritures historiques sont déjà présentes",
+          "action": "Faites les rapprocher avant une reprise. Le logiciel ne convertit pas automatiquement tout l’historique à un taux du jour."
+        }
+      ]
+    },
+    {
+      "id": "caisses-plafonds",
+      "title": "Caisses, affectations et plafonds",
+      "intro": "Les caisses doivent être accessibles depuis le poste de l’agent et préparées pour les devises manipulées.",
+      "steps": [
+        "Dans Caisses, préparez les caisses et leurs profils comptables par devise.",
+        "Vérifiez l’affectation de chaque caisse au poste utilisé par l’agent.",
+        "Consultez les soldes séparément pour chaque devise.",
+        "Si nécessaire, ouvrez Actions de la caisse puis Plafonds et historique.",
+        "Choisissez la devise, renseignez le plafond et le motif de sa création ou modification."
+      ],
+      "notes": [
+        "Un plafond concerne une caisse, une devise et un site. Les plafonds de plusieurs devises ne s’additionnent pas.",
+        "Sans plafond configuré, cette limite supplémentaire n’est pas appliquée. Un plafond égal à zéro est possible pour une caisse vide.",
+        "Un plafond inférieur au solde actuel est refusé ; les changements restent historisés."
+      ],
+      "issues": [
+        {
+          "problem": "Ma caisse n’apparaît pas",
+          "action": "Faites vérifier son affectation au poste, sa devise et votre site."
+        },
+        {
+          "problem": "Une opération dépasse le plafond",
+          "action": "Choisissez un traitement autorisé avec le responsable. Le refus ne relève pas automatiquement le plafond et ne modifie pas le solde."
+        }
+      ]
+    },
+    {
+      "id": "approvisionnement",
+      "title": "Approvisionner les liquidités de départ",
+      "intro": "Préparez les fonds nécessaires à l’activité avec une origine et des justificatifs explicites.",
+      "steps": [
+        "Ouvrez les opérations financières autorisées et choisissez le profil ou motif d’entrée de fonds.",
+        "Sélectionnez la caisse et la devise concernées.",
+        "Renseignez le montant, l’origine comptable et les références justificatives demandées.",
+        "Contrôlez l’enregistrement dans la liste et le solde de caisse.",
+        "Pour une devise étrangère, rapprochez les quantités et préparez la valeur CDF justifiée sur la page de valorisation."
+      ],
+      "notes": [
+        "Un approvisionnement physique et la reprise de sa valeur comptable sont deux contrôles distincts.",
+        "N’inventez pas une valeur CDF à partir d’un taux indicatif pour rendre disponible une devise historique."
+      ],
+      "issues": [
+        {
+          "problem": "La caisse n’a pas encore de solde",
+          "action": "Une caisse préparée et affectée peut recevoir son premier approvisionnement. Faites vérifier la configuration si elle n’est pas proposée."
+        },
+        {
+          "problem": "La valorisation ne correspond plus aux liquidités",
+          "action": "Faites rapprocher les quantités et la valeur justifiée avant de poursuivre les opérations de change."
+        }
+      ]
+    },
+    {
+      "id": "valorisation-reprise",
+      "title": "Valoriser les devises et reprendre les soldes",
+      "intro": "La page Valorisation des devises suit la quantité détenue, la valeur comptable CDF et le coût moyen par entreprise et devise.",
+      "steps": [
+        "Ouvrez Valorisation des devises et sélectionnez la devise étrangère.",
+        "Vérifiez le profil : compte de contre-valeur CDF dédié, comptes de gain et de perte, contrepartie de reprise et journal.",
+        "Rapprochez la quantité physique calculée avec vos justificatifs.",
+        "Pour la première reprise, saisissez la valeur totale CDF justifiée, même si la quantité et la valeur sont nulles.",
+        "Si cette contre-valeur a déjà été comptabilisée, utilisez l’option correspondante avec le responsable : le solde existant est contrôlé.",
+        "Consultez l’état de la devise et l’historique avant de commencer les achats ou ventes."
+      ],
+      "notes": [
+        "Le coût moyen est commun à l’entreprise pour la devise, et non un coût indépendant pour chaque caisse.",
+        "La reprise lit les quantités présentes ; elle ne crée pas de billets en caisse.",
+        "La configuration comptable est protégée après reprise. Les anciennes opérations ne reçoivent pas un coût inventé rétroactivement."
+      ],
+      "issues": [
+        {
+          "problem": "La devise est à reprendre",
+          "action": "Terminez la reprise, y compris pour un solde nul, avec un utilisateur habilité."
+        },
+        {
+          "problem": "La contre-valeur existe déjà en comptabilité",
+          "action": "Faites vérifier le rapprochement et l’option de reprise déjà comptabilisée pour éviter une seconde écriture."
+        }
+      ]
+    },
+    {
+      "id": "achat-devises",
+      "title": "Enregistrer un achat de devises",
+      "intro": "Le bureau reçoit une devise étrangère et remet des CDF au client.",
+      "steps": [
+        "Dans Achats et ventes, préparez une Nouvelle opération et choisissez Achat de devises par le bureau.",
+        "Saisissez le montant de la devise échangée, choisissez cette devise puis le CDF comme devise de règlement.",
+        "Vérifiez avec le responsable que votre poste dispose des caisses actives nécessaires dans les deux devises : elles sont résolues depuis vos affectations.",
+        "Renseignez une référence client et sélectionnez un partenaire actif si nécessaire et autorisé.",
+        "Cliquez sur Calculer la cotation et contrôlez le taux appliqué, la devise reçue et les CDF à remettre.",
+        "Cliquez sur Vérifier et confirmer, relisez le récapitulatif, puis choisissez Confirmer l’opération.",
+        "Retrouvez l’achat confirmé dans l’historique du site et téléchargez son reçu si vous disposez du droit correspondant."
+      ],
+      "notes": [
+        "Un achat confirmé augmente la quantité de devise et ajoute les CDF payés à sa valeur comptable ; le coût moyen est recalculé.",
+        "Le partenaire est facultatif dans ce parcours. Son association n’ajoute pas automatiquement une dette ou un dépôt tiers.",
+        "Le bureau doit disposer des CDF nécessaires et respecter le plafond de la caisse qui reçoit la devise.",
+        "La confirmation enregistre les mouvements et écritures ensemble ; il n’existe pas d’étape séparée de validation d’un achat déjà enregistré dans l’historique."
+      ],
+      "issues": [
+        {
+          "problem": "La caisse CDF est insuffisante",
+          "action": "Faites préparer les fonds nécessaires ; ne confirmez pas avec une autre devise pour contourner le contrôle."
+        },
+        {
+          "problem": "La réponse a été perdue après confirmation",
+          "action": "Recherchez l’opération et son état avant toute nouvelle saisie. Ne payez pas une seconde fois."
+        }
+      ]
+    },
+    {
+      "id": "vente-devises",
+      "title": "Enregistrer une vente de devises",
+      "intro": "Le bureau remet une devise étrangère au client et reçoit des CDF.",
+      "steps": [
+        "Dans Nouvelle opération, choisissez Vente de devises par le bureau.",
+        "Saisissez la quantité, sélectionnez la devise étrangère et le CDF pour le règlement.",
+        "Vérifiez les caisses affectées à votre poste dans les deux devises et ajoutez éventuellement un partenaire ou une référence client.",
+        "Cliquez sur Calculer la cotation et contrôlez la devise à remettre, les CDF à recevoir et le taux appliqué.",
+        "Utilisez Vérifier et confirmer puis Confirmer l’opération après lecture du récapitulatif.",
+        "Consultez la vente confirmée, son reçu, le coût comptable sorti et le résultat réalisé dans l’historique."
+      ],
+      "notes": [
+        "Une vente sort la devise à son coût moyen comptable ; le résultat réalisé correspond à la différence entre les CDF reçus et ce coût sorti.",
+        "Exemple sans frais : 40 USD vendus à 2 850 CDF donnent 114 000 CDF reçus. Si leur coût comptable est 112 000 CDF, le résultat réalisé affiché est un gain de 2 000 CDF.",
+        "Une position négative de devise étrangère n’est pas autorisée dans ce circuit. Les frais et commissions ne sont pas calculés automatiquement."
+      ],
+      "issues": [
+        {
+          "problem": "La devise est disponible mais la vente est bloquée",
+          "action": "Vérifiez aussi l’état de valorisation, les affectations, la journée et les plafonds de la caisse qui reçoit les CDF."
+        },
+        {
+          "problem": "Le gain diffère de mon calcul au taux du jour",
+          "action": "Comparez les CDF reçus au coût comptable sorti affiché, pas à un autre taux indicatif."
+        }
+      ]
+    },
+    {
+      "id": "confirmation-annulation",
+      "title": "Confirmer, annuler et retrouver une opération",
+      "intro": "La fenêtre de confirmation précède l’enregistrement définitif de l’achat ou de la vente. L’historique permet ensuite de consulter l’opération ou de demander son annulation.",
+      "steps": [
+        "Avant l’enregistrement, utilisez Vérifier et confirmer puis relisez le récapitulatif avant Confirmer l’opération.",
+        "Dans l’historique du site, recherchez une opération par transaction, devise, partenaire ou référence client ; utilisez la pagination et les vues proposées.",
+        "Consultez son détail, ses montants et son statut avant toute correction.",
+        "Pour annuler avec le droit requis, ouvrez l’action d’annulation et renseignez le motif obligatoire.",
+        "Contrôlez qu’aucun événement plus récent de valorisation ne bloque le retour arrière, puis confirmez l’annulation.",
+        "Après l’action, consultez de nouveau le statut, le reçu et les mouvements associés."
+      ],
+      "notes": [
+        "Une opération valorisée s’annule dans l’ordre inverse des événements actifs de la devise : un achat, une vente ou une réévaluation plus récent peut empêcher son annulation.",
+        "Une annulation restaure les effets de l’opération et conserve sa trace ; elle ne supprime pas son historique.",
+        "Les droits de création, consultation, annulation et impression sont distincts. Une permission sur une autre opération financière ne donne pas automatiquement accès à cette action."
+      ],
+      "issues": [
+        {
+          "problem": "L’annulation est refusée car une opération est plus récente",
+          "action": "Faites examiner la chaîne des événements. Le responsable doit décider du traitement autorisé ; ne modifiez pas manuellement les coûts pour forcer l’annulation."
+        },
+        {
+          "problem": "Je ne retrouve pas une opération",
+          "action": "Contrôlez le site, la recherche et la pagination, puis actualisez l’historique avant toute nouvelle saisie."
+        }
+      ]
+    },
+    {
+      "id": "partenaires",
+      "title": "Gérer les partenaires et leurs devises",
+      "intro": "Un partenaire client ou fournisseur conserve son identité et peut disposer de comptes opérationnels dans plusieurs devises.",
+      "steps": [
+        "Ouvrez Registres puis Partenaires pour créer ou consulter une fiche.",
+        "Renseignez les informations et coordonnées du partenaire.",
+        "Choisissez un profil dans la devise de base, puis les profils supplémentaires utiles.",
+        "Vérifiez que les profils appartiennent au même rôle et qu’une devise n’est pas répétée.",
+        "Consultez les comptes du partenaire et leur devise avant de réaliser un dépôt ou retrait."
+      ],
+      "notes": [
+        "Chaque compte garde sa devise et son solde ; l’ajout d’un profil ne transfère pas implicitement les fonds.",
+        "Un partenaire désactivé peut rester visible dans l’historique mais n’est pas utilisable pour confirmer une nouvelle opération.",
+        "Les codes des nouvelles fiches sont générés par profil ; les codes historiques sont conservés."
+      ],
+      "issues": [
+        {
+          "problem": "Un partenaire historique a seulement un profil en devise étrangère",
+          "action": "Complétez son profil en devise de base avec le responsable, sans supprimer son compte étranger ni son historique."
+        },
+        {
+          "problem": "Je ne peux pas retirer un profil",
+          "action": "Un profil utilisé par des opérations ou écritures doit être conservé. Faites examiner le paramétrage plutôt que supprimer l’historique."
+        }
+      ]
+    },
+    {
+      "id": "depots-retraits",
+      "title": "Enregistrer les dépôts et retraits de partenaires",
+      "intro": "Les opérations tiers suivent les fonds confiés par un partenaire, séparément des achats et ventes de devises.",
+      "steps": [
+        "Ouvrez Opérations tiers, puis créez un dépôt ou un retrait.",
+        "Sélectionnez le partenaire, son profil et le compte dans la devise de l’opération.",
+        "Choisissez la caisse, renseignez le montant et les références.",
+        "Pour un dépôt en devise étrangère, fournissez la valeur CDF justifiée et la contre-valeur demandée.",
+        "Vérifiez puis confirmez selon vos permissions ; consultez le reçu et le solde du partenaire."
+      ],
+      "notes": [
+        "Le dépôt ou retrait s’effectue dans la devise du compte choisi. Un changement de devise passe par le parcours de change autorisé.",
+        "Les comptes CDF dédiés aux contre-valeurs ne sont pas des seconds soldes retirables.",
+        "Les fonds tiers participent aux liquidités utilisables selon le fonctionnement du bureau ; leur dette et leur valeur restent suivies séparément.",
+        "Le découvert étranger n’est pas activé dans cette version ; le découvert CDF dépend du paramétrage autorisé."
+      ],
+      "issues": [
+        {
+          "problem": "Le compte CDF sélectionné est une contre-valeur",
+          "action": "Choisissez le compte opérationnel du partenaire, pas le compte dédié à la représentation comptable d’une devise."
+        },
+        {
+          "problem": "L’annulation du dépôt ou retrait est refusée",
+          "action": "Vérifiez le dernier événement actif et la caisse d’origine avec le responsable. Les opérations ultérieures peuvent empêcher l’annulation."
+        }
+      ]
+    },
+    {
+      "id": "transferts",
+      "title": "Transférer des fonds entre caisses",
+      "intro": "Un transfert déplace des liquidités entre caisses tout en conservant leur traçabilité.",
+      "steps": [
+        "Ouvrez Transferts entre caisses et créez un transfert.",
+        "Sélectionnez les caisses de départ et d’arrivée, la devise et le montant.",
+        "Vérifiez les soldes, les affectations et le plafond éventuel de réception.",
+        "Suivez les étapes de confirmation et de réception proposées selon votre rôle.",
+        "Consultez les états et le reçu de transfert pour rapprocher les deux caisses."
+      ],
+      "notes": [
+        "Un transfert interne cohérent ne crée pas de gain de change et ne modifie pas la valeur globale de la devise dans l’entreprise.",
+        "Il ne remplace ni un achat/vente ni une régularisation de valorisation."
+      ],
+      "issues": [
+        {
+          "problem": "Le transfert ne peut pas être reçu",
+          "action": "Faites vérifier l’état du transfert, la caisse destinataire, les permissions et la journée."
+        },
+        {
+          "problem": "Les fonds semblent avoir quitté une caisse sans arriver dans l’autre",
+          "action": "Consultez l’état complet du transfert avant d’en créer un second et faites traiter la réception attendue."
+        }
+      ]
+    },
+    {
+      "id": "comptage-reajustements",
+      "title": "Compter et réajuster une caisse",
+      "intro": "Comparez les fonds physiques au solde théorique avant de traiter un écart.",
+      "steps": [
+        "Ouvrez les réajustements de caisse et choisissez la caisse et la devise.",
+        "Renseignez le comptage avec les coupures disponibles lorsque le billetage est configuré.",
+        "Contrôlez le total physique et l’écart proposé.",
+        "Enregistrez un brouillon avec les justificatifs, puis faites valider par un utilisateur habilité.",
+        "Consultez les mouvements et le reçu après validation."
+      ],
+      "notes": [
+        "Un comptage ne doit pas servir à dissimuler une opération manquante : recherchez d’abord sa cause.",
+        "La validation d’un écart peut nécessiter un rapprochement de valorisation avant de nouvelles opérations de change.",
+        "La clôture peut exiger les comptages prévus dans la configuration du site."
+      ],
+      "issues": [
+        {
+          "problem": "Le comptage n’est plus à jour",
+          "action": "Des mouvements ont pu intervenir depuis sa préparation. Actualisez le contrôle avant validation."
+        },
+        {
+          "problem": "Une entrée d’écart dépasse le plafond",
+          "action": "Faites examiner le plafond et la cause de l’écart ; l’historique ne doit pas être modifié pour masquer ce dépassement."
+        }
+      ]
+    },
+    {
+      "id": "reevaluation-regularisation",
+      "title": "Réévaluer ou régulariser une devise",
+      "intro": "Ces deux actions répondent à des besoins différents et exigent des justificatifs.",
+      "steps": [
+        "Ouvrez Valorisation des devises et consultez l’état de la devise et ses derniers événements.",
+        "Pour une réévaluation, faites valider le cours CDF par unité de devise et renseignez le motif ou la référence.",
+        "Pour une différence de quantité, faites rapprocher la quantité réelle et la valeur totale CDF justifiée avant une régularisation.",
+        "Contrôlez l’exercice, la période et la journée ouverts puis confirmez avec un utilisateur habilité.",
+        "Consultez l’événement et la pièce comptable enregistrés."
+      ],
+      "notes": [
+        "La réévaluation modifie la valeur de la quantité restante, pas le nombre de billets.",
+        "La régularisation rapproche quantité réelle et quantité valorisée ; elle ne remplace pas un simple changement de cours.",
+        "Les résultats de réévaluation sont distincts des résultats réalisés lors des ventes. La valeur réévaluée sert ensuite au calcul du coût des sorties."
+      ],
+      "issues": [
+        {
+          "problem": "Une différence bloque les achats ou ventes",
+          "action": "Ne forcez pas le montant. Faites rapprocher les mouvements extérieurs et procéder à la régularisation justifiée."
+        },
+        {
+          "problem": "Je veux utiliser automatiquement le taux du jour",
+          "action": "Le responsable doit contrôler et saisir le cours autorisé ; le logiciel n’invente pas le taux de réévaluation."
+        }
+      ]
+    },
+    {
+      "id": "recus-formats",
+      "title": "Reçus et formats d’impression",
+      "intro": "Conservez la preuve de l’opération sans la recréer lorsque seule l’impression a échoué.",
+      "steps": [
+        "Depuis le détail ou la liste, ouvrez le reçu de l’opération autorisée.",
+        "Vérifiez le sens achat/vente, les devises, les montants, le taux et le statut.",
+        "Téléchargez ou imprimez le PDF selon votre poste.",
+        "Pour choisir les papiers, utilisez Formats de rapports au niveau de l’entreprise et les éventuelles configurations par poste.",
+        "Après une annulation, consultez le reçu actualisé et conservez le motif et les références."
+      ],
+      "notes": [
+        "Le format spécifique du poste est utilisé lorsqu’il est configuré ; à défaut, le format de l’entreprise ou le défaut du logiciel s’applique.",
+        "Le partenaire sélectionné et les montants d’une opération restent conservés dans son historique.",
+        "Une réimpression ne doit pas provoquer un nouvel échange d’argent."
+      ],
+      "issues": [
+        {
+          "problem": "Le reçu ne s’imprime pas",
+          "action": "Vérifiez le PDF, l’imprimante, la connexion et le papier. Recherchez l’opération avant toute nouvelle saisie."
+        },
+        {
+          "problem": "Le papier choisi ne correspond pas",
+          "action": "Faites contrôler les formats du poste actif puis ceux de l’entreprise par un utilisateur habilité."
+        }
+      ]
+    },
+    {
+      "id": "rapports-tableau-de-bord",
+      "title": "Rapports, tableau de bord et rapprochements",
+      "intro": "Le tableau de bord et les rapports permettent de contrôler l’activité selon vos permissions.",
+      "steps": [
+        "Ouvrez Tableau de bord et choisissez la période métier à consulter.",
+        "Analysez séparément achats, ventes, résultats réalisés, réévaluations, caisses et soldes partenaires.",
+        "Dans les rapports de caisse, sélectionnez la caisse, la période et une devise ou Toutes.",
+        "Dans Comptabilité, ouvrez les états autorisés : journal, balance, grands livres, bilan ou résultat selon les droits.",
+        "Exportez les documents PDF ou Excel proposés et rapprochez-les de vos justificatifs."
+      ],
+      "notes": [
+        "Les montants de devises différentes ne se totalisent pas comme s’il s’agissait d’une seule monnaie : les rapports Toutes séparent leurs sections.",
+        "La valorisation des devises est globale à l’entreprise ; les caisses affichées dépendent du site courant.",
+        "Un bloc absent du tableau de bord peut correspondre à une permission non attribuée, pas à un solde nul."
+      ],
+      "issues": [
+        {
+          "problem": "Une devise n’a aucun mouvement dans le rapport",
+          "action": "Vérifiez sa configuration et les filtres. Une section sans mouvement peut présenter des totaux nuls."
+        },
+        {
+          "problem": "Un indicateur ne correspond pas au total de mes caisses du site",
+          "action": "Vérifiez son périmètre : la valorisation globale ne représente pas seulement le site connecté."
+        }
+      ]
+    },
+    {
+      "id": "journee-cloture",
+      "title": "Journée de travail et clôture",
+      "intro": "Les ouvertures et clôtures protègent la cohérence des opérations du site.",
+      "steps": [
+        "Au début du travail, vérifiez que l’exercice, la période et la journée du site sont ouverts.",
+        "Avant clôture, rapprochez les caisses, transferts, opérations en attente et comptages demandés.",
+        "Faites traiter les écarts et blocages par les utilisateurs habilités.",
+        "Procédez à la clôture seulement après ces contrôles.",
+        "Reconnectez les agents pour charger la nouvelle journée autorisée."
+      ],
+      "notes": [
+        "Une session ouverte avant la clôture ne doit pas continuer à enregistrer dans l’ancienne journée.",
+        "La date de l’ordinateur ne remplace pas la journée métier définie dans Bomoi."
+      ],
+      "issues": [
+        {
+          "problem": "La clôture est bloquée",
+          "action": "Consultez les contrôles affichés et traitez les opérations ou comptages concernés avant de recommencer."
+        },
+        {
+          "problem": "Une opération ancienne doit être corrigée",
+          "action": "Demandez le traitement autorisé au responsable ; ne changez pas la date de votre ordinateur pour contourner la période."
+        }
+      ]
+    },
+    {
+      "id": "connexion-presence-incidents",
+      "title": "Connexion, présence et incidents",
+      "intro": "Comprenez ce qui peut continuer pendant une indisponibilité et quand une reconnexion est nécessaire.",
+      "steps": [
+        "En cas d’erreur après enregistrement, consultez d’abord l’historique et le statut de l’opération.",
+        "Si le service central de connexion est indisponible, conservez votre contexte métier tant que votre session reste valide et que le serveur Exchange est accessible.",
+        "À expiration de session, reconnectez-vous lorsque le service de connexion est disponible.",
+        "Pour la supervision, distinguez les agents en ligne dans le module et les observations centrales de présence.",
+        "Transmettez au responsable la référence, le site, la journée et le message d’erreur, sans communiquer de mot de passe."
+      ],
+      "notes": [
+        "Les changements centraux d’accès prennent effet à la prochaine authentification ou au renouvellement ; ils ne coupent pas immédiatement une session métier encore valide.",
+        "La présence centrale remonte périodiquement. Après 90 secondes sans contact, elle devient À confirmer ; le dernier contact peut rester visible 24 heures.",
+        "Une panne du suivi central ne bloque pas les opérations Exchange. En revanche, le serveur Exchange et sa base doivent rester accessibles.",
+        "Cette autonomie après connexion n’est pas un mode de change hors ligne comparable à Bomoi POS."
+      ],
+      "issues": [
+        {
+          "problem": "Le suivi central affiche À confirmer alors que l’agent travaille",
+          "action": "La remontée de présence peut être interrompue. Vérifiez le dernier contact et l’état du service ; ne déduisez pas qu’aucune opération n’est en cours."
+        },
+        {
+          "problem": "Je ne sais pas si une opération a été enregistrée",
+          "action": "Conservez ses références, recherchez-la et faites vérifier son état avant tout nouveau paiement ou remise de devise. Si Demande à vérifier apparaît, utilisez Reprendre la confirmation pour reprendre la même demande."
+        }
+      ]
+    }
+  ]
+}

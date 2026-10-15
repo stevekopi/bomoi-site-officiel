@@ -1,6 +1,5 @@
 import { notFound } from "next/navigation";
-import manual from "../manual/pos-manual.fr.json";
-import erpManual from "../manual/erp-manual.fr.json";
+import { manualCatalog, manualRoutes, legacyStockRoutes, resolveManualRoute } from "../manual/catalog";
 import BomoiSite from "../BomoiSite";
 
 const staticRoutes = [
@@ -16,10 +15,9 @@ const staticRoutes = [
   "actualites",
   "telechargements/bomoi-pos",
   "documentation",
-  "documentation/bomoi-erp",
-  ...erpManual.sections.map(section => `documentation/bomoi-erp/${section.id}`),
-  "documentation/bomoi-pos",
-  ...manual.sections.map(section => `documentation/bomoi-pos/${section.id}`),
+  ...manualRoutes,
+  ...legacyStockRoutes,
+  "documentation/bomoi-school",
   "notes-de-version",
   "partenaires",
   "demonstration",
@@ -32,17 +30,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const route = slug.join("/");
   if(route==="telechargements/bomoi-pos")return {title:"Télécharger Bomoi POS pour Android | Bomoi",description:"Téléchargez l’APK Android signé de Bomoi POS. Installation directe sur téléphone, tablette et terminal POS. Play Store et App Store prochainement.",alternates:{canonical:"https://bomoi.cd/telechargements/bomoi-pos"}};
-  if (route === "documentation/bomoi-erp" || route.startsWith("documentation/bomoi-erp/")) {
-    const chapter = erpManual.sections.find(section => route === `documentation/bomoi-erp/${section.id}`);
-    return { title: chapter ? `${chapter.title} | Manuel Bomoi ERP` : "Manuel utilisateur Bomoi ERP | Bomoi", description: chapter?.intro ?? "Guide d’utilisation du logiciel web Bomoi ERP : stocks, ventes, achats, caisses, rapports et conflits POS.", alternates: { canonical: `https://bomoi.cd/${route}` } };
-  }
-  if (route !== "documentation/bomoi-pos" && !route.startsWith("documentation/bomoi-pos/")) return {};
-  const chapter = manual.sections.find(section => route === `documentation/bomoi-pos/${section.id}`);
-  return {
-    title: chapter ? `${chapter.title} | Manuel Bomoi POS` : "Manuel utilisateur Bomoi POS | Bomoi",
-    description: chapter?.intro ?? "Guide d’utilisation Bomoi POS : ventes, paiements multidevises, reçus, travail hors ligne et dépannage. Manuel PDF téléchargeable.",
-    alternates: { canonical: `https://bomoi.cd/${route}` },
-  };
+  if (route === "documentation/bomoi-school") return { title: "Bomoi School · Documentation à venir | Bomoi", description: "Espace réservé à la documentation du futur module scolaire Bomoi School. Guides en préparation.", alternates: { canonical: "https://bomoi.cd/documentation/bomoi-school" } };
+  if (route === "documentation") return { title: "Documentation Bomoi Stock, Exchange, POS et School | Bomoi", description: "Guides et manuels utilisateurs Bomoi Stock, Bomoi Exchange et Bomoi POS. Espace Bomoi School à venir.", alternates: { canonical: "https://bomoi.cd/documentation" } };
+  const resolved = resolveManualRoute(route);
+  if (!resolved) return {};
+  const metadata = manualCatalog[resolved.product];
+  const chapter = metadata.data.sections.find(section => section.id === resolved.chapterId);
+  const canonical = `https://bomoi.cd/documentation/bomoi-${resolved.product}${resolved.chapterId ? `/${resolved.chapterId}` : ""}`;
+  return { title: chapter ? `${chapter.title} | Manuel ${metadata.name}` : `Manuel utilisateur ${metadata.name} | Bomoi`, description: chapter?.intro ?? metadata.description, alternates: { canonical } };
 }
 
 export function generateStaticParams() {
@@ -51,8 +46,8 @@ export function generateStaticParams() {
 
 export default async function CatchAll({ params }: { params: Promise<{ slug: string[] }> }) {
   const { slug } = await params;
-  if (slug[0] === "documentation" && slug[1] === "bomoi-pos" && slug.length > 2 &&
-      (slug.length !== 3 || !manual.sections.some(section => section.id === slug[2]))) notFound();
-  if (slug[0] === "documentation" && slug[1] === "bomoi-erp" && slug.length > 2 && (slug.length !== 3 || !erpManual.sections.some(section => section.id === slug[2]))) notFound();
+  const resolved = resolveManualRoute(slug.join("/"));
+  if (resolved && (slug.length > 3 || (resolved.chapterId && !manualCatalog[resolved.product].data.sections.some(section => section.id === resolved.chapterId)))) notFound();
+  if (slug[0] === "documentation" && slug[1] === "bomoi-school" && slug.length !== 2) notFound();
   return <BomoiSite route={`/${slug.join("/")}`} />;
 }

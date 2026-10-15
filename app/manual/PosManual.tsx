@@ -1,14 +1,14 @@
 /* eslint-disable @next/next/no-html-link-for-pages, @next/next/no-img-element */
 "use client";
 import { useState } from "react";
-import posManual from "./pos-manual.fr.json";
-import erpManual from "./erp-manual.fr.json";
+import { manualCatalog, type ManualProduct } from "./catalog";
+import { ManualNavigation } from "./DocumentationHub";
 import "./pos-manual.css";
-export default function PosManual({ chapterId, product = "pos" }: { chapterId?: string; product?: "pos" | "erp" }) {
-  const isPos = product === "pos";
-  const manual = isPos ? posManual : erpManual;
+export default function PosManual({ chapterId, product = "pos" }: { chapterId?: string; product?: ManualProduct }) {
+  const metadata = manualCatalog[product];
+  const manual = metadata.data;
   const manualUrl = `/documentation/bomoi-${product}`;
-  const productName = isPos ? "Bomoi POS" : "Bomoi ERP";
+  const productName = metadata.name;
   const pdfUrl = `/documentation/bomoi-${product}-manuel-utilisateur.pdf`;
   const chapterIndex = manual.sections.findIndex(section => section.id === chapterId);
   const chapter = manual.sections[chapterIndex];
@@ -19,22 +19,23 @@ export default function PosManual({ chapterId, product = "pos" }: { chapterId?: 
   const words = normalize(query.trim()).split(/\s+/).filter(Boolean);
   const sections = manual.sections.filter(section => words.every(word => normalize(JSON.stringify(section)).includes(word)));
   return <main className="pos-manual notranslate" lang="fr" dir="ltr" translate="no">
+    <ManualNavigation current={product} />
     {chapter ? <header className="pos-manual-chapter-header">
       <a href={manualUrl} className="pos-manual-back">← Manuel utilisateur {productName}</a>
       <p>Français · Édition du {manual.edition}</p>
       <a className="btn btn-small secondary" href={pdfUrl} download>Télécharger le manuel complet PDF ↓</a>
     </header> : <header className="pos-manual-hero">
       <a href="/documentation" className="pos-manual-back">← Centre de documentation</a>
-      <div className="pos-manual-brand"><img src="/bomoi-logo.png" width="68" height="68" alt="Bomoi" /><span className="eyebrow">GUIDE D’UTILISATION · {isPos ? "ANDROID & IOS" : "APPLICATION WEB"}</span></div>
+      <div className="pos-manual-brand"><img src="/bomoi-logo.png" width="68" height="68" alt="Bomoi" /><span className="eyebrow">GUIDE D’UTILISATION · {metadata.platform}</span></div>
       <h1>Votre quotidien avec <span>{productName}.</span></h1>
-      <p>{isPos ? "Vendre, encaisser, imprimer et travailler hors ligne. Toutes les étapes, les cas particuliers et les solutions aux incidents dans un seul manuel." : "Retrouvez les guides du logiciel web : stocks, ventes, achats, caisses, rapports et traitement des conflits POS."}</p>
+      <p>{metadata.description}</p>
       <div className="pos-manual-actions"><a className="btn" href={pdfUrl} download>Télécharger le manuel PDF ↓</a><span>Français · Édition du {manual.edition} · {manual.sections.length} chapitres</span></div>
-      <div className="pos-manual-safety"><strong>Une vente, un seul encaissement.</strong> {isPos ? "Si l’impression ou la synchronisation échoue, retrouvez d’abord l’opération dans Historique. Conservez les données de l’appareil." : "Avant de ressaisir une opération après une erreur, vérifiez sa présence dans la liste et consultez son état."}</div>
+      <div className="pos-manual-safety"><strong>{metadata.safety}</strong> {metadata.precaution}</div>
     </header>}
     <div className="pos-manual-layout">
       <aside className="pos-manual-sidebar" aria-label="Sommaire du manuel">
         <label htmlFor="pos-manual-search">Rechercher une action ou un problème</label>
-        <input id="pos-manual-search" type="search" value={query} onChange={event => setQuery(event.target.value)} placeholder="Ex. reçu, stock insuffisant…" />
+        <input id="pos-manual-search" type="search" value={query} onChange={event => setQuery(event.target.value)} placeholder={metadata.search} />
         <p role="status">{sections.length} chapitre(s)</p>
         <nav>{sections.map(section => <a key={section.id} href={`${manualUrl}/${section.id}`} aria-current={section.id === chapterId ? "page" : undefined}><span>{String(manual.sections.indexOf(section) + 1).padStart(2, "0")}</span>{section.title}</a>)}</nav>
         <a className="pos-manual-support" href="mailto:contact@bomoi.cd">Besoin d’aide ? contact@bomoi.cd</a>

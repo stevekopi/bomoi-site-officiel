@@ -1,10 +1,10 @@
 {
-  "edition": "11 octobre 2026",
+  "edition": "15 octobre 2026",
   "sections": [
     {
       "id": "connexion",
       "title": "Connexion et choix du site",
-      "intro": "Accédez à votre espace Bomoi ERP avec le compte fourni par votre entreprise.",
+      "intro": "Accédez à votre espace Bomoi Stock avec le compte fourni par votre entreprise.",
       "steps": [
         "Connectez-vous à l’application web avec vos identifiants personnels.",
         "Choisissez le site sur lequel vous allez travailler.",
@@ -20,7 +20,7 @@
         },
         {
           "problem": "Identifiant ou mot de passe refusé",
-          "action": "Vérifiez votre identifiant et la saisie du mot de passe. Vous pouvez réinitialiser votre mot de passe depuis la page d’authentification de Bomoi ERP / Bomoi Web : utilisez l’option de réinitialisation, renseignez l’adresse e-mail associée à votre compte, puis suivez les instructions reçues par e-mail. Vérifiez aussi les courriers indésirables. Si vous n’avez plus accès à cette adresse ou si le problème persiste, contactez votre responsable. Ne communiquez pas votre mot de passe au support."
+          "action": "Vérifiez votre identifiant et la saisie du mot de passe. Vous pouvez réinitialiser votre mot de passe depuis la page d’authentification de Bomoi Stock / Bomoi Web : utilisez l’option de réinitialisation, renseignez l’adresse e-mail associée à votre compte, puis suivez les instructions reçues par e-mail. Vérifiez aussi les courriers indésirables. Si vous n’avez plus accès à cette adresse ou si le problème persiste, contactez votre responsable. Ne communiquez pas votre mot de passe au support."
         }
       ]
     },
