@@ -29,9 +29,9 @@ const staticRoutes = [
 export async function generateMetadata({ params }: { params: Promise<{ slug: string[] }> }) {
   const { slug } = await params;
   const route = slug.join("/");
-  if(route==="telechargements/bomoi-pos")return {title:"Télécharger Bomoi POS pour Android | Bomoi",description:"Téléchargez l’APK Android signé de Bomoi POS. Installation directe sur téléphone, tablette et terminal POS. Play Store et App Store prochainement.",alternates:{canonical:"https://bomoi.cd/telechargements/bomoi-pos"}};
+  if(route==="telechargements/bomoi-pos")return {title:"Télécharger Bomoi-Stock POS pour Android | Bomoi",description:"Téléchargez l’APK Android signé de Bomoi-Stock POS. Installation directe sur téléphone, tablette et terminal POS. Play Store et App Store prochainement.",alternates:{canonical:"https://bomoi.cd/telechargements/bomoi-pos"}};
   if (route === "documentation/bomoi-school") return { title: "Bomoi School · Documentation à venir | Bomoi", description: "Espace réservé à la documentation du futur module scolaire Bomoi School. Guides en préparation.", alternates: { canonical: "https://bomoi.cd/documentation/bomoi-school" } };
-  if (route === "documentation") return { title: "Documentation Bomoi Stock, Exchange, POS et School | Bomoi", description: "Guides et manuels utilisateurs Bomoi Stock, Bomoi Exchange et Bomoi POS. Espace Bomoi School à venir.", alternates: { canonical: "https://bomoi.cd/documentation" } };
+  if (route === "documentation") return { title: "Documentation Bomoi Stock, Exchange, POS et School | Bomoi", description: "Guides et manuels utilisateurs Bomoi Stock, Bomoi Exchange et Bomoi-Stock POS. Espace Bomoi School à venir.", alternates: { canonical: "https://bomoi.cd/documentation" } };
   const resolved = resolveManualRoute(route);
   if (!resolved) return {};
   const metadata = manualCatalog[resolved.product];
