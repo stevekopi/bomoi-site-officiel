@@ -1,14 +1,14 @@
 {
-  "version": "0.1.1",
+  "version": "0.1.2",
   "date": "21 octobre 2026",
-  "bytes": 106433326,
-  "sha256": "0f75d20b2e5fd995b351d32f53173eba1fa314090225d0ea3278d9de4208e337",
-  "path": "/downloads/Bomoi-Stock-Client-0.1.1.apk",
-  "source": "https://expo.dev/artifacts/eas/q9gNoiakYGfnNAFxHpZ4ubaZrDtudlKNQ9hAXvmFsyQ.apk",
+  "bytes": 106483806,
+  "sha256": "a25c7aff6fe2b45a820dc599ce51570a4ebbf66de542259d562cc015c123aa4f",
+  "path": "/downloads/Bomoi-Stock-Client-0.1.2.apk",
+  "source": "https://bomoi.cd/downloads/Bomoi-Stock-Client-0.1.2.apk",
   "minimumAndroid": "7",
   "minSdk": 24,
   "androidPackage": "com.bomoi.stock.customer",
-  "versionCode": 2,
+  "versionCode": 3,
   "certificateSha256": "555945d0e9cd6a4e459b31456439ddccbff79081dbabcf4083261e993b86e959",
-  "buildId": "91207816-5b40-4bfb-9a53-48bf747a95ea"
+  "buildMethod": "eas-local-preview"
 }

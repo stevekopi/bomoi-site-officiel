@@ -2,14 +2,14 @@
 
 Pages : `/telechargements/bomoi-pos/` et `/telechargements/bomoi-stock-client/`.
 Les APK signés sont décrits par `app/pos-release.json` et
-`app/stock-client-release.json` : source Expo publique, version, taille, chemin
+`app/stock-client-release.json` : source de téléchargement publique, version, taille, chemin
 et empreinte SHA-256. Les boutiques restent explicitement indisponibles.
 
 `npm run prepare:apk` vérifie et restaure les APK courants dans `public/downloads`.
 Les binaires sont exclus de Git. Cette restauration est automatique avec
 `npm run build`, `npm run build:iis` et `npm run package:iis`. Une nouvelle version
 nécessite les nouvelles métadonnées vérifiées, puis un nouveau build du site.
-Le lien principal utilise Expo ; le second est servi par le propre serveur du site.
+Le lien principal utilise la source décrite dans les métadonnées ; le second est servi par le propre serveur du site. Pour le client 0.1.2 compilé localement, les deux liens utilisent le site officiel.
 
 Le paquet Node `out` contient les binaires dans `out/public/downloads`, les PDF,
 les ressources et le serveur. Ce n’est plus un export HTML statique. Le workflow
@@ -53,3 +53,9 @@ préparé dans public/downloads/Bomoi-Stock-Client-0.1.1.apk et dans le paquet I
 Build du site et 27 tests réussis ; page et liens vérifiés dans l’aperçu local.
 Aucun push Git ni déploiement VPS effectué. Le push reste réalisé par l’utilisateur,
 puis pull/build et redémarrage Node sur son VPS, suivant README-IIS.md.
+
+## Espace client 0.1.2 — 21 octobre 2026
+
+APK compilé localement avec EAS preview, versionCode 3 et certificat identique à la 0.1.1. Stockage des historiques sur le téléphone et synchronisation au retour du réseau. Le fichier courant est `public/downloads/Bomoi-Stock-Client-0.1.2.apk` ; sa taille et son SHA-256 sont enregistrés dans `app/stock-client-release.json`.
+
+Cette compilation locale ne possède pas de téléchargement Expo public. La source de téléchargement est donc le site officiel. Avant le premier build de cette version sur le VPS, transférer ce fichier APK dans `public/downloads/` du checkout du site : les APK sont exclus de Git, un pull seul ne récupère pas le nouveau binaire. `npm run package:iis` vérifie le fichier et l’intègre dans `out/public/downloads/`. La restauration depuis l’URL publique fonctionne une fois cette version effectivement publiée. Ne pas supprimer les données persistantes des compteurs.
