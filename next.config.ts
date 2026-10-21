@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: "export",
+  output: "standalone",
   trailingSlash: true,
   images: { unoptimized: true },
   // The IIS build is type-checked separately because the repository also

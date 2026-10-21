@@ -44,3 +44,6 @@ next-env.d.ts
 
 # Signed Android binaries are restored from verified release metadata.
 /public/downloads/*.apk
+
+/.iis-package-*/
+/.iis-previous-*/

@@ -1,0 +1,287 @@
+{
+  "title": "Manuel utilisateur Bomoi Stock - Espace client",
+  "edition": "21 octobre 2026",
+  "version": "0.1.0",
+  "sections": [
+    {
+      "id": "installation",
+      "title": "Installer et mettre à jour l’application",
+      "intro": "Bomoi Stock - Espace client permet aux clients d’une entreprise de consulter leurs commandes, achats, livraisons, paiements et comptes personnels. Le téléchargement direct proposé ici concerne Android.",
+      "steps": [
+        "Depuis le navigateur de votre téléphone Android, ouvrez Téléchargements puis Bomoi Stock - Espace client sur le site officiel bomoi.cd.",
+        "Téléchargez le fichier APK et attendez la fin du téléchargement avant de l’ouvrir.",
+        "Si Android le demande, autorisez votre navigateur à installer cette application, puis suivez les indications du téléphone. Vous pouvez retirer cette autorisation après l’installation.",
+        "Ouvrez Bomoi Stock - Espace client et connectez-vous avec le compte client fourni par votre entreprise.",
+        "Pour une mise à jour, téléchargez la nouvelle version officielle et installez-la par-dessus la version existante."
+      ],
+      "notes": [
+        "L’APK est une application autonome : Expo Go n’est pas nécessaire. Il ne s’installe pas sur iPhone.",
+        "Les liens Play Store et App Store ne sont pas encore disponibles. Aucune date de publication sur ces boutiques n’est annoncée.",
+        "L’espace client consulte les informations du serveur et nécessite une connexion Internet. Il ne permet pas de saisir des ventes ou de travailler hors ligne."
+      ],
+      "issues": [
+        {
+          "problem": "Le fichier ne s’installe pas",
+          "action": "Vérifiez l’espace disponible et la fin du téléchargement. Supprimez uniquement le fichier téléchargé et réessayez depuis bomoi.cd. Si le problème persiste, contactez votre entreprise en indiquant le modèle du téléphone et le message affiché."
+        }
+      ]
+    },
+    {
+      "id": "connexion",
+      "title": "Se connecter et protéger son accès",
+      "intro": "L’application est réservée aux comptes de type client autorisés par l’entreprise. Elle ouvre directement votre espace personnel, sans choix de poste de vente, de caisse ou de journée.",
+      "steps": [
+        "Saisissez votre identifiant et votre mot de passe, puis appuyez sur Se connecter.",
+        "Touchez l’icône en forme d’œil dans le champ du mot de passe pour vérifier la saisie. Touchez-la à nouveau pour masquer le mot de passe.",
+        "Si un code de sécurité est demandé, saisissez le code de vérification prévu pour votre compte.",
+        "À l’ouverture, vérifiez le nom de l’entreprise et votre identité avant de consulter vos documents."
+      ],
+      "notes": [
+        "Aucune adresse de serveur n’est à saisir dans l’application officielle.",
+        "Ne communiquez jamais votre mot de passe ni votre code de vérification. Une session expirée nécessite une reconnexion."
+      ],
+      "issues": [
+        {
+          "problem": "Mon compte est refusé",
+          "action": "Vérifiez la saisie. Demandez à l’entreprise de confirmer que votre compte est actif, de type client et associé à votre fiche. Un compte vendeur ou administrateur ne peut pas utiliser ce parcours."
+        },
+        {
+          "problem": "Le clavier cache un champ",
+          "action": "Touchez le champ et faites défiler la page si nécessaire. Fermez le clavier pour accéder aux actions placées plus bas."
+        }
+      ]
+    },
+    {
+      "id": "accueil",
+      "title": "Se repérer dans son espace client",
+      "intro": "L’accueil rassemble votre identité, votre photo lorsqu’elle est renseignée et des raccourcis vers les informations accessibles à votre compte.",
+      "steps": [
+        "Vérifiez votre nom et le nom de l’entreprise dans l’en-tête.",
+        "Utilisez les onglets Accueil, Activité, Comptes et Profil pour changer de rubrique.",
+        "Touchez un raccourci de l’accueil pour ouvrir la rubrique correspondante.",
+        "Faites glisser la page vers le bas pour actualiser l’accueil ou le profil. Dans les listes et relevés, utilisez les commandes d’actualisation proposées."
+      ],
+      "notes": [
+        "Les rubriques et compteurs dépendent des autorisations de votre entreprise.",
+        "Les brouillons, les opérations annulées et les documents supprimés ne sont pas présentés dans l’espace client. Un document peut disparaître après son annulation ou une modification de vos droits.",
+        "Une connexion réseau disponible ne garantit pas que le service de l’entreprise soit momentanément accessible."
+      ],
+      "issues": []
+    },
+    {
+      "id": "commandes",
+      "title": "Consulter ses commandes et leurs détails",
+      "intro": "Mes commandes présente les commandes publiées et non annulées qui vous concernent. Le récapitulatif par état aide à distinguer les commandes confirmées et les livraisons en cours ou terminées.",
+      "steps": [
+        "Dans Activité, choisissez Mes commandes.",
+        "Recherchez un numéro puis ouvrez la commande souhaitée. Utilisez les pages suivantes ou précédentes pour parcourir la liste.",
+        "Consultez les articles, quantités, prix, montant payé et reste à payer.",
+        "Consultez les paiements et livraisons liés lorsque ces rubriques sont autorisées.",
+        "Fermez le détail avec la croix située dans son en-tête pour revenir à la liste."
+      ],
+      "notes": [
+        "Les couleurs distinguent les étapes : une confirmation utilise une teinte chaude et une livraison terminée une teinte verte.",
+        "Les remises et taxes nulles sont masquées. Le montant payé reste affiché, même s’il vaut zéro.",
+        "Une commande partiellement livrée n’est pas encore entièrement exécutée. Le paiement et la livraison sont deux suivis différents.",
+        "L’application permet de consulter la commande ; toute correction ou contestation doit être adressée à l’entreprise."
+      ],
+      "issues": []
+    },
+    {
+      "id": "achats",
+      "title": "Retrouver ses achats",
+      "intro": "Mes achats correspond aux ventes enregistrées par l’entreprise à votre nom. Cette rubrique est distincte du suivi des commandes et n’est affichée que si votre accès l’autorise.",
+      "steps": [
+        "Ouvrez Activité puis Mes achats.",
+        "Recherchez le numéro de l’opération ou parcourez les pages de l’historique.",
+        "Ouvrez un achat pour consulter les informations disponibles, sa date, son montant et sa devise."
+      ],
+      "notes": [
+        "Seuls vos propres achats publiés et non annulés sont visibles.",
+        "Ne comparez pas directement des montants de devises différentes. Pour comprendre une différence de solde, consultez le compte et son relevé dans la bonne devise."
+      ],
+      "issues": []
+    },
+    {
+      "id": "livraisons",
+      "title": "Suivre ses livraisons et identifier le stockage",
+      "intro": "Mes livraisons permet de retrouver les livraisons confirmées et les informations de tournée disponibles. Les livraisons annulées sont exclues, y compris dans le détail d’une commande.",
+      "steps": [
+        "Dans Activité, ouvrez Mes livraisons.",
+        "Recherchez par numéro, nom de l’agent de livraison, nom du stockage ou nom de son type lorsque ces informations sont disponibles.",
+        "Ouvrez la livraison pour consulter son état, sa date, la commande liée et les informations d’acheminement.",
+        "Pour suivre l’ensemble d’une commande, revenez à Mes commandes puis ouvrez ses livraisons associées."
+      ],
+      "notes": [
+        "Le libellé du stockage reprend son type, par exemple Véhicule ou Coffre-fort, puis affiche son nom.",
+        "Une livraison sans tournée peut ne pas comporter d’agent ou de stockage de tournée.",
+        "La confirmation reflète l’enregistrement effectué par l’entreprise. En cas d’écart avec la livraison reçue, contactez-la avec le numéro concerné."
+      ],
+      "issues": []
+    },
+    {
+      "id": "paiements-operations",
+      "title": "Consulter paiements et opérations tierces",
+      "intro": "Mes paiements rassemble les règlements de commandes. Mes opérations tierces présente les opérations liées à vos comptes, par exemple les dépôts et retraits, selon vos autorisations.",
+      "steps": [
+        "Ouvrez Activité et choisissez Mes paiements ou Mes opérations tierces.",
+        "Recherchez le numéro puis ouvrez le détail de l’opération.",
+        "Vérifiez la date, le montant et la devise. Lorsqu’ils sont renseignés, comparez le montant reçu, la devise reçue, la monnaie rendue et le taux appliqué.",
+        "Pour un paiement de commande, retrouvez la référence de la commande et vérifiez son montant payé et son reste à payer."
+      ],
+      "notes": [
+        "Un montant remis dans une devise différente du compte ne se compare pas directement au montant du compte. Consultez les informations de conversion enregistrées.",
+        "Les opérations annulées ne sont pas visibles. Les montants sont ceux enregistrés par l’entreprise ; aucune correction financière ne peut être saisie depuis cet espace."
+      ],
+      "issues": []
+    },
+    {
+      "id": "comptes",
+      "title": "Comprendre ses comptes et les couleurs du solde",
+      "intro": "L’onglet Comptes présente les comptes personnels autorisés, avec leur devise et leur situation. Les couleurs expriment le sens du solde du point de vue du client.",
+      "steps": [
+        "Ouvrez Comptes et repérez le compte, le site éventuel et la devise.",
+        "En rouge, Vous devez signifie que vous devez ce montant à l’entreprise.",
+        "En vert, le message indique que l’entreprise vous doit ce montant.",
+        "Un compte soldé présente un solde nul.",
+        "Touchez Consulter le relevé pour examiner les écritures du compte."
+      ],
+      "notes": [
+        "Les comptes de devises différentes restent séparés. Ne les additionnez pas pour obtenir une dette globale.",
+        "Un compte archivé peut rester consultable pour son historique.",
+        "La date de consultation et les opérations récentes peuvent expliquer une différence avec un ancien document. Actualisez les informations avant de contacter l’entreprise."
+      ],
+      "issues": []
+    },
+    {
+      "id": "releves",
+      "title": "Lire son relevé de compte",
+      "intro": "Le relevé présente le report de début, les mouvements de la période et le solde de fin. Les montants proviennent des écritures du serveur.",
+      "steps": [
+        "Depuis Comptes, appuyez sur Consulter le relevé du compte souhaité.",
+        "Vérifiez la devise et la période. Par défaut, le relevé s’ouvre du premier jour du mois jusqu’à aujourd’hui.",
+        "Pour changer de période, renseignez les dates au format AAAA-MM-JJ, avec la date de début avant ou égale à la date de fin, puis appliquez.",
+        "Lisez les repères Report, Débit, Crédit et Solde de fin. Un solde positif signifie que vous devez ; un solde négatif indique un montant en votre faveur.",
+        "Choisissez la présentation en tableau ou en liste. Sur un petit écran, faites défiler le tableau horizontalement pour lire toutes les colonnes.",
+        "Parcourez les pages pour retrouver la date, la référence, le libellé, le débit, le crédit et le solde après chaque écriture."
+      ],
+      "notes": [
+        "Le report correspond au solde avant la date de début. La pagination conserve la continuité du solde.",
+        "Les livraisons de commandes sont identifiées explicitement dans le libellé.",
+        "Les transactions annulées et leurs contre-écritures ne sont pas affichées dans le relevé client. Leur historique reste conservé par l’entreprise.",
+        "Une période sans mouvement peut conserver un report et un solde non nuls. Un zéro affiché est une valeur, pas une erreur."
+      ],
+      "issues": [
+        {
+          "problem": "Je ne comprends pas un mouvement",
+          "action": "Relevez la référence, la date, le compte et sa devise, puis demandez une explication à l’entreprise. Ne rapprochez pas un dépôt ou un retrait d’un autre compte par son seul montant."
+        }
+      ]
+    },
+    {
+      "id": "profil-photo",
+      "title": "Consulter son profil et changer sa photo",
+      "intro": "Le profil affiche vos informations personnelles et les sites associés disponibles. Votre photo est aussi reprise sur l’accueil.",
+      "steps": [
+        "Ouvrez Profil et vérifiez les coordonnées affichées.",
+        "Utilisez l’action de changement de photo et autorisez l’accès aux photos lorsque le téléphone le demande.",
+        "Choisissez une image, vérifiez son aperçu puis enregistrez-la. Vous pouvez annuler avant l’enregistrement.",
+        "Attendez la fin de l’envoi, puis vérifiez le résultat dans le profil et sur l’accueil."
+      ],
+      "notes": [
+        "Choisissez une photo JPG ou PNG de 5 Mo maximum. Une image trop volumineuse ou un réseau indisponible peut empêcher l’envoi.",
+        "Sans photo disponible, des initiales peuvent représenter votre profil.",
+        "Pour modifier les autres coordonnées, contactez l’entreprise. La personnalisation des thèmes se trouve dans les paramètres, pas dans le profil."
+      ],
+      "issues": [
+        {
+          "problem": "L’enregistrement échoue",
+          "action": "Vérifiez le réseau, l’autorisation d’accès aux photos et la taille de l’image. Réessayez avec une autre photo plus légère. Si le problème persiste, transmettez le message d’erreur à l’entreprise sans communiquer votre mot de passe."
+        }
+      ]
+    },
+    {
+      "id": "apparence",
+      "title": "Choisir les thèmes et la couleur",
+      "intro": "Les paramètres permettent d’adapter l’apparence de l’application. La préférence est conservée sur cet appareil.",
+      "steps": [
+        "Touchez l’icône en forme d’engrenage dans l’en-tête.",
+        "Choisissez le thème clair, sombre ou automatique selon le système.",
+        "Choisissez une couleur d’accent parmi les palettes proposées.",
+        "Fermez les paramètres pour reprendre la consultation."
+      ],
+      "notes": [
+        "Le mode automatique suit le réglage clair ou sombre du téléphone.",
+        "Le changement de thème ne modifie pas vos comptes, vos documents ni leur état.",
+        "Sur iPhone, les en-têtes et boutons de fermeture tiennent compte des zones de sécurité du téléphone."
+      ],
+      "issues": []
+    },
+    {
+      "id": "notifications",
+      "title": "Activer et utiliser les notifications",
+      "intro": "Lorsque le service est activé par l’entreprise et disponible sur votre version installée, les notifications vous signalent les confirmations de commandes, achats, livraisons, paiements de commande et opérations tierces.",
+      "steps": [
+        "Dans les paramètres, appuyez sur Activer les notifications.",
+        "Acceptez l’autorisation proposée par le téléphone.",
+        "À la réception, lisez le type de confirmation. Touchez la notification pour ouvrir le document correspondant dans votre espace client.",
+        "Si une reconnexion est demandée, reconnectez-vous avec votre compte client avant de consulter les informations."
+      ],
+      "notes": [
+        "La disponibilité dépend de l’activation du service par l’entreprise et des autorisations du téléphone. Installer l’APK ne garantit pas à lui seul que le service soit déjà actif.",
+        "Les opérations annulées ne donnent pas lieu à une notification mobile d’annulation. Un document devenu inaccessible ne peut plus être ouvert.",
+        "Les notifications ne constituent pas une preuve de lecture ou de remise physique. Vérifiez les informations de la commande et de la livraison.",
+        "Le mode silencieux, les réglages d’économie d’énergie et les autorisations du système peuvent influer sur l’affichage."
+      ],
+      "issues": [
+        {
+          "problem": "Je ne reçois rien",
+          "action": "Vérifiez les autorisations de notification de Bomoi Client dans les réglages du téléphone, puis reconnectez-vous et réessayez l’activation. Si le problème persiste, demandez à l’entreprise si le service est activé pour votre version."
+        }
+      ]
+    },
+    {
+      "id": "securite",
+      "title": "Se déconnecter et utiliser un appareil partagé",
+      "intro": "Votre espace client contient des informations personnelles et financières. Gardez le contrôle de votre compte, notamment sur un téléphone partagé.",
+      "steps": [
+        "Vérifiez votre identité et l’entreprise à chaque connexion.",
+        "Utilisez le bouton de déconnexion dans l’en-tête, puis confirmez la fermeture de votre espace.",
+        "Avant de confier le téléphone à une autre personne, vérifiez que la page de connexion est affichée.",
+        "Si le téléphone est perdu ou si vous suspectez un accès non autorisé, contactez rapidement l’entreprise."
+      ],
+      "notes": [
+        "La déconnexion demande aussi la désactivation des notifications de ce compte sur l’appareil. Cette démarche nécessite une connexion réseau ; signalez tout message d’échec.",
+        "Ne partagez pas vos identifiants et évitez les captures d’écran contenant des montants ou coordonnées personnelles dans les échanges publics.",
+        "L’application ne permet pas d’accéder aux documents d’un autre client. Une rubrique absente peut correspondre à une autorisation non accordée."
+      ],
+      "issues": []
+    },
+    {
+      "id": "aide",
+      "title": "Résoudre les incidents courants",
+      "intro": "En cas d’écart ou de blocage, commencez par actualiser les informations et relever le message exact. Votre entreprise reste l’interlocuteur pour les comptes, documents et autorisations.",
+      "steps": [
+        "Si le serveur est indisponible, vérifiez Internet puis réessayez plus tard. Une page vide pendant un chargement n’est pas un solde nul.",
+        "Si une rubrique ou un document manque, vérifiez votre identité, actualisez et contactez l’entreprise avec la référence recherchée.",
+        "Après une mise à jour, fermez puis rouvrez l’application. Vérifiez également le numéro de version installé.",
+        "Pour demander de l’aide, indiquez le modèle du téléphone, la version de l’application, l’heure de l’incident et le message affiché."
+      ],
+      "notes": [
+        "Un document annulé, supprimé ou devenu non autorisé ne doit plus être visible.",
+        "Ne créez pas une nouvelle opération pour résoudre un problème d’affichage : cet espace est destiné à la consultation.",
+        "Les montants de l’application ne doivent jamais être corrigés par un calcul local ou une addition de devises différentes."
+      ],
+      "issues": [
+        {
+          "problem": "Une page ne se ferme pas",
+          "action": "Fermez le clavier si nécessaire puis utilisez la croix dans l’en-tête. Si elle reste inaccessible, fermez et rouvrez l’application, puis signalez le modèle du téléphone et la page concernée."
+        },
+        {
+          "problem": "Mon solde semble incorrect",
+          "action": "Vérifiez le compte, la devise, la période du relevé et son report. Contactez ensuite l’entreprise avec les références des écritures concernées."
+        }
+      ]
+    }
+  ]
+}

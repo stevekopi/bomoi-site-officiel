@@ -1,13 +1,14 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { launchSite } from "./site-server.mjs";
+const siteWorker = await launchSite();
+test.after(() => siteWorker.stop());
 
 const developmentPreviewMeta =
   /<meta(?=[^>]*\bname=["']codex-preview["'])(?=[^>]*\bcontent=["']development["'])[^>]*>/i;
 
 test("renders production HTML without temporary development preview metadata", async () => {
-  const workerUrl = new URL("../dist/server/index.js", import.meta.url);
-  workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
-  const { default: worker } = await import(workerUrl.href);
+  const worker = siteWorker;
 
   const response = await worker.fetch(
     new Request("http://localhost/", {
@@ -35,7 +36,7 @@ test("renders production HTML without temporary development preview metadata", a
 import { readFile } from "node:fs/promises";
 
 test("manual index links to twenty autonomous pages and a PDF download", async () => {
-  const { default: worker } = await import("../dist/server/index.js");
+  const worker = siteWorker;
   const response = await worker.fetch(new Request("http://localhost/documentation/bomoi-pos/", { headers: { accept: "text/html" } }), { ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) } }, { waitUntil() {}, passThroughOnException() {} });
   assert.equal(response.status, 200);
   const html = await response.text();
@@ -58,7 +59,7 @@ test("manual download is a committed PDF and chapter anchors are unique", async 
 
 
 test("manual chapters render independently with their own title and previous/next navigation", async () => {
-  const { default: worker } = await import("../dist/server/index.js");
+  const worker = siteWorker;
   const manual = JSON.parse(await readFile(new URL("../app/manual/pos-manual.fr.json", import.meta.url), "utf8"));
   for (const [index, chapter] of manual.sections.entries()) {
     const response = await worker.fetch(new Request(`http://localhost/documentation/bomoi-pos/${chapter.id}/`, { headers: { accept: "text/html" } }), { ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) } }, { waitUntil() {}, passThroughOnException() {} });
@@ -75,13 +76,13 @@ test("manual chapters render independently with their own title and previous/nex
 });
 
 test("unknown manual chapter returns 404", async () => {
-  const { default: worker } = await import("../dist/server/index.js");
+  const worker = siteWorker;
   const response = await worker.fetch(new Request("http://localhost/documentation/bomoi-pos/unknown-chapter/", { headers: { accept: "text/html" } }), { ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) } }, { waitUntil() {}, passThroughOnException() {} });
   assert.equal(response.status, 404);
 });
 
 async function fetchPage(path) {
-  const { default: worker } = await import("../dist/server/index.js");
+  const worker = siteWorker;
   return worker.fetch(new Request(`http://localhost${path}/`, { headers: { accept: "text/html" } }),
     { ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) } },
     { waitUntil() {}, passThroughOnException() {} });
@@ -141,4 +142,48 @@ test("Stock and Exchange downloads exist and the ERP PDF remains a Stock alias",
   const legacy = await readFile(new URL("../public/documentation/bomoi-erp-manuel-utilisateur.pdf", import.meta.url));
   for (const pdf of [stock, exchange]) { assert.equal(pdf.subarray(0, 5).toString(), "%PDF-"); assert.ok(pdf.length > 20000); }
   assert.deepEqual(legacy, stock);
+});
+
+
+test("Client mobile guide has searchable chapters, canonical URLs, navigation, PDF and no private configuration", async () => {
+  const manual = JSON.parse(await readFile(new URL("../app/manual/stock-client-manual.fr.json", import.meta.url), "utf8"));
+  assert.equal(manual.sections.length, 14); assert.equal(new Set(manual.sections.map(s => s.id)).size, 14);
+  assert.doesNotMatch(JSON.stringify(manual), /192\.168\.|CustomerPush__|google-services|migration|EAS_PROJECT|localhost|Bearer /i);
+  const hub = await fetchPage("/documentation"); assert.match(await hub.text(), /documentation\/bomoi-stock-client/);
+  const index = await fetchPage("/documentation/bomoi-stock-client"); const html = await index.text();
+  assert.equal(index.status, 200); assert.equal((html.match(/class="pos-manual-card"/g) ?? []).length, 14);
+  assert.match(html, /pos-manual-search/); assert.match(html, /bomoi-stock-client-manuel-utilisateur\.pdf/);
+  for (const chapter of manual.sections) {
+    const response = await fetchPage(`/documentation/bomoi-stock-client/${chapter.id}`); const page = await response.text();
+    assert.equal(response.status, 200, chapter.id);
+    assert.ok(page.includes(chapter.title + " | Manuel Bomoi Stock - Espace client"));
+    assert.ok(page.includes(`https://bomoi.cd/documentation/bomoi-stock-client/${chapter.id}`));
+    assert.equal((page.match(/class="pos-manual-chapter"/g) ?? []).length, 1);
+  }
+  assert.equal((await fetchPage("/documentation/bomoi-stock-client/inconnu")).status, 404);
+  const pdf = await readFile(new URL("../public/documentation/bomoi-stock-client-manuel-utilisateur.pdf", import.meta.url));
+  assert.equal(pdf.subarray(0,5).toString(), "%PDF-"); assert.ok(pdf.length > 20000);
+});
+test("Client APK download is distinct from POS with exact verified metadata and no fictitious iOS download", async () => {
+  const release = JSON.parse(await readFile(new URL("../app/stock-client-release.json", import.meta.url), "utf8"));
+  const response = await fetchPage("/telechargements/bomoi-stock-client"); const html = await response.text();
+  assert.equal(response.status, 200); assert.ok(html.includes(release.source)); assert.ok(html.includes(release.path));
+  assert.ok(html.includes(release.sha256)); assert.match(html, /bomoi-stock-client-manuel|documentation\/bomoi-stock-client/);
+  assert.match(html, /App Store — indisponible/); assert.doesNotMatch(html, /href="[^\"]*\.ipa/);
+  const {createHash} = await import("node:crypto"); const {createReadStream} = await import("node:fs");
+  const hash = createHash("sha256"); let bytes = 0;
+  for await (const chunk of createReadStream(new URL(`../public${release.path}`, import.meta.url))) { hash.update(chunk); bytes += chunk.length; }
+  assert.equal(bytes, release.bytes); assert.equal(hash.digest("hex"), release.sha256);
+});
+
+test("each available application has a shared-download counter and working direct fallback links", async () => {
+  for (const [application, manifest] of [["bomoi-pos", "pos-release.json"], ["bomoi-stock-client", "stock-client-release.json"]]) {
+    const release = JSON.parse(await readFile(new URL(`../app/${manifest}`, import.meta.url), "utf8"));
+    const html = await (await fetchPage(`/telechargements/${application}`)).text();
+    assert.equal((html.match(/class="download-statistic"/g) ?? []).length, 1);
+    assert.match(html, /téléchargements/); assert.match(html, /aria-live="polite"/);
+    assert.ok(html.includes(`href="${release.source}"`));
+    assert.ok(html.includes(`href="${release.path}"`));
+    assert.doesNotMatch(html, /<strong>0<\/strong>/);
+  }
 });
