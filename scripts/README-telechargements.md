@@ -43,3 +43,13 @@ Le nombre représente les lancements depuis les boutons, toutes versions confond
 Les téléchargements historiques, liens directs hors boutons, transferts terminés
 et installations ne sont pas mesurés. Le suivi reste indicatif : blocage réseau ou
 anti-traceur peut sous-compter ; un client automatisé peut simuler les demandes.
+
+## Espace client 0.1.1 — 21 octobre 2026
+
+Bomoi Stock Client 0.1.1 (versionCode 2) remplace 0.1.0 dans les liens courants.
+Le package Android et le certificat de signature sont conservés. Source Expo,
+taille et SHA-256 vérifiés dans app/stock-client-release.json. Le fichier est
+préparé dans public/downloads/Bomoi-Stock-Client-0.1.1.apk et dans le paquet IIS.
+Build du site et 27 tests réussis ; page et liens vérifiés dans l’aperçu local.
+Aucun push Git ni déploiement VPS effectué. Le push reste réalisé par l’utilisateur,
+puis pull/build et redémarrage Node sur son VPS, suivant README-IIS.md.
