@@ -5,7 +5,7 @@ import { Readable } from "node:stream";
 import { pipeline } from "node:stream/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-for (const metadata of ["pos-release.json", "stock-client-release.json"]) {
+for (const metadata of ["pos-release.json", "exchange-pos-release.json", "stock-client-release.json"]) {
 const release=JSON.parse(await readFile(new URL(`../app/${metadata}`,import.meta.url),"utf8"));
 const file=new URL(`../public${release.path}`,import.meta.url);
 async function valid(target){try{const hash=createHash("sha256");let bytes=0;for await(const chunk of createReadStream(target)){hash.update(chunk);bytes+=chunk.length}return bytes===release.bytes&&hash.digest("hex")===release.sha256}catch{return false}}

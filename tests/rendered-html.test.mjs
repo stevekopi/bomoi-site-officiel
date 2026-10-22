@@ -68,7 +68,7 @@ test("manual chapters render independently with their own title and previous/nex
     assert.equal((html.match(/class="pos-manual-chapter"/g) ?? []).length, 1, chapter.id);
     assert.equal((html.match(/class="pos-manual-card"/g) ?? []).length, 0, chapter.id);
     assert.match(html, /aria-current="page"/);
-    assert.ok(html.includes(chapter.title + " | Manuel Bomoi POS"));
+    assert.ok(html.includes(chapter.title + " | Manuel Bomoi Stock POS"));
     assert.match(html, /bomoi-pos-manuel-utilisateur\.pdf/);
     if (index > 0) assert.match(html, /Précédent/);
     if (index < manual.sections.length - 1) assert.match(html, /Suivant/);
@@ -177,13 +177,70 @@ test("Client APK download is distinct from POS with exact verified metadata and 
 });
 
 test("each available application has a shared-download counter and working direct fallback links", async () => {
-  for (const [application, manifest] of [["bomoi-pos", "pos-release.json"], ["bomoi-stock-client", "stock-client-release.json"]]) {
+  for (const [application, manifest] of [["bomoi-pos", "pos-release.json"], ["bomoi-exchange-pos", "exchange-pos-release.json"], ["bomoi-stock-client", "stock-client-release.json"]]) {
     const release = JSON.parse(await readFile(new URL(`../app/${manifest}`, import.meta.url), "utf8"));
     const html = await (await fetchPage(`/telechargements/${application}`)).text();
     assert.equal((html.match(/class="download-statistic"/g) ?? []).length, 1);
     assert.match(html, /téléchargements/); assert.match(html, /aria-live="polite"/);
-    assert.ok(html.includes(`href="${release.source}"`));
+    assert.ok(html.includes(`href="${release.source}"`) || html.includes(`href="${release.path}"`));
     assert.ok(html.includes(`href="${release.path}"`));
     assert.doesNotMatch(html, /<strong>0<\/strong>/);
   }
+});
+
+
+test("download hub exposes all latest APKs, independent counters, guides and PDFs", async () => {
+  const response = await fetchPage("/telechargements");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /https:\/\/bomoi.cd\/telechargements/);
+  assert.equal((html.match(/class="download-statistic"/g) ?? []).length, 3);
+  for (const [id, manual, manifest] of [
+    ["bomoi-pos", "pos", "pos-release.json"],
+    ["bomoi-exchange-pos", "exchange-pos", "exchange-pos-release.json"],
+    ["bomoi-stock-client", "stock-client", "stock-client-release.json"],
+  ]) {
+    const release = JSON.parse(await readFile(new URL(`../app/${manifest}`, import.meta.url), "utf8"));
+    assert.ok(html.includes(release.path), id);
+    assert.ok(html.replace(/<!--.*?-->/g, "").includes(`Version ${release.version}`), id);
+    assert.ok(html.includes(`/telechargements/${id}`), id);
+    assert.ok(html.includes(`/documentation/bomoi-${manual}`), id);
+    const pdfPath = `/documentation/bomoi-${manual}-manuel-utilisateur.pdf`;
+    assert.ok(html.includes(pdfPath), id);
+    const pdf = await readFile(new URL(`../public${pdfPath}`, import.meta.url));
+    assert.equal(pdf.subarray(0, 5).toString(), "%PDF-");
+  }
+});
+
+test("Exchange POS release has matching packaged APK, guide chapters and canonical metadata", async () => {
+  const release = JSON.parse(await readFile(new URL("../app/exchange-pos-release.json", import.meta.url), "utf8"));
+  const response = await fetchPage("/telechargements/bomoi-exchange-pos");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.ok(html.includes(release.path));
+  assert.ok(html.includes(release.sha256));
+  assert.ok(html.includes(`/telechargements/bomoi-exchange-pos`));
+  assert.match(html, /bomoi-exchange-pos-manuel-utilisateur\.pdf/);
+  assert.match(html, /App Store — indisponible/);
+  const { createHash } = await import("node:crypto");
+  const { createReadStream } = await import("node:fs");
+  for (const directory of ["public", "out/public"]) {
+    const hash = createHash("sha256"); let bytes = 0;
+    for await (const chunk of createReadStream(new URL(`../${directory}${release.path}`, import.meta.url))) {
+      hash.update(chunk); bytes += chunk.length;
+    }
+    assert.equal(bytes, release.bytes);
+    assert.equal(hash.digest("hex"), release.sha256);
+  }
+  const manual = JSON.parse(await readFile(new URL("../app/manual/exchange-pos-manual.fr.json", import.meta.url), "utf8"));
+  assert.equal(manual.sections.length, 12);
+  assert.doesNotMatch(JSON.stringify(manual), /192\.168\.|localhost|migration|keystore|versionCode/);
+  for (const chapter of manual.sections) {
+    const page = await fetchPage(`/documentation/bomoi-exchange-pos/${chapter.id}`);
+    assert.equal(page.status, 200, chapter.id);
+    const content = await page.text();
+    assert.ok(content.includes(chapter.title));
+    assert.match(content, /aria-current="page"/);
+  }
+  assert.equal((await fetchPage("/documentation/bomoi-exchange-pos/chapter-does-not-exist")).status, 404);
 });

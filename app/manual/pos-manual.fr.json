@@ -1,12 +1,12 @@
 {
-  "title": "Manuel utilisateur Bomoi POS",
+  "title": "Manuel utilisateur Bomoi Stock POS",
   "edition": "11 octobre 2026",
   "version": "1.0",
   "sections": [
     {
       "id": "demarrage",
       "title": "Bien commencer",
-      "intro": "Bomoi POS accompagne les vendeurs sur Android, iPhone et terminaux de vente compatibles. Le catalogue, le panier, l’historique et les informations téléchargées peuvent être utilisés sans Internet après une première connexion réussie. Ce manuel décrit les actions de l’utilisateur ; certaines options dépendent des droits et réglages de l’entreprise.",
+      "intro": "Bomoi Stock POS accompagne les vendeurs sur Android, iPhone et terminaux de vente compatibles. Le catalogue, le panier, l’historique et les informations téléchargées peuvent être utilisés sans Internet après une première connexion réussie. Ce manuel décrit les actions de l’utilisateur ; certaines options dépendent des droits et réglages de l’entreprise.",
       "steps": [
         "Avant le départ, chargez l’appareil, vérifiez la date et l’heure du système, la connexion et le papier de l’imprimante.",
         "Connectez-vous au bon site et vérifiez le nom de l’entreprise, votre identité et la date de votre journée.",

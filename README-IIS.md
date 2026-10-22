@@ -96,8 +96,8 @@ une autre stratégie, hors du déploiement actuel sur un VPS.
 
 ## Vérifications après redémarrage
 
-- Le site et les deux pages de téléchargement répondent sur `https://bomoi.cd`.
-- `GET /api/downloads/` retourne les deux totaux et `Cache-Control: no-store`.
+- Le site et les trois pages de téléchargement répondent sur `https://bomoi.cd`.
+- `GET /api/downloads/` retourne les trois totaux et `Cache-Control: no-store`.
 - Un téléchargement depuis un bouton actualise le bon total ; un second navigateur
   lit ce même total. Un téléchargement direct d’un APK ne remplace pas ce test.
 - Les PDF et les APK restent accessibles, y compris leurs reprises HTTP partielles.
@@ -106,3 +106,13 @@ une autre stratégie, hors du déploiement actuel sur un VPS.
 Un compteur en panne affiche une indisponibilité ou sa dernière valeur connue,
 sans empêcher le téléchargement. Aucun historique antérieur n’est reconstitué.
 Le build local et les tests ne prouvent ni configuration IIS réelle ni publication.
+
+
+## Ajout Exchange POS et transfert des trois APK
+
+Le centre commun est `/telechargements/`. Les trois pages sont `bomoi-pos`,
+`bomoi-exchange-pos` et `bomoi-stock-client` sous ce chemin. Avant le build d’une
+nouvelle version compilée localement, extraire l’archive Android fournie dans
+la racine du checkout du site pour alimenter `public/downloads/`. Voir
+`scripts/README-telechargements.md`. La base des compteurs est migrée automatiquement
+en conservant les deux totaux précédents et leurs reçus.

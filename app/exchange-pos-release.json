@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0",
+  "versionCode": 2,
+  "androidPackage": "cd.bomoi.exchangepos",
+  "minSdk": 24,
+  "minimumAndroid": "7",
+  "bytes": 94935663,
+  "sha256": "55a29438fd6343d70c0cc5f15cade1e758cdb519fd51d8a683841f5b60b694df",
+  "certificateSha256": "a025091d40fa0b91f2edac67a85546803cf12cc08dce02e79166b4b0f06de2e6",
+  "date": "22 octobre 2026",
+  "path": "/downloads/Bomoi-Exchange-POS-0.2.0.apk",
+  "source": "https://bomoi.cd/downloads/Bomoi-Exchange-POS-0.2.0.apk",
+  "buildMethod": "gradle-local-release"
+}

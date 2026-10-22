@@ -1,8 +1,9 @@
 # Téléchargements des applications Bomoi
 
-Pages : `/telechargements/bomoi-pos/` et `/telechargements/bomoi-stock-client/`.
+Centre : `/telechargements/`. Pages : `/telechargements/bomoi-pos/`,
+`/telechargements/bomoi-exchange-pos/` et `/telechargements/bomoi-stock-client/`.
 Les APK signés sont décrits par `app/pos-release.json` et
-`app/stock-client-release.json` : source de téléchargement publique, version, taille, chemin
+`app/exchange-pos-release.json` et `app/stock-client-release.json` : source de téléchargement publique, version, taille, chemin
 et empreinte SHA-256. Les boutiques restent explicitement indisponibles.
 
 `npm run prepare:apk` vérifie et restaure les APK courants dans `public/downloads`.
@@ -27,7 +28,7 @@ Aucun appel, stockage ou changement ERP.Gateway n’est nécessaire.
 
 La page lit le total au chargement, au focus et toutes les minutes. Une panne
 laisse le téléchargement fonctionner et affiche « — » ou le dernier total reçu,
-sans remplacer une erreur par zéro. Les deux liens partagent un identifiant aléatoire
+sans remplacer une erreur par zéro. Les liens de chaque application partagent un identifiant aléatoire
 pendant trente secondes ; le serveur le déduplique dix minutes, en transaction.
 Une lecture seule ou une reprise HTTP de l’APK n’incrémente pas les totaux.
 
@@ -59,3 +60,45 @@ puis pull/build et redémarrage Node sur son VPS, suivant README-IIS.md.
 APK compilé localement avec EAS preview, versionCode 3 et certificat identique à la 0.1.1. Stockage des historiques sur le téléphone et synchronisation au retour du réseau. Le fichier courant est `public/downloads/Bomoi-Stock-Client-0.1.2.apk` ; sa taille et son SHA-256 sont enregistrés dans `app/stock-client-release.json`.
 
 Cette compilation locale ne possède pas de téléchargement Expo public. La source de téléchargement est donc le site officiel. Avant le premier build de cette version sur le VPS, transférer ce fichier APK dans `public/downloads/` du checkout du site : les APK sont exclus de Git, un pull seul ne récupère pas le nouveau binaire. `npm run package:iis` vérifie le fichier et l’intègre dans `out/public/downloads/`. La restauration depuis l’URL publique fonctionne une fois cette version effectivement publiée. Ne pas supprimer les données persistantes des compteurs.
+
+
+## Les trois APK courants — 22 octobre 2026
+
+| Application | Version | Fichier Android | Guide web / PDF |
+| --- | --- | --- | --- |
+| Bomoi Sales Mobile / Stock POS | 1.0.7 (8) | `Bomoi-POS-1.0.7.apk` | `bomoi-pos` |
+| Bomoi Exchange POS | 0.2.0 (2) | `Bomoi-Exchange-POS-0.2.0.apk` | `bomoi-exchange-pos` |
+| Bomoi Stock Client | 0.1.2 (3) | `Bomoi-Stock-Client-0.1.2.apk` | `bomoi-stock-client` |
+
+Les fichiers courants sont disponibles dans `public/downloads/` et copiés dans
+`out/public/downloads/` par le build IIS. Les identités Android, versions, tailles,
+empreintes SHA-256 et certificats ont été vérifiés sur les binaires eux-mêmes.
+Exchange POS a été compilé en release locale avec une clé dédiée autorisée par
+l’utilisateur. Sa clé et ses mots de passe restent uniquement dans le projet
+mobile, sous `.signing/`, jamais dans le site, les sources publiques ou l’archive.
+
+Le centre commun relie chaque APK à son manuel en ligne et à son PDF. Le manuel
+Exchange POS possède douze chapitres et partage son JSON avec les pages/PDF.
+Il décrit l’application mobile, séparément du manuel Exchange web existant.
+Les compteurs restent distincts pour les trois applications. La première ouverture
+de leur SQLite migre les anciennes contraintes en transaction, sans perdre les
+totaux ni les reçus des deux applications déjà présentes. Ne pas supprimer ce SQLite.
+
+### Transfert au VPS
+
+`outputs/Bomoi-Android-2026-10-22.zip` contient seulement les trois APK courants,
+les trois PDF et un inventaire vérifiable. Les APK sont exclus de Git : un pull
+seul ne peut pas récupérer les versions compilées localement.
+
+1. Faire le push des sources mises à jour, puis le pull dans le projet du site sur le VPS.
+2. Copier l’archive sur le VPS et l’extraire **dans la racine du checkout du site** :
+   elle place les APK dans `public/downloads/` et les PDF dans `public/documentation/`.
+3. Exécuter `npm ci`, puis `npm run package:iis` et redémarrer le service Node
+   du site selon `README-IIS.md`. Conserver le répertoire des compteurs.
+4. Contrôler `/telechargements/`, les trois pages applicatives, les PDF et l’API
+   `/api/downloads/`. Les trois totaux doivent rester indépendants.
+
+Les URL de restauration pour Exchange 0.2.0 et Stock Client 0.1.2 pointent vers le
+site officiel ; avant leur première publication, fournir les fichiers via l’archive
+plutôt que compter sur une URL qui ne les sert pas encore. Aucun déploiement VPS,
+push ou publication en boutique n’est réalisé par la préparation locale.

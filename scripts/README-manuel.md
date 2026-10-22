@@ -1,9 +1,10 @@
 # Manuels utilisateurs du site officiel
 
-Le centre `/documentation` présente Bomoi Stock, Bomoi Stock - Espace client, Bomoi Exchange, Bomoi POS et l’espace Bomoi School à venir. Le contenu de chaque manuel publié est partagé entre les pages et le PDF :
+Le centre `/documentation` présente Bomoi Stock, Bomoi Stock - Espace client, Bomoi Exchange, Bomoi Stock POS et l’espace Bomoi School à venir. Le contenu de chaque manuel publié est partagé entre les pages et le PDF :
 
 - `app/manual/stock-manual.fr.json` : ancien contenu ERP, conservé sous Bomoi Stock (13 chapitres).
-- `app/manual/exchange-manual.fr.json` : bureau de change (21 chapitres).
+- `app/manual/exchange-manual.fr.json` : bureau de change web (21 chapitres).
+- `app/manual/exchange-pos-manual.fr.json` : Exchange POS Android, hors ligne et synchronisation (12 chapitres).
 - `app/manual/stock-client-manual.fr.json` : espace client mobile (14 chapitres).
 - `app/manual/pos-manual.fr.json` : manuel POS existant (20 chapitres).
 
@@ -14,6 +15,7 @@ Après une correction de contenu, régénérer le PDF correspondant :
 ```sh
 python3 scripts/generate-pos-manual.py --product stock
 python3 scripts/generate-pos-manual.py --product exchange
+python3 scripts/generate-pos-manual.py --product exchange-pos
 python3 scripts/generate-pos-manual.py --product pos
 python3 scripts/generate-pos-manual.py --product stock-client
 ```

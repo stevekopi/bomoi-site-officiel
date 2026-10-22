@@ -90,9 +90,9 @@ export default function DownloadActions({
       <a className="btn" href={source} onClick={track}>
         {label}
       </a>
-      <a href={path} download={path.split("/").pop()} onClick={track}>
+      {source !== path && <a href={path} download={path.split("/").pop()} onClick={track}>
         Autre lien : serveur Bomoi
-      </a>
+      </a>}
     </>
   );
 }

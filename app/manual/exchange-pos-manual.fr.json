@@ -1,0 +1,254 @@
+{
+  "title": "Manuel utilisateur Bomoi Exchange POS",
+  "edition": "22 octobre 2026",
+  "version": "0.2.0",
+  "sections": [
+    {
+      "id": "installation",
+      "title": "Installer et mettre à jour",
+      "intro": "Bomoi Exchange POS 0.2.0 accompagne les agents de change sur Android. Le fichier APK officiel fonctionne sans Expo Go.",
+      "steps": [
+        "Ouvrez bomoi.cd/telechargements/bomoi-exchange-pos et téléchargez le fichier APK.",
+        "Attendez la fin du téléchargement, ouvrez le fichier puis autorisez votre navigateur à installer cette application si Android le demande.",
+        "Ouvrez Bomoi Exchange POS. Pour une mise à jour, installez le nouvel APK officiel par-dessus la version existante."
+      ],
+      "notes": [
+        "Un APK concerne Android uniquement. Aucun téléchargement App Store ou Google Play n’est proposé pour cette version.",
+        "Ne désinstallez pas l’application et n’effacez pas ses données tant que des opérations restent À synchroniser ou À résoudre."
+      ],
+      "issues": [
+        {
+          "problem": "Android refuse une mise à jour",
+          "action": "Conservez l’application et ses données. Contactez le support avec les versions installée et téléchargée ; ne désinstallez pas pour contourner une signature incompatible."
+        }
+      ]
+    },
+    {
+      "id": "connexion",
+      "title": "Se connecter au bon site",
+      "intro": "La première connexion et le premier téléchargement de données nécessitent Internet et un compte autorisé pour Exchange.",
+      "steps": [
+        "Connectez-vous avec votre identifiant et votre mot de passe. Saisissez le code de sécurité si demandé.",
+        "Choisissez le site proposé pour votre compte, puis vérifiez l’entreprise, l’agent, le site et la journée.",
+        "Ouvrez Paramètres et utilisez Télécharger les dernières données avant de travailler sans réseau."
+      ],
+      "notes": [
+        "Les droits et les caisses disponibles dépendent des affectations de l’agent.",
+        "Une reconnexion pour envoyer des opérations en attente doit retrouver le même compte et le même site."
+      ],
+      "issues": [
+        {
+          "problem": "Connexion ou accès refusé",
+          "action": "Vérifiez votre connexion et contactez le responsable pour le compte, les droits, l’affectation au site ou l’ouverture de journée. Ne communiquez pas votre mot de passe."
+        }
+      ]
+    },
+    {
+      "id": "devises-taux",
+      "title": "Comprendre les devises et les taux",
+      "intro": "La cotation utilise les taux d’achat et de vente téléchargés pour le site. Les quantités et taux affichés ne remplacent pas le contrôle de caisse.",
+      "steps": [
+        "Vérifiez la date du dernier téléchargement dans les paramètres.",
+        "Choisissez les devises de l’opération et contrôlez le sens : devise reçue et devise remise.",
+        "Contrôlez les montants, les taux et le complément CDF éventuel avant toute confirmation."
+      ],
+      "notes": [
+        "La devise reçue utilise le taux d’achat ; la devise remise utilise le taux de vente.",
+        "Le calcul conserve sa précision. Les valeurs arrondies à l’écran ne doivent pas être utilisées pour recréer manuellement une opération."
+      ],
+      "issues": [
+        {
+          "problem": "Une devise ou un taux est absent",
+          "action": "Téléchargez les dernières données en ligne. Si le problème persiste, faites vérifier la configuration par le responsable."
+        }
+      ]
+    },
+    {
+      "id": "achat",
+      "title": "Enregistrer un achat de devises",
+      "intro": "Un achat correspond à la réception d’une devise par le bureau contre une remise de fonds au client.",
+      "steps": [
+        "Choisissez Achat et les devises concernées.",
+        "Saisissez le montant et, si nécessaire, sélectionnez le partenaire ou renseignez la référence.",
+        "Examinez la cotation : montants reçus et remis, taux et ajustement CDF.",
+        "Vérifiez les fonds puis confirmez une seule fois. L’opération est enregistrée sur cet appareil avant son envoi.",
+        "Consultez le reçu et le statut dans Historique."
+      ],
+      "notes": [
+        "Une confirmation peut rester À synchroniser ; elle ne signifie pas nécessairement que le serveur l’a comptabilisée."
+      ],
+      "issues": [
+        {
+          "problem": "Aucun numéro serveur après confirmation",
+          "action": "Recherchez l’opération dans Historique et vérifiez son statut. Ne recréez pas un achat déjà enregistré et ne remettez pas les fonds une seconde fois."
+        }
+      ]
+    },
+    {
+      "id": "vente",
+      "title": "Enregistrer une vente de devises",
+      "intro": "Une vente correspond à la remise d’une devise par le bureau contre des fonds reçus du client.",
+      "steps": [
+        "Choisissez Vente et vérifiez les devises reçue et remise.",
+        "Saisissez le montant, puis contrôlez le calcul et le complément CDF éventuel.",
+        "Vérifiez le partenaire ou la référence si utilisés.",
+        "Confirmez une seule fois et consultez l’opération dans Historique."
+      ],
+      "notes": [
+        "Un échange entre deux devises étrangères peut comporter un ajustement CDF. Contrôlez les trois montants avant de remettre les fonds."
+      ],
+      "issues": [
+        {
+          "problem": "L’envoi est refusé",
+          "action": "L’opération reste conservée avec son motif. Faites corriger la cause par le responsable et reprenez le même identifiant."
+        }
+      ]
+    },
+    {
+      "id": "historique",
+      "title": "Retrouver ses opérations",
+      "intro": "Historique présente les opérations locales et celles de l’agent sur le site connecté.",
+      "steps": [
+        "Ouvrez Historique et utilisez la recherche pour retrouver une référence.",
+        "Consultez les montants, les devises, la journée d’origine et le statut.",
+        "Ouvrez le reçu ou l’instruction associée à un conflit."
+      ],
+      "notes": [
+        "À synchroniser : l’opération est conservée localement et attend un accusé valide.",
+        "À résoudre : une règle métier ou une incohérence bloque son envoi.",
+        "Les données téléchargées restent consultables hors ligne. Les données absentes exigent une connexion."
+      ],
+      "issues": [
+        {
+          "problem": "Une opération semble absente",
+          "action": "Vérifiez le compte et le site. Recherchez son identifiant dans l’historique avant toute nouvelle saisie."
+        }
+      ]
+    },
+    {
+      "id": "hors-ligne",
+      "title": "Travailler sans réseau",
+      "intro": "Après une première préparation en ligne, les devises, taux et données nécessaires téléchargés permettent d’enregistrer plusieurs opérations hors ligne.",
+      "steps": [
+        "Avant le départ, utilisez Télécharger les dernières données et vérifiez leur date.",
+        "Saisissez et confirmez vos opérations normalement. Elles sont conservées avec leur identifiant unique.",
+        "Consultez les reçus locaux et l’historique même sans réseau.",
+        "Au retour du réseau, ouvrez l’application et contrôlez la synchronisation."
+      ],
+      "notes": [
+        "Les fonds disponibles, taux et règles peuvent changer pendant la coupure. Les contrôles serveur restent appliqués à l’envoi.",
+        "Une fermeture de l’application ne doit pas justifier la suppression des données locales."
+      ],
+      "issues": [
+        {
+          "problem": "La connexion est coupée après une confirmation",
+          "action": "Conservez l’opération. L’application reprend son envoi avec le même identifiant afin d’éviter une double comptabilisation."
+        }
+      ]
+    },
+    {
+      "id": "synchronisation",
+      "title": "Synchroniser et se reconnecter",
+      "intro": "Les envois sont repris lorsque l’application est au premier plan. Synchroniser maintenant permet aussi de demander une reprise.",
+      "steps": [
+        "Rétablissez Internet et ouvrez l’application.",
+        "Utilisez Synchroniser maintenant si nécessaire.",
+        "Si une reconnexion est demandée, reprenez le même compte et le même site.",
+        "Dans Historique, vérifiez les opérations restantes et traitez celles À résoudre."
+      ],
+      "notes": [
+        "Une session expirée n’est pas prolongée hors ligne. Les opérations locales restent conservées.",
+        "Un refus sur une opération ne doit pas empêcher l’envoi des autres opérations valides."
+      ],
+      "issues": [
+        {
+          "problem": "La synchronisation ne se termine pas",
+          "action": "Vérifiez le réseau, la session et le motif affiché sur chaque opération. Ne recréez pas les opérations en attente."
+        }
+      ]
+    },
+    {
+      "id": "conflits",
+      "title": "Traiter une opération À résoudre",
+      "intro": "Un conflit conserve les montants, taux, journée et identifiant d’origine. La correction de la cause est effectuée avec le responsable.",
+      "steps": [
+        "Ouvrez l’opération À résoudre dans Historique et lisez le motif et l’instruction.",
+        "Faites vérifier la journée, les droits, les caisses, les fonds et la cotation dans le web.",
+        "Après correction, utilisez Vérifier après correction · même identifiant.",
+        "Contrôlez le résultat final dans Historique."
+      ],
+      "notes": [
+        "Ce bouton relance l’envoi réel ; si les conditions sont réunies, le serveur comptabilise l’opération.",
+        "L’application ne réécrit pas automatiquement un ancien taux et ne déplace pas silencieusement une opération sur une autre journée."
+      ],
+      "issues": [
+        {
+          "problem": "Journée clôturée ou cotation devenue incompatible",
+          "action": "Faites traiter le cas par le responsable. Ne changez pas l’identifiant et ne réencaissez pas le client pour contourner le blocage."
+        }
+      ]
+    },
+    {
+      "id": "caisses",
+      "title": "Lire sa caisse",
+      "intro": "La dernière caisse téléchargée est une photographie serveur datée. Les impacts des opérations locales en attente sont présentés séparément.",
+      "steps": [
+        "Consultez les montants par devise et leur date de mise à jour.",
+        "Comparez séparément les opérations locales non synchronisées, y compris les conflits.",
+        "Actualisez les données avec Internet avant une nouvelle vérification."
+      ],
+      "notes": [
+        "Ne confondez pas impact local, solde serveur et fonds physiques.",
+        "Le solde téléchargé ne réserve pas des fonds : un autre appareil peut avoir réalisé une opération."
+      ],
+      "issues": [
+        {
+          "problem": "Écart entre caisse et opérations locales",
+          "action": "Synchronisez puis rapprochez les références avec le responsable. Ne créez pas une opération fictive pour compenser un écart."
+        }
+      ]
+    },
+    {
+      "id": "impression",
+      "title": "Configurer et reprendre une impression",
+      "intro": "Dans Paramètres, choisissez l’imprimante disponible sur l’appareil et vérifiez un ticket de test avant de conserver le choix.",
+      "steps": [
+        "Ouvrez les réglages d’imprimante et choisissez le pilote disponible.",
+        "Vérifiez le papier, l’alimentation et la connexion au périphérique.",
+        "Utilisez Imprimer un ticket de test, contrôlez sa lisibilité puis conservez le choix.",
+        "Activez l’impression automatique si souhaité. Pour reprendre une impression, retrouvez l’opération dans Historique."
+      ],
+      "notes": [
+        "Un reçu local indique son état de synchronisation et son identifiant. Le reçu serveur PDF nécessite Internet.",
+        "L’ouverture du dialogue système ne prouve pas que le ticket a été imprimé. La compatibilité dépend du terminal et du pilote."
+      ],
+      "issues": [
+        {
+          "problem": "Impression impossible après enregistrement",
+          "action": "L’opération reste enregistrée. Corrigez l’imprimante et réimprimez depuis Historique, sans confirmer une seconde opération."
+        }
+      ]
+    },
+    {
+      "id": "parametres-assistance",
+      "title": "Personnalisation, sécurité et assistance",
+      "intro": "Les réglages d’apparence concernent cet appareil. Le support doit disposer de références d’opération, jamais de vos secrets de connexion.",
+      "steps": [
+        "Ouvrez les paramètres pour choisir le thème et les options d’apparence.",
+        "Avant de quitter un appareil, vérifiez les opérations À synchroniser ou À résoudre.",
+        "Pour demander de l’aide, relevez la version de l’application, le site, le statut, l’identifiant et le message exact."
+      ],
+      "notes": [
+        "Ne partagez ni mot de passe ni code de sécurité.",
+        "La déconnexion ferme l’accès local ; elle ne remplace pas la résolution des opérations en attente.",
+        "L’assistance est disponible à contact@bomoi.cd."
+      ],
+      "issues": [
+        {
+          "problem": "Vous devez changer ou réinitialiser le téléphone",
+          "action": "Faites d’abord synchroniser ou traiter toutes les opérations locales avec le responsable. Ne supprimez pas les données en attente."
+        }
+      ]
+    }
+  ]
+}

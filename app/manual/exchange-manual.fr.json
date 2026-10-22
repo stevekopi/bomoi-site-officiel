@@ -556,7 +556,7 @@
         "Les changements centraux d’accès prennent effet à la prochaine authentification ou au renouvellement ; ils ne coupent pas immédiatement une session métier encore valide.",
         "La présence centrale remonte périodiquement. Après 90 secondes sans contact, elle devient À confirmer ; le dernier contact peut rester visible 24 heures.",
         "Une panne du suivi central ne bloque pas les opérations Exchange. En revanche, le serveur Exchange et sa base doivent rester accessibles.",
-        "Cette autonomie après connexion n’est pas un mode de change hors ligne comparable à Bomoi POS."
+        "Cette autonomie après connexion n’est pas un mode de change hors ligne comparable à Bomoi Stock POS."
       ],
       "issues": [
         {

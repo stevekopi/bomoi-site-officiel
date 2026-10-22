@@ -1,4 +1,4 @@
-export type DownloadApplication = "bomoi-pos" | "bomoi-stock-client";
+export type DownloadApplication = "bomoi-pos" | "bomoi-exchange-pos" | "bomoi-stock-client";
 export const statisticsApi = "/api/downloads/";
 
 export function validCount(value: unknown): value is number {

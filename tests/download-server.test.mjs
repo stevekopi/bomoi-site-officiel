@@ -21,7 +21,7 @@ test("site counters persist across restart, stay independent and deduplicate ret
   let store;
   try {
     store = createDownloadCounters(directory);
-    assert.deepEqual(store.read(), { "bomoi-pos": 0, "bomoi-stock-client": 0 });
+    assert.deepEqual(store.read(), { "bomoi-pos": 0, "bomoi-exchange-pos": 0, "bomoi-stock-client": 0 });
     const id = crypto.randomUUID();
     assert.equal(store.record("bomoi-pos", id), 1);
     store.close();
@@ -97,7 +97,7 @@ test("expired receipts are pruned without losing lifetime totals and limits roll
       CounterRateLimitError,
     );
     assert.equal(store.record("bomoi-pos", id), 1);
-    assert.deepEqual(store.read(), { "bomoi-pos": 1, "bomoi-stock-client": 1 });
+    assert.deepEqual(store.read(), { "bomoi-pos": 1, "bomoi-exchange-pos": 0, "bomoi-stock-client": 1 });
     instant += 11 * 60000;
     assert.equal(store.record("bomoi-pos", id), 2);
   } finally {
@@ -179,6 +179,7 @@ test("packaged Node site serves pages, its own API, PDFs and resumable APKs toge
     assert.equal(response.headers.get("cache-control"), "no-store");
     assert.deepEqual((await response.json()).counts, {
       "bomoi-pos": 0,
+      "bomoi-exchange-pos": 0,
       "bomoi-stock-client": 0,
     });
     const id = crypto.randomUUID();
@@ -203,7 +204,7 @@ test("packaged Node site serves pages, its own API, PDFs and resumable APKs toge
       body: JSON.stringify({ requestId: crypto.randomUUID() }),
     });
     assert.equal(response.status, 403);
-    for (const application of ["bomoi-pos", "bomoi-stock-client"])
+    for (const application of ["bomoi-pos", "bomoi-exchange-pos", "bomoi-stock-client"])
       assert.equal(
         (await fetch(site.base + "/telechargements/" + application + "/"))
           .status,
@@ -215,22 +216,15 @@ test("packaged Node site serves pages, its own API, PDFs and resumable APKs toge
     );
     assert.equal(response.status, 206);
     assert.equal(await response.text(), "%PDF-");
-    const release = JSON.parse(
-      readFileSync(
-        new URL("../app/stock-client-release.json", import.meta.url),
-        "utf8",
-      ),
-    );
-    response = await fetch(site.base + release.path, {
-      headers: { range: "bytes=0-3" },
-    });
-    assert.equal(response.status, 206);
-    assert.deepEqual(
-      [...new Uint8Array(await response.arrayBuffer())],
-      [80, 75, 3, 4],
-    );
+    for (const manifest of ["pos-release.json", "exchange-pos-release.json", "stock-client-release.json"]) {
+      const release = JSON.parse(readFileSync(new URL(`../app/${manifest}`, import.meta.url), "utf8"));
+      response = await fetch(site.base + release.path, { headers: { range: "bytes=0-3" } });
+      assert.equal(response.status, 206, manifest);
+      assert.deepEqual([...new Uint8Array(await response.arrayBuffer())], [80, 75, 3, 4], manifest);
+    }
     assert.deepEqual((await (await get()).json()).counts, {
       "bomoi-pos": 1,
+      "bomoi-exchange-pos": 0,
       "bomoi-stock-client": 0,
     });
     response = await fetch(site.base + "/server.js");
@@ -271,9 +265,40 @@ test("unknown applications and empty receipts cannot change a total", () => {
       () => store.record("bomoi-pos", "00000000-0000-0000-0000-000000000000"),
       TypeError,
     );
-    assert.deepEqual(store.read(), { "bomoi-pos": 0, "bomoi-stock-client": 0 });
+    assert.deepEqual(store.read(), { "bomoi-pos": 0, "bomoi-exchange-pos": 0, "bomoi-stock-client": 0 });
   } finally {
     store.close();
+    rmSync(directory, { recursive: true, force: true });
+  }
+});
+
+
+test("adding Exchange POS preserves earlier totals and receipts", async () => {
+  const { DatabaseSync } = await import("node:sqlite");
+  const directory = temporary();
+  let store;
+  try {
+    const receipt = crypto.randomUUID();
+    const db = new DatabaseSync(path.join(directory, "downloads.sqlite"));
+    db.exec(`CREATE TABLE download_totals (
+      application TEXT PRIMARY KEY CHECK(application IN ('bomoi-pos','bomoi-stock-client')),
+      count INTEGER NOT NULL CHECK(count BETWEEN 0 AND 9007199254740991));
+      CREATE TABLE download_receipts (application TEXT NOT NULL REFERENCES download_totals(application),
+      request_id TEXT NOT NULL, created_at INTEGER NOT NULL, PRIMARY KEY(application,request_id));
+      CREATE INDEX download_receipt_time ON download_receipts(created_at);
+      INSERT INTO download_totals VALUES ('bomoi-pos',1),('bomoi-stock-client',1);`);
+    for (const application of ["bomoi-pos", "bomoi-stock-client"])
+      db.prepare("INSERT INTO download_receipts VALUES (?,?,?)").run(application, receipt, Date.now());
+    db.close();
+    store = createDownloadCounters(directory);
+    assert.deepEqual(store.read(), { "bomoi-pos": 1, "bomoi-exchange-pos": 0, "bomoi-stock-client": 1 });
+    assert.equal(store.record("bomoi-pos", receipt), 1);
+    assert.equal(store.record("bomoi-stock-client", receipt), 1);
+    assert.equal(store.record("bomoi-exchange-pos", receipt), 1);
+    assert.equal(store.record("bomoi-exchange-pos", receipt), 1);
+    assert.deepEqual(store.read(), { "bomoi-pos": 1, "bomoi-exchange-pos": 1, "bomoi-stock-client": 1 });
+  } finally {
+    store?.close();
     rmSync(directory, { recursive: true, force: true });
   }
 });

@@ -211,7 +211,7 @@
     },
     {
       "id": "conflits-pos",
-      "title": "Traiter les conflits Bomoi POS",
+      "title": "Traiter les conflits Bomoi Stock POS",
       "intro": "Le web permet au responsable habilité de corriger les causes bloquant une vente mobile.",
       "steps": [
         "Ouvrez Vente → Validation ou la liste des conflits POS.",
