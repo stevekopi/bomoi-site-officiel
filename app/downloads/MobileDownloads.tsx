@@ -51,7 +51,10 @@ export function MobileDownloadsPage({ application }: { application: DownloadAppl
         <p>Consultez les fonctionnalités et les procédures de {app.name}.</p>
         <p><a className="btn secondary" href={`/documentation/bomoi-${app.manual}`}>Consulter le guide</a></p>
         <a href={`/documentation/bomoi-${app.manual}-manuel-utilisateur.pdf`} download>Télécharger le manuel PDF</a>
-        {application === "bomoi-stock-client" && <p><a className="text-link" href="/confidentialite/bs-client">Politique de confidentialité de BS Client</a></p>}
+        {application === "bomoi-stock-client" && <>
+          <p><a className="text-link" href="/confidentialite/bs-client">Politique de confidentialité de BS Client</a></p>
+          <p><a className="text-link" href="/conditions-utilisation/bs-client">Conditions d’utilisation de BS Client</a></p>
+        </>}
       </article>
     </section>
   </main>;

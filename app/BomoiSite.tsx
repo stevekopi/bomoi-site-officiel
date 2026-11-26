@@ -449,6 +449,51 @@ function BackToTopButton() {
 
 function PrivacyPage() { return <><PageHero eyebrow="CONFIDENTIALITÉ" title="Politique de confidentialité." intro="Cette page décrit provisoirement les principes de traitement des données du site public Bomoi."/><section className="section legal"><p>Pour l’application mobile, consultez la <SiteLink className="text-link" href="/confidentialite/bs-client">politique de confidentialité de BS Client</SiteLink>.</p><div className="callout warning"><b>Document provisoire</b><p>Le contenu devra être validé juridiquement avant la publication publique du site.</p></div><h2>1. Données collectées</h2><p>Le site pourra collecter les informations fournies volontairement dans les formulaires de contact et de démonstration : identité, coordonnées professionnelles, entreprise et message.</p><h2>2. Finalités</h2><p>Ces données seront utilisées pour répondre aux demandes, organiser des démonstrations, améliorer les services et assurer le suivi de la relation commerciale.</p><h2>3. Conservation et sécurité</h2><p>Les données seront conservées pendant une durée proportionnée à la finalité et protégées par des mesures organisationnelles et techniques adaptées.</p><h2>4. Vos droits</h2><p>Les modalités d’accès, de rectification ou de suppression seront précisées avec les coordonnées officielles du responsable du traitement.</p><h2>5. Contact</h2><p>Pour toute question relative à la confidentialité, écrivez à <SiteLink className="text-link" href={`mailto:${contact.email}`}>{contact.email}</SiteLink>.</p><small>Dernière mise à jour provisoire : 1er août 2026.</small></section></>; }
 
+function ClientTermsPage() {
+  return <main className="notranslate" lang="fr" translate="no">
+    <PageHero
+      eyebrow="BS CLIENT · CONDITIONS D’UTILISATION"
+      title="Conditions d’utilisation de BS Client."
+      intro="Les règles d’accès et d’utilisation de votre espace client Bomoi."
+    />
+    <section className="section legal" aria-label="Conditions d’utilisation de BS Client">
+      <p>Dernière mise à jour le <time dateTime="2026-11-26">26 novembre 2026</time>.</p>
+
+      <h2>Le service concerné</h2>
+      <p>Ces conditions s’appliquent à BS Client, également appelée Bomoi Stock Client ou Bomoi Stock Espace Client, dont l’identifiant Android est <code>com.bomoi.stock.customer</code>. Bomoi fournit l’application et son compte commun. Chaque entreprise à laquelle vous êtes rattaché gère sa relation commerciale avec vous, les opérations qu’elle enregistre et les autorisations qu’elle vous accorde.</p>
+      <p>L’application permet de consulter les informations et documents accessibles à votre profil et d’utiliser les fonctions d’échange proposées par le service. L’utilisation de BS Client implique de respecter les présentes conditions et les règles applicables aux services utilisés.</p>
+
+      <h2>Compte et accès aux entreprises</h2>
+      <p>L’accès nécessite un compte client actif et un rattachement à l’entreprise concernée. Les invitations, les vérifications de sécurité et, lorsqu’ils s’appliquent, les abonnements déterminent les fonctionnalités disponibles. Votre compte commun permet de retrouver vos entreprises. Chaque rattachement conserve ses permissions, ses documents et ses conditions d’accès.</p>
+      <p>Utilisez des informations exactes et un compte dont vous êtes autorisé à vous servir. Protégez votre téléphone, votre mot de passe et vos codes de sécurité. Signalez à Bomoi toute utilisation suspecte de votre compte et utilisez la déconnexion lorsque vous quittez un appareil partagé.</p>
+
+      <h2>Utilisation des informations commerciales</h2>
+      <p>Les commandes, achats, livraisons, paiements, comptes et relevés affichés proviennent des données rendues accessibles par l’entreprise concernée. Avant une démarche commerciale, vérifiez l’entreprise sélectionnée, les références des documents et leur état. Adressez les demandes de correction, de livraison, de règlement ou de contestation commerciale à cette entreprise.</p>
+      <p>Les conditions de vente, de paiement, de livraison et de remboursement des biens ou prestations relèvent de votre accord avec l’entreprise concernée. Les conditions d’un abonnement à l’espace client dépendent de l’offre souscrite et des informations communiquées lors de son activation.</p>
+
+      <h2>Messagerie, images et documents</h2>
+      <p>Vous êtes responsable des contenus que vous transmettez et du choix de leurs destinataires. Envoyez uniquement les informations et documents que vous êtes autorisé à communiquer. Respectez la confidentialité, les droits des autres personnes et les règles des groupes ou services auxquels vous participez.</p>
+      <p>Les contenus illicites, frauduleux, menaçants ou portant atteinte aux droits d’autrui, le harcèlement et les envois abusifs sont interdits. Signalez les difficultés liées à un échange au service concerné ou à Bomoi en indiquant les éléments utiles à leur examen.</p>
+
+      <h2>Sécurité et bon fonctionnement</h2>
+      <p>Utilisez l’application dans le cadre des accès accordés à votre compte. Toute tentative d’usurpation d’identité, de contournement des permissions, d’accès aux données d’un autre compte ou de perturbation du service est interdite. Signalez une anomalie de sécurité à Bomoi afin de permettre sa prise en charge.</p>
+
+      <h2>Connexion, synchronisation et disponibilité</h2>
+      <p>La connexion, la vérification des droits, l’actualisation des informations et l’envoi des échanges nécessitent un accès réseau aux services Bomoi. Certaines données déjà téléchargées peuvent rester consultables hors ligne. Leur date d’actualisation et les états de synchronisation permettent de vérifier si une opération a été transmise.</p>
+      <p>Lorsqu’une opération reste en attente ou qu’un résultat est incertain, vérifiez son état avant de la renouveler et contactez l’interlocuteur concerné si nécessaire. La disponibilité peut être affectée par le réseau, la maintenance, une interruption technique ou les conditions d’accès de l’entreprise.</p>
+
+      <h2>Données personnelles et fermeture du compte</h2>
+      <p>La <SiteLink className="text-link" href="/confidentialite/bs-client">politique de confidentialité de BS Client</SiteLink> décrit les données utilisées, les destinataires, la conservation et les démarches relatives à vos données.</p>
+      <p>Vous pouvez cesser d’utiliser l’application et vous déconnecter. Pour demander la suppression de votre compte ou de vos données, contactez <SiteLink className="text-link" href={`mailto:${contact.email}`}>{contact.email}</SiteLink>. Les informations nécessaires à la vérification de votre demande et les éventuelles obligations de conservation sont précisées lors de son traitement.</p>
+      <p>L’accès à une entreprise suit l’état de votre compte, de votre rattachement, de vos permissions et de l’abonnement applicable. Pour comprendre ou faire réexaminer une restriction, contactez Bomoi ou l’entreprise concernée en précisant le message reçu.</p>
+
+      <h2>Mises à jour et assistance</h2>
+      <p>Les fonctionnalités et ces conditions peuvent évoluer avec le service. Consultez la date de mise à jour de cette page et les informations accompagnant les nouvelles versions. Pour toute question sur l’utilisation de BS Client, écrivez à <SiteLink className="text-link" href={`mailto:${contact.email}`}>{contact.email}</SiteLink> en précisant l’entreprise et la fonctionnalité concernées.</p>
+      <p><SiteLink className="text-link" href="/documentation/bomoi-stock-client">Consulter le manuel de BS Client</SiteLink></p>
+    </section>
+  </main>;
+}
+
 function ClientPrivacyPage() {
   return <main className="notranslate" lang="fr" translate="no">
     <PageHero
@@ -493,12 +538,13 @@ function ClientPrivacyPage() {
 
       <h2>Évolution de cette politique</h2>
       <p>Cette page est actualisée lorsque les fonctionnalités ou les traitements décrits évoluent. La date de mise à jour permet d’identifier l’édition consultée.</p>
+      <p><SiteLink className="text-link" href="/conditions-utilisation/bs-client">Conditions d’utilisation de BS Client</SiteLink></p>
       <p><SiteLink className="text-link" href="/telechargements/bomoi-stock-client">Retrouver l’application BS Client</SiteLink></p>
     </section>
   </main>;
 }
 
-function AppContent({route}:{route:string}) { const manual = resolveManualRoute(route); if(manual)return <PosManual product={manual.product} chapterId={manual.chapterId}/>; if(route==="/documentation/bomoi-school")return <SchoolDocumentation/>; const product=products.find(item=>route===`/produits/${item.slug}`); if(product)return <ProductDetailPage product={product}/>; switch(route){case"/telechargements":return <MobileDownloadsHub/>;case"/telechargements/bomoi-exchange-pos":return <MobileDownloadsPage application="bomoi-exchange-pos"/>;case"/telechargements/bomoi-stock-client":return <MobileDownloadsPage application="bomoi-stock-client"/>;case"/telechargements/bomoi-pos":return <MobileDownloadsPage application="bomoi-pos"/>;case"/":return <HomePage/>;case"/produits":return <ProductsPage/>;case"/a-propos":return <AboutPage/>;case"/modules":return <ModulesPage/>;case"/secteurs":return <SectorsPage/>;case"/avantages":return <AdvantagesPage/>;case"/abonnements":return <PricingPage/>;case"/actualites":return <NewsPage/>;case"/documentation/bomoi-pos":return <PosManual/>;case"/documentation":return <DocumentationPage/>;case"/notes-de-version":return <ReleasesPage/>;case"/partenaires":return <PartnersPage/>;case"/demonstration":return <FormPage type="demo"/>;case"/contact":return <FormPage type="contact"/>;case"/faq":return <FAQPage/>;case"/confidentialite/bs-client":return <ClientPrivacyPage/>;case"/confidentialite":return <PrivacyPage/>;default:return <><PageHero eyebrow="404" title="Cette page reste à écrire." intro="Revenez à l’accueil ou consultez la documentation Bomoi."/><div className="center section"><SiteLink className="btn" href="/">Retour à l’accueil</SiteLink></div></>}}
+function AppContent({route}:{route:string}) { const manual = resolveManualRoute(route); if(manual)return <PosManual product={manual.product} chapterId={manual.chapterId}/>; if(route==="/documentation/bomoi-school")return <SchoolDocumentation/>; const product=products.find(item=>route===`/produits/${item.slug}`); if(product)return <ProductDetailPage product={product}/>; switch(route){case"/telechargements":return <MobileDownloadsHub/>;case"/telechargements/bomoi-exchange-pos":return <MobileDownloadsPage application="bomoi-exchange-pos"/>;case"/telechargements/bomoi-stock-client":return <MobileDownloadsPage application="bomoi-stock-client"/>;case"/telechargements/bomoi-pos":return <MobileDownloadsPage application="bomoi-pos"/>;case"/":return <HomePage/>;case"/produits":return <ProductsPage/>;case"/a-propos":return <AboutPage/>;case"/modules":return <ModulesPage/>;case"/secteurs":return <SectorsPage/>;case"/avantages":return <AdvantagesPage/>;case"/abonnements":return <PricingPage/>;case"/actualites":return <NewsPage/>;case"/documentation/bomoi-pos":return <PosManual/>;case"/documentation":return <DocumentationPage/>;case"/notes-de-version":return <ReleasesPage/>;case"/partenaires":return <PartnersPage/>;case"/demonstration":return <FormPage type="demo"/>;case"/contact":return <FormPage type="contact"/>;case"/faq":return <FAQPage/>;case"/conditions-utilisation/bs-client":return <ClientTermsPage/>;case"/confidentialite/bs-client":return <ClientPrivacyPage/>;case"/confidentialite":return <PrivacyPage/>;default:return <><PageHero eyebrow="404" title="Cette page reste à écrire." intro="Revenez à l’accueil ou consultez la documentation Bomoi."/><div className="center section"><SiteLink className="btn" href="/">Retour à l’accueil</SiteLink></div></>}}
 
 export default function BomoiSite({route}:{route:string}) {
   const [theme,setThemeState]=useState("dark");
