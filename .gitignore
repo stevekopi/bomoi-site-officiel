@@ -42,8 +42,10 @@ next-env.d.ts
 /work/
 /public/build-info.json
 
-# Signed Android binaries are restored from verified release metadata.
+# Android binaries are not distributed by the official site.
 /public/downloads/*.apk
 
 /.iis-package-*/
 /.iis-previous-*/
+
+/.iis-export/

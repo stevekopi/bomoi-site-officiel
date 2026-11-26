@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-html-link-for-pages, @next/next/no-img-element */
 "use client";
-import type { DownloadApplication } from "./statistics";
+type DownloadApplication = "bomoi-pos" | "bomoi-exchange-pos" | "bomoi-stock-client";
 
 const applications = [
   { id: "bomoi-pos", manual: "pos", name: "Bomoi Sales Mobile / Stock POS", description: "Ventes, encaissements, reçus et synchronisation pour vos équipes commerciales." },

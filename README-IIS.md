@@ -1,114 +1,77 @@
-# Bomoi sur IIS avec son propre serveur Node.js
+# Bomoi sur IIS en site statique
 
-Décision du 21 octobre 2026 : le site officiel utilise son serveur Next.js/Node.js.
-Les pages, les PDF et les compteurs sont servis par le site Bomoi lui-même.
-Aucun appel au Gateway ERP n’est nécessaire pour les compteurs. Les ajouts de
-compteur précédemment proposés dans ERP.Gateway ont été retirés.
+Décision du 26 novembre 2026. Le site produit un fichier HTML par page et les
+ressources nécessaires. IIS sert directement le contenu de `out`.
 
-## Préparation sur le VPS
+## Première bascule depuis la version Node
 
-- Node.js compatible avec `package.json` (22.13 minimum), Git et npm.
-- IIS avec URL Rewrite et Application Request Routing (ARR), option **Enable Proxy**
-  activée. Cette configuration IIS est nécessaire une fois pour relayer le site
-  vers `http://127.0.0.1:3080`. Elle ne concerne pas le Gateway ERP.
-- Un processus Node permanent pour le site, géré par le superviseur/service Windows
-  déjà utilisé sur le VPS, avec redémarrage automatique. Avoir Node installé ne
-  lance pas le serveur ; fermer une session PowerShell ne doit pas arrêter le site.
-
-Le fichier `iis/web.config`, inclus dans `out`, relaie toutes les requêtes vers
-le serveur local du site. Le port Node écoute uniquement sur la boucle locale.
-Le domaine et le certificat HTTPS restent configurés dans IIS comme auparavant.
-Ne pas exposer les fichiers du checkout ou de `out` comme téléchargements statiques :
-la règle de proxy transmet aussi `/api/downloads/` au serveur du site.
-
-Références : [Next.js standalone](https://nextjs.org/docs/app/api-reference/config/next-config-js/output),
-[IIS ARR et URL Rewrite](https://learn.microsoft.com/en-us/iis/extensions/url-rewrite-module/reverse-proxy-with-url-rewrite-v2-and-application-request-routing).
-
-## Pull et build manuels sur le VPS
-
-L’utilisateur fait lui-même le push des sources locales. Sur le VPS, dans le dépôt
-**du site officiel uniquement** :
+1. Faire le push des sources locales, puis le pull dans le dépôt du site sur le VPS.
+2. Arrêter le service Node dédié au site Bomoi et désactiver son démarrage automatique.
+3. Dans IIS, arrêter le site Bomoi pendant cette première bascule.
+4. Depuis `C:\Bomoi\sites\bomoi-site-officiel`, exécuter les commandes suivantes.
 
 ```powershell
 git pull
 npm ci
-npm run package:iis
+npm run build
+Test-Path .\out\index.html
+Test-Path .\out\web.config
 ```
 
-`npm run build` est désormais un alias de ce build Node/IIS. Il contrôle TypeScript, compile Next.js et prépare `out` avec `server.js`,
-les dépendances nécessaires, `public`, `.next/static` et `web.config`.
-**`out` n’est plus un export HTML utilisable seul : son serveur Node doit tourner.**
+Les deux vérifications doivent afficher `True`.
+Faire pointer le chemin physique du site IIS vers
+`C:\Bomoi\sites\bomoi-site-officiel\out`, puis démarrer le site dans IIS.
 
-Lors de la première bascule, faire pointer le répertoire physique IIS du site vers
-`out` et configurer le superviseur Node. Depuis la racine du dépôt, son démarrage est :
+Le nouveau `web.config` sert `index.html` comme document par défaut et fournit la
+page 404 pour les URL inconnues. Les liens des guides possèdent chacun leur dossier
+et leur `index.html`. Le domaine et le certificat HTTPS restent gérés dans IIS.
+
+Si une ancienne règle de proxy vers `127.0.0.1:3080` a été ajoutée manuellement
+dans IIS au niveau du site ou du serveur, retirer cette règle pour le site Bomoi.
+Le `web.config` livré remplace la règle de proxy précédemment incluse dans `out`.
+
+## Mises à jour suivantes
+
+Dans le dépôt du site sur le VPS, exécuter les commandes suivantes.
 
 ```powershell
-npm run start:iis
+git pull
+npm ci
+npm run build
 ```
 
-Le script exécute `out/server.js` en production sur `127.0.0.1:3080` ; `npm start`
-fait la même chose. Le service doit employer le compte Windows et le répertoire de
-travail appropriés. Un hébergement à partir d’une copie complète de `out` peut
-lancer directement `node server.js` depuis cette copie, avec `HOSTNAME=127.0.0.1`
-et `PORT=3080` dans l’environnement du processus.
+`npm run build` effectue le contrôle TypeScript, génère les pages dans
+`.iis-export`, puis synchronise leur contenu dans `out`. Cette synchronisation
+conserve le répertoire racine `out` et retire les anciens fichiers générés,
+y compris ceux du paquet serveur précédent.
 
-Arrêter le processus Node du site avant de remplacer son dossier actif, puis le
-redémarrer après le build. Pour réduire cette interruption, lancer d’abord
-`npm run build:iis`, puis arrêter le service, exécuter `node scripts/package-iis.mjs`
-et redémarrer le service. Conserver une sauvegarde du déploiement précédent.
-Ne pas arrêter les services ERP pour mettre à jour ce site.
+Le compte qui lance la compilation doit pouvoir écrire dans ces répertoires.
+Pour éviter qu’un visiteur consulte une page pendant son remplacement, arrêter
+le site IIS le temps de la copie ou effectuer la mise à jour pendant une fenêtre
+de maintenance. Une sauvegarde de la version précédente permet un retour arrière.
 
-Si le port est changé avec `BOMOI_SITE_PORT`, adapter aussi la cible du proxy dans
-`iis/web.config`. Ne pas servir le site en double sur plusieurs ports par erreur.
-Le footer conserve la version Git et la date de construction de cette cible.
+`npm run build:iis` génère l’export intermédiaire.
+`node scripts/package-iis.mjs` synchronise cet export dans `out`.
+`npm run package:iis` réalise les deux étapes, comme `npm run build`.
 
-## Données persistantes des compteurs
+## Vérifications après publication
 
-Le site utilise SQLite intégré à Node.js : aucun serveur de base de données,
-compte externe, module ERP ou package de pilote additionnel.
-Les totaux sont stockés dans `downloads.sqlite` et ses éventuels fichiers `-wal`
-/ `-shm`. Ils restent indépendants des mises à jour du site.
+- L’accueil et les pages de présentation répondent sur `https://bomoi.cd/`.
+- Un lien de chapitre ouvert directement ou rechargé conserve la bonne page.
+- Les anciens liens `/documentation/bomoi-erp/` affichent les guides Stock.
+- Les manuels PDF restent accessibles dans `/documentation/`.
+- `/confidentialite/bs-client/` et `/conditions-utilisation/bs-client/` sont accessibles.
+- Une URL inconnue reçoit un HTTP 404.
+- Les ressources `/_next/static/` se chargent correctement.
 
-Dans l’environnement du **service Node du site**, définir par exemple :
+## Données historiques et formulaires
 
-```powershell
-$env:BOMOI_DOWNLOAD_DATA_DIR = "C:\Bomoi\data\site-download-statistics"
-```
+Les API de compteurs sont retirées de cette version. Les anciennes bases SQLite
+placées hors du checkout et hors de `out` peuvent être conservées comme archives.
+Le site statique ne les utilise plus.
 
-Une affectation dans un terminal ne configure que les processus lancés depuis ce
-terminal : enregistrer cette variable dans le superviseur/service pour les
-redémarrages. Préparer le dossier et accorder Modification au compte qui exécute
-**Node**, pas à un service ERP. Garder ce dossier hors checkout, hors `out` et hors
-contenu web public. Ne jamais le nettoyer pendant un pull ou un build.
+Les formulaires de contact et de démonstration restent des démonstrations.
+Le traitement réel de leurs messages nécessite un service d’envoi dédié.
 
-Sans surcharge, Windows utilise `%ProgramData%\BomoiSite\DownloadStatistics`.
-Le module SQLite est disponible dans Node 22.13 ; cette version peut émettre son
-avertissement expérimental. Le build et les tests locaux utilisent Node 24.
-[Documentation Node 22.13](https://nodejs.org/download/release/v22.13.0/docs/api/sqlite.html).
-
-Sauvegarder le dossier après arrêt du service Node pour conserver une sauvegarde
-cohérente, y compris les journaux SQLite. Ne pas copier seulement le fichier
-principal pendant une écriture. Une suppression du dossier perdrait les totaux.
-Ne pas partager ce SQLite sur un lecteur réseau ; plusieurs processus sur le même
-disque local utilisent les transactions SQLite. Une ferme multi-VPS nécessite
-une autre stratégie, hors du déploiement actuel sur un VPS.
-
-## Vérifications après redémarrage
-
-- Le site et les trois pages de téléchargement répondent sur `https://bomoi.cd`.
-- `GET /api/downloads/` retourne les trois totaux et `Cache-Control: no-store`.
-- Les pages applicatives indiquent que les liens Google Play sont à venir.
-- Les PDF restent accessibles, y compris leurs reprises HTTP partielles.
-- Les totaux restent identiques après redémarrage du service Node du site.
-
-Un compteur en panne affiche une indisponibilité ou sa dernière valeur connue,
-sans empêcher le téléchargement. Aucun historique antérieur n’est reconstitué.
-Le build local et les tests ne prouvent ni configuration IIS réelle ni publication.
-
-
-## Applications mobiles
-
-Les anciens téléchargements APK et leur restauration automatique ont été retirés
-le 26 novembre 2026. Les pages applicatives et leurs guides sont conservés pour
-accueillir les futurs liens Google Play.
-Voir [scripts/README-telechargements.md](scripts/README-telechargements.md).
+Références techniques. [Export statique Next.js](https://nextjs.org/docs/app/guides/static-exports)
+et [document par défaut IIS](https://learn.microsoft.com/en-us/iis/configuration/system.webserver/defaultdocument/).

@@ -1,42 +1,43 @@
 # Bomoi — Site officiel
 
-Site Next.js/React servi par **son propre processus Node.js derrière IIS**.
-Les compteurs de téléchargement font partie du site, sans dépendance au Gateway ERP.
+Site Next.js/React exporté en fichiers statiques et servi directement par IIS.
 
 ## Développement
 
-Node.js compatible avec `package.json` (22.13 minimum) :
+Node.js compatible avec `package.json` est utilisé sur le poste de développement
+et pour la compilation.
 
 ```bash
 npm ci
 npm run dev
 ```
 
-## Construction et démarrage de production
+## Construction et publication
 
 ```bash
 npm run build
-npm start
 ```
 
-`build` prépare le paquet serveur `out` ; `start` lance ce serveur en production
-sur `127.0.0.1:3080`. `npm run package:iis` et `npm run start:iis` sont les noms
-explicites des mêmes opérations pour le workflow IIS.
-Le pull et le build sont réalisés manuellement sur le VPS par l’utilisateur,
-après son push local. Voir [README-IIS.md](README-IIS.md) pour le proxy IIS,
-le processus Node permanent et les données SQLite persistantes hors publication.
+Le dossier `out` contient les pages HTML, les ressources, les PDF et le
+`web.config` pour IIS. Les visiteurs accèdent aux fichiers servis par IIS.
+Les commandes `build:iis` et `package:iis` restent disponibles pour les scripts
+existants. La compilation utilise `.iis-export` comme export intermédiaire,
+puis copie les fichiers dans `out` en conservant son répertoire racine.
+
+Le push est réalisé par l’utilisateur, puis le pull et le build manuels sur le VPS.
+Voir [README-IIS.md](README-IIS.md) pour la première bascule et les mises à jour.
 
 ```bash
 npm test
 ```
 
-Les tests utilisent le paquet Node réel, ses routes et des compteurs locaux isolés.
+Les tests vérifient les fichiers exportés, les pages et le paquet IIS.
 Les guides partagent les JSON de `app/manual`, leur composant et les PDF.
 Voir [scripts/README-manuel.md](scripts/README-manuel.md) et
 [scripts/README-telechargements.md](scripts/README-telechargements.md).
 
-Les fichiers du starter Sites/Cloudflare sont conservés comme historique séparé.
-Les commandes `dev:sites`, `build:sites` et `start:sites` ne sont pas le chemin de
-déploiement du site officiel ; le stockage SQLite du site cible Node.js et un
-fichier local persistant, pas le système de fichiers d’un Worker Cloudflare.
-Ne pas publier sur Sites pour mettre à jour le VPS IIS.
+Les formulaires de contact et de démonstration conservent leur état de démonstration.
+Un service d’envoi dédié pourra être raccordé pour traiter leurs messages.
+
+Les fichiers du starter Sites/Cloudflare restent une cible historique distincte.
+La publication du site officiel s’effectue sur le VPS IIS.

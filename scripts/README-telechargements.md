@@ -14,9 +14,9 @@ Les guides web et les manuels PDF restent accessibles.
 La politique de confidentialité de BS Client est disponible à
 `/confidentialite/bs-client/` après le déploiement du site.
 
-`npm run build` prépare le serveur Next.js et le paquet IIS dans `out`.
-La publication suit le push utilisateur, puis le pull, le build et le
-redémarrage du service Node sur le VPS, selon [README-IIS.md](../README-IIS.md).
+`npm run build` prépare le site statique dans `out`, servi directement par IIS.
+La publication suit le push utilisateur, puis le pull et le build sur le VPS,
+selon [README-IIS.md](../README-IIS.md).
 
-L’API et les données historiques des compteurs sont conservées.
-Les pages applicatives n’enregistrent plus de lancement de téléchargement APK.
+Les API de compteurs sont retirées du site statique. Les bases historiques
+conservées hors du site peuvent être archivées.

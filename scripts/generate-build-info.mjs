@@ -1,7 +1,7 @@
 import { execFileSync } from "node:child_process";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 
-const targetNames = { sites: "OpenAI Sites", iis: "VPS / IIS" };
+const targetNames = { sites: "OpenAI Sites", iis: "VPS / IIS statique" };
 const target = targetNames[process.argv[2]] ?? "Développement";
 const packageData = JSON.parse(await readFile(new URL("../package.json", import.meta.url), "utf8"));
 let commit = "local";
