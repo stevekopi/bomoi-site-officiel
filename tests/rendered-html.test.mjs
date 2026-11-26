@@ -164,45 +164,30 @@ test("Client mobile guide has searchable chapters, canonical URLs, navigation, P
   const pdf = await readFile(new URL("../public/documentation/bomoi-stock-client-manuel-utilisateur.pdf", import.meta.url));
   assert.equal(pdf.subarray(0,5).toString(), "%PDF-"); assert.ok(pdf.length > 20000);
 });
-test("Client APK download is distinct from POS with exact verified metadata and no fictitious iOS download", async () => {
-  const release = JSON.parse(await readFile(new URL("../app/stock-client-release.json", import.meta.url), "utf8"));
-  const response = await fetchPage("/telechargements/bomoi-stock-client"); const html = await response.text();
-  assert.equal(response.status, 200); assert.ok(html.includes(release.source)); assert.ok(html.includes(release.path));
-  assert.ok(html.includes(release.sha256)); assert.match(html, /bomoi-stock-client-manuel|documentation\/bomoi-stock-client/);
-  assert.match(html, /App Store — indisponible/); assert.doesNotMatch(html, /href="[^\"]*\.ipa/);
-  const {createHash} = await import("node:crypto"); const {createReadStream} = await import("node:fs");
-  const hash = createHash("sha256"); let bytes = 0;
-  for await (const chunk of createReadStream(new URL(`../public${release.path}`, import.meta.url))) { hash.update(chunk); bytes += chunk.length; }
-  assert.equal(bytes, release.bytes); assert.equal(hash.digest("hex"), release.sha256);
-});
-
-test("each available application has a shared-download counter and working direct fallback links", async () => {
-  for (const [application, manifest] of [["bomoi-pos", "pos-release.json"], ["bomoi-exchange-pos", "exchange-pos-release.json"], ["bomoi-stock-client", "stock-client-release.json"]]) {
-    const release = JSON.parse(await readFile(new URL(`../app/${manifest}`, import.meta.url), "utf8"));
-    const html = await (await fetchPage(`/telechargements/${application}`)).text();
-    assert.equal((html.match(/class="download-statistic"/g) ?? []).length, 1);
-    assert.match(html, /téléchargements/); assert.match(html, /aria-live="polite"/);
-    assert.ok(html.includes(`href="${release.source}"`) || html.includes(`href="${release.path}"`));
-    assert.ok(html.includes(`href="${release.path}"`));
-    assert.doesNotMatch(html, /<strong>0<\/strong>/);
+test("application pages expose pending Google Play access and guides without APK downloads", async () => {
+  for (const [application, manual] of [["bomoi-pos", "pos"], ["bomoi-exchange-pos", "exchange-pos"], ["bomoi-stock-client", "stock-client"]]) {
+    const response = await fetchPage(`/telechargements/${application}`);
+    assert.equal(response.status, 200);
+    const html = await response.text();
+    assert.match(html, /Google Play — à venir/);
+    assert.match(html, /<button[^>]*disabled/);
+    assert.ok(html.includes(`/documentation/bomoi-${manual}`));
+    assert.doesNotMatch(html, /href="[^"]*\.(?:apk|ipa)|download-statistic|expo\.dev\/artifacts/);
   }
 });
 
-
-test("download hub exposes all latest APKs, independent counters, guides and PDFs", async () => {
+test("application hub exposes pending Google Play access, guides and PDFs", async () => {
   const response = await fetchPage("/telechargements");
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /https:\/\/bomoi.cd\/telechargements/);
-  assert.equal((html.match(/class="download-statistic"/g) ?? []).length, 3);
-  for (const [id, manual, manifest] of [
-    ["bomoi-pos", "pos", "pos-release.json"],
-    ["bomoi-exchange-pos", "exchange-pos", "exchange-pos-release.json"],
-    ["bomoi-stock-client", "stock-client", "stock-client-release.json"],
+  assert.doesNotMatch(html, /download-statistic|href="[^"]*\.apk/);
+  assert.match(html, /Google Play/);
+  for (const [id, manual] of [
+    ["bomoi-pos", "pos"],
+    ["bomoi-exchange-pos", "exchange-pos"],
+    ["bomoi-stock-client", "stock-client"],
   ]) {
-    const release = JSON.parse(await readFile(new URL(`../app/${manifest}`, import.meta.url), "utf8"));
-    assert.ok(html.includes(release.path), id);
-    assert.ok(html.replace(/<!--.*?-->/g, "").includes(`Version ${release.version}`), id);
     assert.ok(html.includes(`/telechargements/${id}`), id);
     assert.ok(html.includes(`/documentation/bomoi-${manual}`), id);
     const pdfPath = `/documentation/bomoi-${manual}-manuel-utilisateur.pdf`;
@@ -212,26 +197,13 @@ test("download hub exposes all latest APKs, independent counters, guides and PDF
   }
 });
 
-test("Exchange POS release has matching packaged APK, guide chapters and canonical metadata", async () => {
-  const release = JSON.parse(await readFile(new URL("../app/exchange-pos-release.json", import.meta.url), "utf8"));
+test("Exchange POS page retains guide chapters and canonical metadata", async () => {
   const response = await fetchPage("/telechargements/bomoi-exchange-pos");
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.ok(html.includes(release.path));
-  assert.ok(html.includes(release.sha256));
   assert.ok(html.includes(`/telechargements/bomoi-exchange-pos`));
   assert.match(html, /bomoi-exchange-pos-manuel-utilisateur\.pdf/);
-  assert.match(html, /App Store — indisponible/);
-  const { createHash } = await import("node:crypto");
-  const { createReadStream } = await import("node:fs");
-  for (const directory of ["public", "out/public"]) {
-    const hash = createHash("sha256"); let bytes = 0;
-    for await (const chunk of createReadStream(new URL(`../${directory}${release.path}`, import.meta.url))) {
-      hash.update(chunk); bytes += chunk.length;
-    }
-    assert.equal(bytes, release.bytes);
-    assert.equal(hash.digest("hex"), release.sha256);
-  }
+  assert.match(html, /Google Play — à venir/);
   const manual = JSON.parse(await readFile(new URL("../app/manual/exchange-pos-manual.fr.json", import.meta.url), "utf8"));
   assert.equal(manual.sections.length, 12);
   assert.doesNotMatch(JSON.stringify(manual), /192\.168\.|localhost|migration|keystore|versionCode/);

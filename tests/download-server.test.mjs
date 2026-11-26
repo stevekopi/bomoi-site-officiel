@@ -216,11 +216,9 @@ test("packaged Node site serves pages, its own API, PDFs and resumable APKs toge
     );
     assert.equal(response.status, 206);
     assert.equal(await response.text(), "%PDF-");
-    for (const manifest of ["pos-release.json", "exchange-pos-release.json", "stock-client-release.json"]) {
-      const release = JSON.parse(readFileSync(new URL(`../app/${manifest}`, import.meta.url), "utf8"));
-      response = await fetch(site.base + release.path, { headers: { range: "bytes=0-3" } });
-      assert.equal(response.status, 206, manifest);
-      assert.deepEqual([...new Uint8Array(await response.arrayBuffer())], [80, 75, 3, 4], manifest);
+    for (const apk of ["Bomoi-POS-1.0.7.apk", "Bomoi-Exchange-POS-0.2.0.apk", "Bomoi-Stock-Client-0.1.3.apk"]) {
+      response = await fetch(site.base + "/downloads/" + apk);
+      assert.equal(response.status, 404, apk);
     }
     assert.deepEqual((await (await get()).json()).counts, {
       "bomoi-pos": 1,

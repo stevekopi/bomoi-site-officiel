@@ -1,7 +1,7 @@
 # Bomoi sur IIS avec son propre serveur Node.js
 
 Décision du 21 octobre 2026 : le site officiel utilise son serveur Next.js/Node.js.
-Les pages, les APK, les PDF et les compteurs sont servis par le site Bomoi lui-même.
+Les pages, les PDF et les compteurs sont servis par le site Bomoi lui-même.
 Aucun appel au Gateway ERP n’est nécessaire pour les compteurs. Les ajouts de
 compteur précédemment proposés dans ERP.Gateway ont été retirés.
 
@@ -35,8 +35,7 @@ npm ci
 npm run package:iis
 ```
 
-`npm run build` est désormais un alias de ce build Node/IIS. Il restaure et vérifie
-les APK, contrôle TypeScript, compile Next.js et prépare `out` avec `server.js`,
+`npm run build` est désormais un alias de ce build Node/IIS. Il contrôle TypeScript, compile Next.js et prépare `out` avec `server.js`,
 les dépendances nécessaires, `public`, `.next/static` et `web.config`.
 **`out` n’est plus un export HTML utilisable seul : son serveur Node doit tourner.**
 
@@ -68,7 +67,7 @@ Le footer conserve la version Git et la date de construction de cette cible.
 Le site utilise SQLite intégré à Node.js : aucun serveur de base de données,
 compte externe, module ERP ou package de pilote additionnel.
 Les totaux sont stockés dans `downloads.sqlite` et ses éventuels fichiers `-wal`
-/ `-shm`. Ils restent indépendants des mises à jour et des versions des APK.
+/ `-shm`. Ils restent indépendants des mises à jour du site.
 
 Dans l’environnement du **service Node du site**, définir par exemple :
 
@@ -98,9 +97,8 @@ une autre stratégie, hors du déploiement actuel sur un VPS.
 
 - Le site et les trois pages de téléchargement répondent sur `https://bomoi.cd`.
 - `GET /api/downloads/` retourne les trois totaux et `Cache-Control: no-store`.
-- Un téléchargement depuis un bouton actualise le bon total ; un second navigateur
-  lit ce même total. Un téléchargement direct d’un APK ne remplace pas ce test.
-- Les PDF et les APK restent accessibles, y compris leurs reprises HTTP partielles.
+- Les pages applicatives indiquent que les liens Google Play sont à venir.
+- Les PDF restent accessibles, y compris leurs reprises HTTP partielles.
 - Les totaux restent identiques après redémarrage du service Node du site.
 
 Un compteur en panne affiche une indisponibilité ou sa dernière valeur connue,
@@ -108,11 +106,9 @@ sans empêcher le téléchargement. Aucun historique antérieur n’est reconsti
 Le build local et les tests ne prouvent ni configuration IIS réelle ni publication.
 
 
-## Ajout Exchange POS et transfert des trois APK
+## Applications mobiles
 
-Le centre commun est `/telechargements/`. Les trois pages sont `bomoi-pos`,
-`bomoi-exchange-pos` et `bomoi-stock-client` sous ce chemin. Avant le build d’une
-nouvelle version compilée localement, extraire l’archive Android fournie dans
-la racine du checkout du site pour alimenter `public/downloads/`. Voir
-`scripts/README-telechargements.md`. La base des compteurs est migrée automatiquement
-en conservant les deux totaux précédents et leurs reçus.
+Les anciens téléchargements APK et leur restauration automatique ont été retirés
+le 26 novembre 2026. Les pages applicatives et leurs guides sont conservés pour
+accueillir les futurs liens Google Play.
+Voir [scripts/README-telechargements.md](scripts/README-telechargements.md).
