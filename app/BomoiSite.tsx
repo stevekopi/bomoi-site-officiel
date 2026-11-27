@@ -143,7 +143,7 @@ function Footer() {
     <div><SiteLink className="brand" href="/"><AnimatedBrandLogo/><span>Bomoi</span></SiteLink><p>L’ERP moderne qui relie vos équipes, vos sites et vos opérations.</p><div className="footer-contact"><SiteLink href={contact.phoneHref}>{contact.phoneLabel}</SiteLink><SiteLink href={`mailto:${contact.email}`}>{contact.email}</SiteLink></div><SocialLinks/></div>
     <div><h4>Produits</h4><SiteLink href="/produits">Nos logiciels</SiteLink><SiteLink href="/modules">Modules</SiteLink><SiteLink href="/secteurs">Secteurs</SiteLink><SiteLink href="/avantages">Avantages</SiteLink><SiteLink href="/abonnements">Abonnements</SiteLink><SiteLink href="/demonstration">Démonstration</SiteLink></div>
     <div><h4>Ressources</h4><SiteLink href="/telechargements">Toutes les applications Android</SiteLink><SiteLink href="/telechargements/bomoi-exchange-pos">Bomoi Exchange POS</SiteLink><SiteLink href="/telechargements/bomoi-stock-client">Application BS Client</SiteLink><SiteLink href="/documentation/bomoi-stock-client">Guide de l’espace client</SiteLink><SiteLink href="/telechargements/bomoi-pos">Application Bomoi Stock POS</SiteLink><SiteLink href="/documentation">Documentation</SiteLink><SiteLink href="/documentation/bomoi-pos">Bomoi Stock POS</SiteLink><SiteLink href="/documentation/bomoi-erp">Bomoi - ERP</SiteLink><SiteLink href="/actualites">Actualités</SiteLink><SiteLink href="/notes-de-version">Notes de version</SiteLink><SiteLink href="/faq">Questions fréquentes</SiteLink></div>
-    <div><h4>Bomoi</h4><SiteLink href="/a-propos">À propos</SiteLink><SiteLink href="/partenaires">Partenaires</SiteLink><SiteLink href="/contact">Contact</SiteLink><SiteLink href="/confidentialite">Confidentialité</SiteLink></div>
+    <div><h4>Bomoi</h4><SiteLink href="/a-propos">À propos</SiteLink><SiteLink href="/partenaires">Partenaires</SiteLink><SiteLink href="/contact">Contact</SiteLink><SiteLink href="/confidentialite">Confidentialité</SiteLink><SiteLink href="/commentaires/bs-client">Commentaires BS Client</SiteLink></div>
   </div><div className="footer-bottom"><span>© 2026 Bomoi. Tous droits réservés.</span><span>Conçu pour les entreprises qui avancent.</span>{buildInfo&&<span className="build-info" title={`${buildInfo.target} · Commit ${buildInfo.commit} · ${buildInfo.builtAt}`}>{buildInfo.version} du {deployedAt}</span>}</div></footer>;
 }
 
@@ -449,6 +449,39 @@ function BackToTopButton() {
 
 function PrivacyPage() { return <><PageHero eyebrow="CONFIDENTIALITÉ" title="Politique de confidentialité." intro="Cette page décrit provisoirement les principes de traitement des données du site public Bomoi."/><section className="section legal"><p>Pour l’application mobile, consultez la <SiteLink className="text-link" href="/confidentialite/bs-client">politique de confidentialité de BS Client</SiteLink>.</p><div className="callout warning"><b>Document provisoire</b><p>Le contenu devra être validé juridiquement avant la publication publique du site.</p></div><h2>1. Données collectées</h2><p>Le site pourra collecter les informations fournies volontairement dans les formulaires de contact et de démonstration : identité, coordonnées professionnelles, entreprise et message.</p><h2>2. Finalités</h2><p>Ces données seront utilisées pour répondre aux demandes, organiser des démonstrations, améliorer les services et assurer le suivi de la relation commerciale.</p><h2>3. Conservation et sécurité</h2><p>Les données seront conservées pendant une durée proportionnée à la finalité et protégées par des mesures organisationnelles et techniques adaptées.</p><h2>4. Vos droits</h2><p>Les modalités d’accès, de rectification ou de suppression seront précisées avec les coordonnées officielles du responsable du traitement.</p><h2>5. Contact</h2><p>Pour toute question relative à la confidentialité, écrivez à <SiteLink className="text-link" href={`mailto:${contact.email}`}>{contact.email}</SiteLink>.</p><small>Dernière mise à jour provisoire : 1er août 2026.</small></section></>; }
 
+function ClientFeedbackPage() {
+  const body = [
+    "Type de retour (problème, suggestion ou question) :",
+    "Version de BS Client :",
+    "Modèle du téléphone et version Android :",
+    "Description du retour :",
+    "Étapes pour reproduire le problème :",
+    "Résultat attendu :",
+    "Résultat observé et message affiché :",
+  ].join("\r\n\r\n");
+  const email = `mailto:${contact.email}?subject=${encodeURIComponent("Retour BS Client")}&body=${encodeURIComponent(body)}`;
+  return <>
+    <PageHero eyebrow="BS CLIENT" title="Vos retours nous aident à améliorer BS Client." intro="Signalez un problème, proposez une amélioration ou posez une question à l’équipe Bomoi." />
+    <section className="section legal">
+      <h2>Envoyer un commentaire</h2>
+      <p>Le bouton ci-dessous ouvre votre application de messagerie avec un modèle à compléter. Vous pourrez relire votre message et ajouter une capture d’écran avant de l’envoyer.</p>
+      <SiteLink className="btn" href={email}>Préparer mon e-mail</SiteLink>
+      <p>Si votre messagerie ne s’ouvre pas, écrivez directement à <SiteLink className="text-link" href={`mailto:${contact.email}`}>{contact.email}</SiteLink> avec l’objet « Retour BS Client ».</p>
+      <h2>Les informations utiles</h2>
+      <ul className="check-list">
+        <li>La version de BS Client, le modèle du téléphone et la version Android.</li>
+        <li>L’écran concerné et les étapes pour reproduire le problème.</li>
+        <li>Le résultat attendu, le résultat observé et le message exact affiché.</li>
+        <li>Une capture d’écran si elle permet de mieux comprendre le problème.</li>
+      </ul>
+      <p>Ne transmettez pas votre mot de passe ni vos codes de vérification. Masquez les données personnelles et les informations confidentielles dans vos captures.</p>
+      <p>Cette page prépare un e-mail. Votre retour est transmis lorsque vous l’envoyez depuis votre messagerie.</p>
+      <h2>Besoin d’aide pour utiliser l’application ?</h2>
+      <p>Consultez le <SiteLink className="text-link" href="/documentation/bomoi-stock-client">manuel de BS Client</SiteLink> et la <SiteLink className="text-link" href="/confidentialite/bs-client">politique de confidentialité</SiteLink>.</p>
+    </section>
+  </>;
+}
+
 function ClientTermsPage() {
   return <main className="notranslate" lang="fr" translate="no">
     <PageHero
@@ -544,7 +577,7 @@ function ClientPrivacyPage() {
   </main>;
 }
 
-function AppContent({route}:{route:string}) { const manual = resolveManualRoute(route); if(manual)return <PosManual product={manual.product} chapterId={manual.chapterId}/>; if(route==="/documentation/bomoi-school")return <SchoolDocumentation/>; const product=products.find(item=>route===`/produits/${item.slug}`); if(product)return <ProductDetailPage product={product}/>; switch(route){case"/telechargements":return <MobileDownloadsHub/>;case"/telechargements/bomoi-exchange-pos":return <MobileDownloadsPage application="bomoi-exchange-pos"/>;case"/telechargements/bomoi-stock-client":return <MobileDownloadsPage application="bomoi-stock-client"/>;case"/telechargements/bomoi-pos":return <MobileDownloadsPage application="bomoi-pos"/>;case"/":return <HomePage/>;case"/produits":return <ProductsPage/>;case"/a-propos":return <AboutPage/>;case"/modules":return <ModulesPage/>;case"/secteurs":return <SectorsPage/>;case"/avantages":return <AdvantagesPage/>;case"/abonnements":return <PricingPage/>;case"/actualites":return <NewsPage/>;case"/documentation/bomoi-pos":return <PosManual/>;case"/documentation":return <DocumentationPage/>;case"/notes-de-version":return <ReleasesPage/>;case"/partenaires":return <PartnersPage/>;case"/demonstration":return <FormPage type="demo"/>;case"/contact":return <FormPage type="contact"/>;case"/faq":return <FAQPage/>;case"/conditions-utilisation/bs-client":return <ClientTermsPage/>;case"/confidentialite/bs-client":return <ClientPrivacyPage/>;case"/confidentialite":return <PrivacyPage/>;default:return <><PageHero eyebrow="404" title="Cette page reste à écrire." intro="Revenez à l’accueil ou consultez la documentation Bomoi."/><div className="center section"><SiteLink className="btn" href="/">Retour à l’accueil</SiteLink></div></>}}
+function AppContent({route}:{route:string}) { const manual = resolveManualRoute(route); if(manual)return <PosManual product={manual.product} chapterId={manual.chapterId}/>; if(route==="/documentation/bomoi-school")return <SchoolDocumentation/>; const product=products.find(item=>route===`/produits/${item.slug}`); if(product)return <ProductDetailPage product={product}/>; switch(route){case"/telechargements":return <MobileDownloadsHub/>;case"/telechargements/bomoi-exchange-pos":return <MobileDownloadsPage application="bomoi-exchange-pos"/>;case"/telechargements/bomoi-stock-client":return <MobileDownloadsPage application="bomoi-stock-client"/>;case"/telechargements/bomoi-pos":return <MobileDownloadsPage application="bomoi-pos"/>;case"/":return <HomePage/>;case"/produits":return <ProductsPage/>;case"/a-propos":return <AboutPage/>;case"/modules":return <ModulesPage/>;case"/secteurs":return <SectorsPage/>;case"/avantages":return <AdvantagesPage/>;case"/abonnements":return <PricingPage/>;case"/actualites":return <NewsPage/>;case"/documentation/bomoi-pos":return <PosManual/>;case"/documentation":return <DocumentationPage/>;case"/notes-de-version":return <ReleasesPage/>;case"/partenaires":return <PartnersPage/>;case"/demonstration":return <FormPage type="demo"/>;case"/contact":return <FormPage type="contact"/>;case"/faq":return <FAQPage/>;case"/commentaires/bs-client":return <ClientFeedbackPage/>;case"/conditions-utilisation/bs-client":return <ClientTermsPage/>;case"/confidentialite/bs-client":return <ClientPrivacyPage/>;case"/confidentialite":return <PrivacyPage/>;default:return <><PageHero eyebrow="404" title="Cette page reste à écrire." intro="Revenez à l’accueil ou consultez la documentation Bomoi."/><div className="center section"><SiteLink className="btn" href="/">Retour à l’accueil</SiteLink></div></>}}
 
 export default function BomoiSite({route}:{route:string}) {
   const [theme,setThemeState]=useState("dark");

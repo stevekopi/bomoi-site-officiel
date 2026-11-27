@@ -31,6 +31,7 @@ const staticRoutes = [
   "confidentialite",
   "confidentialite/bs-client",
   "conditions-utilisation/bs-client",
+  "commentaires/bs-client",
 ];
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string[] }> }) {
@@ -42,6 +43,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if(route==="telechargements/bomoi-pos")return {title:"Application Bomoi Stock POS pour Android | Bomoi",description:"Découvrez Bomoi Stock POS pour téléphone, tablette et terminal Android. Consultez son manuel utilisateur. Lien Google Play à venir.",alternates:{canonical:"https://bomoi.cd/telechargements/bomoi-pos"}};
   if (route === "documentation/bomoi-school") return { title: "Bomoi School · Documentation à venir | Bomoi", description: "Espace réservé à la documentation du futur module scolaire Bomoi School. Guides en préparation.", alternates: { canonical: "https://bomoi.cd/documentation/bomoi-school" } };
   if (route === "documentation") return { title: "Documentation Bomoi Stock, Espace client, Exchange, POS et School | Bomoi", description: "Guides et manuels utilisateurs Bomoi Stock, espace client mobile, Bomoi Exchange et Bomoi Stock POS. Espace Bomoi School à venir.", alternates: { canonical: "https://bomoi.cd/documentation" } };
+  if (route === "commentaires/bs-client") return {
+    title: "Commentaires et assistance BS Client | Bomoi",
+    description: "Signalez un problème ou proposez une amélioration de BS Client à l’équipe Bomoi.",
+    alternates: { canonical: "https://bomoi.cd/commentaires/bs-client/" },
+  };
   if (route === "conditions-utilisation/bs-client") return {
     title: "Conditions d’utilisation de BS Client | Bomoi",
     description: "Conditions d’accès au compte client, aux entreprises, aux opérations et à la messagerie dans BS Client.",
